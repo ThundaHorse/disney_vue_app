@@ -8,14 +8,11 @@
           {{ error }}
         </li>
       </ul>
-      <p>Email: <input type='email' v-model='email'></p>
+      <p>Email: <input type='text' v-model='email'></p>
       <p>Password: <input type='password' v-model='password'></p>
       <br>
       <button v-on:click="submit()">Log In</button>
     </form>
-
-
-
   </div>
 </template>
 
@@ -34,7 +31,9 @@ export default {
     };
   },
   created: function() {
-
+    axios.get('/api/users').then(response => {
+      this.user = response.data; 
+    })
   },
   methods: {
     submit: function() {
@@ -45,10 +44,9 @@ export default {
       axios 
         .post('/api/sessions', params) 
         .then(response => {
-          axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt; 
-          console.log(response.data);
+          axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;  
 
-          localStorage.SetItem('jwt', response.data.jwt);
+          localStorage.setItem('jwt', response.data.jwt);
           localStorage.setItem('user_id', response.data.user_id); 
 
           this.$router.push('/');
