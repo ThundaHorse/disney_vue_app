@@ -31,9 +31,10 @@ export default {
     };
   },
   created: function() {
-    axios.get('/api/users').then(response => {
-      this.user = response.data; 
-    })
+    if (localStorage.getItem('jwt')) {
+      alert("You are already logged in! Taking you home!") 
+      this.$router.push('/')
+    }
   },
   methods: {
     submit: function() {
