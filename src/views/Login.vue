@@ -33,7 +33,7 @@ export default {
   created: function() {
     if (localStorage.getItem('jwt')) {
       alert("You are already logged in! Taking you home!") 
-      this.$router.push('/')
+      this.$router.push('/trips')
     }
   },
   methods: {
@@ -50,7 +50,7 @@ export default {
           localStorage.setItem('jwt', response.data.jwt);
           localStorage.setItem('user_id', response.data.user_id); 
 
-          this.$router.push('/');
+          this.$router.push('/trips');
         })
         .catch(error => {
           this.errors = ['Invalid email or Password']; 
