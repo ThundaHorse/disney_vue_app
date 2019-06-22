@@ -2,9 +2,9 @@
   <div id="app">
     <div id="nav">
       <router-link to="/trips">Your Trips</router-link> |
+      <router-link to='/parks'>All Parks</router-link> |
       <router-link to="/login">Log In</router-link> |
-      <router-link to='/logout'>Log Out</router-link> | 
-      <router-link to='/parks'>All Parks</router-link>
+      <router-link to='/logout'>Log Out</router-link> 
     </div>
     <router-view/>
   </div>
