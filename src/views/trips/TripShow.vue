@@ -2,17 +2,26 @@
   <div class='trip-show'>
     <h1>Trip {{ trip.id }}</h1>
       <br>
-    <p>Arrival Day: {{ trip.dates.arrival }}</p>
-    <p>Departure Day: {{ trip.dates.departure }}</p>
+    <h3>Arrival Day: {{ trip.dates.arrival }}</h3>
+    <h3>Departure Day: {{ trip.dates.departure }}</h3>
       <br>
-    <h1>Your Parks</h1>
-      
+    <h3>Parks</h3>
     
+      <div v-for='park in trip.places_to_go'>
+        <p>{{ park.name }}</p>
+      </div>
+      <br>
+    <h3>Attractions</h3>
+      <div v-for='attraction in trip.things_to_see'>
+        <p>{{ attraction.name }}</p>        
+      </div>
 
+    </div>
   </div>
 </template>
 
 <style>
+
 </style>
 
 <script>

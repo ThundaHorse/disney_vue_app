@@ -4,18 +4,20 @@
     <h1>Your Trips</h1>
       <br>
     <div v-for="trip in trips">
+      <h2>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h2>
+      <h1>Your Parks & Attractions</h1>
+          
+        <p><router-link v-bind:to="'/parks/'+ trip.parks.id"><b>{{ trip.parks.name }}</b></router-link></p>
+      
+      <div v-for="thing in trip.things_to_see"> 
+        <li>{{ thing.name }}</li>
+      </div>
+      <br>
       <button>
         <router-link v-bind:to="'/trips/edit/' + trip.id">
           Edit this Trip
         </router-link>
       </button>
-      <h2>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h2>
-      <h1>Your Parks & Attractions</h1>
-      <p><router-link v-bind:to="'/parks/'+ trip.parks.id"><b>{{ trip.parks.name }}</b></router-link></p>
-      <div v-for="thing in trip.things_to_see"> 
-        <li>{{ thing.name }}</li>
-      </div>
-      <br>
     </div>
   </div>
 </div>
@@ -38,7 +40,9 @@ export default {
     })
   },
   methods: {
-    
+    toggle() {
+      this.show = !this.show;
+    }
   }
 };
 </script>
