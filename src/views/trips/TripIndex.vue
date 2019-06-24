@@ -4,11 +4,12 @@
     <h1>Your Trips</h1>
     <router-link v-bind:to="'/trips/new'">New Trip</router-link>
       <br>
+
     <div v-for="trip in trips">
       <h2>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h2> 
-      {{ trip.id }}
       <h2>Your Parks & Attractions</h2>
-      <button v-on:click.prevent="toggle()">Show All Attractions</button>
+    <button v-on:click.prevent="toggle()">Show All Attractions</button>
+    
     <div v-for='int in interests'>
       <div v-for="park in int.park">
         <transition 
@@ -17,20 +18,22 @@
           <p v-if='show' v-animation>{{ int.ride.name }}  | {{ park.name }}</p>
         </transition>
       </div>
-    </div>  
-        <br>
-        <span>
-          <button>
-            <router-link v-bind:to="'/trips/edit/' + trip.id">
-              Edit this Trip
-            </router-link>
-          </button>
-          |
-          <button v-on:click="deleteTrip(trip)">
-            Delete Trip
-          </button>
-        </span>
+    </div> 
+
+      <br>
+      <span>
+        <button>
+          <router-link v-bind:to="'/trips/edit/' + trip.id">
+            Edit this Trip
+          </router-link>
+        </button>
+        |
+        <button v-on:click="deleteTrip(trip)">
+          Delete Trip
+        </button>
+      </span>
     </div>
+
   </div>
 </div>
 </template>

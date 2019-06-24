@@ -5,19 +5,11 @@
     <h3>Arrival Day: {{ trip.dates.arrival }}</h3>
     <h3>Departure Day: {{ trip.dates.departure }}</h3>
       <br>
-    <h3>Parks</h3>
-      
-      <div v-for='yourParks in trip.parks'>
-        <div v-for='park in yourParks'>
-          <p>{{ park.name }}</p>
-        </div>
-      </div>
-      <br>
-    <h3>Attractions</h3>
+    <h3>Attractions & Parks</h3>
       <div v-for='interest in interests'>
         <div v-for='park in interest.park'>
-          {{ park.name }}
-        <p><b>{{ interest.ride.name }}</b> | {{ interest.ride.duration }} minutes | 
+        <h3 style='padding-left: 150px;'>{{ park.name }}</h3>
+        <p style='text-align: left; padding-left: 200px;'><b>{{ interest.ride.name }}</b> | {{ interest.ride.duration }} minutes | 
         <span v-if="interest.ride.status === 'closed'" style="color: Red;">
           <b>{{ interest.ride.status }}</b>
         </span>
