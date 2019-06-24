@@ -2,6 +2,7 @@
   <div class='trip-edit'>
     <h1>Edit Trip</h1>
     <div class="container">
+      <!-- {{ interest }} -->
       <form v-on:submit.prevent="submit()">
           <label for='arrival'>Arrival Date: </label>
           <input v-model='trip.dates.arrival' type='text' id='arrival' v-bind:placeholder='trip.dates.arrival'>
@@ -15,26 +16,19 @@
             <br>
           <label for='tripAttractions'>Your Attractions</label>
             <br>
-            <!-- {{ trip.attractions }} -->
-          <button v-on:click.prevent="toggle()">Click</button>
-<!-- 
-          <div v-for='test in trip'>
-            {{ test.park }}
-          </div> -->
-
-          <div v-for='appointments in trip'> 
-            <div v-for='ride in appointments.attraction'>
-              <transition 
-                enter-active-class="animated fade bounceIn"
-                leave-active-class="animated fade bounceOut">  
-                  <li style="text-align: left; padding-left: 200px;" v-if="show" v-animation>{{ ride.name }} | <button v-on:click.prevent="remove()">Remove Attraction</button></li>
-              </transition> 
-            </div>
-          </div>
-            <br>
-            <br>
-          <button type='submit'>Update</button>
-      </form>
+      <!-- {{ interests }} -->
+    <button v-on:click.prevent="toggle()">Click</button>
+      <div v-for='int in interests'>
+        <transition 
+          enter-active-class="animated fade bounceIn"
+          leave-active-class="animated fade bounceOut">  
+          <li style="text-align: left; padding-left: 200px;" v-if="show" v-animation>{{ int.ride.name }} | {{ int.id }}<button v-on:click.prevent="remove(int.id)">Remove Attraction</button></li>
+        </transition>
+      </div>
+      <br>
+      <br>
+    <button type='submit'>Update</button>
+  </form>
     </div>
   </div>
 </template>
@@ -49,12 +43,16 @@ export default {
   data: function() {
     return {
       trip: [],
+      interests: [], 
       show: false
     };
   },
   created: function() {
     axios.get('/api/trips/' + this.$route.params.id).then(response => {
       this.trip = response.data; 
+    })
+    axios.get('/api/interests').then(response => {
+      this.interests = response.data;
     })
 
   },
@@ -72,11 +70,11 @@ export default {
         this.$router.push('/trips/' + this.$route.params.id);
       })
     },
-    remove: function() {
-      // axios.delete("/api/trips/" + this.$route.params.id).then(response => {
-      //     var index = this.trip.attractions.indexOf(ride);
-      //     this.trip.attractions.splice(index, 1);
-      //   });
+    remove: function(input) {
+      axios.delete("/api/interests/" + input).then(response => {
+          var index = this.interests.indexOf(input);
+          this.interests.splice(index, 1);
+        });
     }
   }
 };
