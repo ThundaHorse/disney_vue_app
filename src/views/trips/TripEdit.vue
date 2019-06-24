@@ -15,14 +15,20 @@
             <br>
           <label for='tripAttractions'>Your Attractions</label>
             <br>
+            <!-- {{ trip.attractions }} -->
           <button v-on:click.prevent="toggle()">Click</button>
-          <div v-for='attraction in trip.attractions'>
-            <div v-for='ride in attraction'>
+<!-- 
+          <div v-for='test in trip'>
+            {{ test.park }}
+          </div> -->
+
+          <div v-for='appointments in trip'> 
+            <div v-for='ride in appointments.attraction'>
               <transition 
                 enter-active-class="animated fade bounceIn"
                 leave-active-class="animated fade bounceOut">  
                   <li style="text-align: left; padding-left: 200px;" v-if="show" v-animation>{{ ride.name }} | <button v-on:click.prevent="remove()">Remove Attraction</button></li>
-              </transition>       
+              </transition> 
             </div>
           </div>
             <br>
