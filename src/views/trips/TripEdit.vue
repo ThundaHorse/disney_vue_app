@@ -22,7 +22,7 @@
         <transition 
           enter-active-class="animated fade bounceIn"
           leave-active-class="animated fade bounceOut">  
-          <li style="text-align: left; padding-left: 200px;" v-if="show" v-animation>{{ int.ride.name }} | {{ int.id }}<button v-on:click.prevent="remove(int.id)">Remove Attraction</button></li>
+          <li style="text-align: left; padding-left: 200px;" v-if="show" v-animation>{{ int.ride.name }} | {{ int.id }}<button v-on:click.prevent="remove(int)">Remove Attraction</button></li>
         </transition>
       </div>
       <br>
@@ -71,7 +71,7 @@ export default {
       })
     },
     remove: function(input) {
-      axios.delete("/api/interests/" + input).then(response => {
+      axios.delete("/api/interests/" + input.id).then(response => {
           var index = this.interests.indexOf(input);
           this.interests.splice(index, 1);
         });
