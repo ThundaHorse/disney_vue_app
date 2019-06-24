@@ -2,6 +2,7 @@
 <div class="trips-index">
   <div class="container">
     <h1>Your Trips</h1>
+    <router-link v-bind:to="'/trips/new'">New Trip</router-link>
       <br>
     <div v-for="trip in trips">
       <h2>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h2>

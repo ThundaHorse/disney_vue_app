@@ -2,7 +2,6 @@
   <div class='trip-edit'>
     <h1>Edit Trip</h1>
     <div class="container">
-      <!-- {{ interest }} -->
       <form v-on:submit.prevent="submit()">
           <label for='arrival'>Arrival Date: </label>
           <input v-model='trip.dates.arrival' type='text' id='arrival' v-bind:placeholder='trip.dates.arrival'>
@@ -16,12 +15,11 @@
             <br>
           <label for='tripAttractions'>Your Attractions</label>
             <br>
-      <!-- {{ interests }} -->
     <button v-on:click.prevent="toggle()">Click</button>
       <div v-for='int in interests'>
         <transition 
-          enter-active-class="animated fade bounceIn"
-          leave-active-class="animated fade bounceOut">  
+          enter-active-class="animated fade zoomIn"
+          leave-active-class="animated fade zoomOut">  
           <li style="text-align: left; padding-left: 200px;" v-if="show" v-animation>{{ int.ride.name }} | {{ int.id }}<button v-on:click.prevent="remove(int)">Remove Attraction</button></li>
         </transition>
       </div>

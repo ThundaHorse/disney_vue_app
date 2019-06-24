@@ -6,7 +6,7 @@
     <h3>Departure Day: {{ trip.dates.departure }}</h3>
       <br>
     <h3>Parks</h3>
-
+  <!-- {{ trip }} -->
       <div v-for='yourParks in trip.parks'>
         <div v-for='park in yourParks'>
           <p>{{ park.name }}</p>
