@@ -108,23 +108,24 @@ export default {
         attractionsToAdd: this.attractionsToAdd,
         startTime: this.startTime
       }
-      var test = interestParams.attractionsToAdd; 
-      var attrInd = Object.keys(test);
+        
+      // axios.post('/api/trips/', params).then(response => {
+      //   this.$router.push('/trips/')
+      // })
+
+      var attractionIds = interestParams.attractionsToAdd; 
+      var attrInd = Object.keys(attractionIds);
       for (var i = 0; i < attrInd.length; i ++) {
         // console.log(attrInd[i]);
         axios.get('/api/attractions/' + attrInd[i]).then(response => {
           console.log(response.data.name);
         })
+
       }
-      
       
       // console.log(interestParams);
       // axios.get('/api/trips' + interestParams.attractionsToAdd).then(response => {
         // console.log(response.data);
-      // })
-
-      // axios.post('/api/trips/', params).then(response => {
-      //   this.$router.push('/trips/')
       // })
       // axios.post('/api/interests/', interestParams).then(response => {
       //   this.$router.push('/trips/')
