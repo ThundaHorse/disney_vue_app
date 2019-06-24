@@ -15,17 +15,21 @@
             <br>
           <label for='tripAttractions'>Your Attractions</label>
             <br>
+
     <button v-on:click.prevent="toggle()">Click</button>
-      <div v-for='int in interests'>
+
+      <div v-for="int in interests">      
         <transition 
           enter-active-class="animated rotateInDownLeft"
           leave-active-class="animated rotateOutDownLeft">  
-          <p v-if="show" v-animation>{{ int.ride.name }} | {{ int.id }}  <button v-on:click.prevent="remove(int)">Remove Attraction</button></p>
+          <div v-if='show'>
+            <p v-if='int.trip_id === trip.id'>{{ int.ride.name }} | {{ int.ride.duration }} minutes | <button v-on:click.prevent="remove(int)">Remove Attraction</button></p>
+          </div>
         </transition>
-      </div>
+        </div>
       <br>
       <br>
-    <button type='submit'>Update</button>
+    <button type='submit'>Update</button> 
   </form>
     </div>
   </div>
@@ -68,9 +72,9 @@ export default {
         this.$router.push('/trips/' + this.$route.params.id);
       })
     },
-    remove: function(input) {
-      axios.delete("/api/interests/" + input.id).then(response => {
-          var index = this.interests.indexOf(input);
+    remove: function(int) {
+      axios.delete("/api/interests/" + int.id).then(response => {
+          var index = this.interests.indexOf(int);
           this.interests.splice(index, 1);
         });
     }
