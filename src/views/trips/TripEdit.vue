@@ -37,6 +37,11 @@
 </template>
 
 <style>
+  img {
+    height: 20rem;
+    width: 30rem;
+    border-radius: 15px;
+  }
 </style>
 
 <script>

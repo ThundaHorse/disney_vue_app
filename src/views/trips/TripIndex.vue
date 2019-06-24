@@ -2,12 +2,11 @@
 <div class="trips-index">
   <div class="container">
     <h1>Your Trips</h1>
-    <router-link v-bind:to="'/trips/new'">New Trip</router-link>
       <br>
-
     <div v-for="trip in trips">
+      <br>
       <h2>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h2> 
-      {{ trip.id }}
+      <p><router-link v-bind:to="'/trips/' + trip.id">{{ trip.id }}</router-link></p>
       <h2>Your Parks & Attractions</h2>
 
     <button v-on:click.prevent="toggle()">Show All Attractions</button>

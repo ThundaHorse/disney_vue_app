@@ -13,17 +13,33 @@
           <transition 
             enter-active-class="animated fadeInDownBig"
             leave-active-class="animated fadeOutDownBig">  
-              <p style='text-align: left; padding-left: 130px;' v-if='show2' v-animation><b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b></p>
+              <p style='text-align: left; padding-left: 130px;' v-if='show2' v-animation>
+                <span v-if="park.name === 'Epcot'" style="color: blue">                
+                  <b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b>
+                </span>
+                <span v-if="park.name === 'Magic Kingdom'" style="color: red">
+                  <b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b>
+                </span>
+                <span v-if="park.name === 'Hollywood Studios'" style="color: orange">
+                  <b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b>
+                </span>
+                <span v-if="park.name === 'Animal Kingdom'" style="color: green">
+                  <b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b>
+                </span>
+              </p>
           </transition>
         </div>
       <h3>Attractions:
         <button v-on:click.prevent="toggle()">Show All Attractions</button>
       </h3>
-        <div v-for='ride in attraction_list'>
+      <h3>Attractions to Add:</h3>
+        <div v-for='(ride, index) in attraction_list'>
           <transition 
             enter-active-class="animated bounceInDown"
             leave-active-class="animated bounceOutDown">  
-              <p style='text-align: left; padding-left: 130px;' v-if="show" v-animation>{{ ride.name }} <b> | </b>
+              <p style='text-align: left; padding-left: 130px;' v-if="show" v-animation>
+                <input v-model='attractionsToAdd[ride.id]' type='checkbox' id='index'>
+                {{ index + 1 }} - {{ ride.name }} <b> | </b>
                 <span v-if="ride.park === 'Epcot'" style="color: blue">
                   <b>{{ ride.park }}</b>
                 </span> 
@@ -39,6 +55,7 @@
               </p>
           </transition>
         </div>
+      <h3>Start Time: <input v-model='startTime' type='time' id='startTime' placeholder="Desired starting time"> </h3>
 
       <button v-on:click.prevent="submit()">Submit</button>
     </form>
@@ -60,7 +77,9 @@ export default {
       show2: false,
       newArrival: '', 
       newDeparture: '', 
-      newMaxWait: ''
+      newMaxWait: '',
+      startTime: '',
+      attractionsToAdd: []
     };
   },
   created: function() {
@@ -84,9 +103,32 @@ export default {
         departure_day: this.newDeparture,
         max_wait_time: this.newMaxWait
       }
-      axios.post('/api/trips/', params).then(response => {
-        this.$router.push('/trips/')
-      })
+      var interestParams = {
+        trip_id: params.id,
+        attractionsToAdd: this.attractionsToAdd,
+        startTime: this.startTime
+      }
+      var test = interestParams.attractionsToAdd; 
+      var attrInd = Object.keys(test);
+      for (var i = 0; i < attrInd.length; i ++) {
+        // console.log(attrInd[i]);
+        axios.get('/api/attractions/' + attrInd[i]).then(response => {
+          console.log(response.data.name);
+        })
+      }
+      
+      
+      // console.log(interestParams);
+      // axios.get('/api/trips' + interestParams.attractionsToAdd).then(response => {
+        // console.log(response.data);
+      // })
+
+      // axios.post('/api/trips/', params).then(response => {
+      //   this.$router.push('/trips/')
+      // })
+      // axios.post('/api/interests/', interestParams).then(response => {
+      //   this.$router.push('/trips/')
+      // })
     }
   }
 };

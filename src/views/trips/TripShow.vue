@@ -9,16 +9,22 @@
       <div v-for='interest in interests'>
         <div v-if="interest.trip_id === trip.id">
           <div v-for='park in interest.park'>
-            <h3 style='padding-left: 150px;'>{{ park.name }}</h3>
-            <p style='text-align: left; padding-left: 200px;'><b>{{ interest.ride.name }}</b> | {{ interest.ride.duration }} minutes | 
+            <h3 style='padding-left: 100px;'>{{ park.name }}</h3>
+            <p style='text-align: left; padding-left: 150px;'><b>{{ interest.ride.name }}</b> | {{ interest.ride.duration }} minutes | 
             <span v-if="interest.ride.status === 'closed'" style="color: Red;">
               <b>{{ interest.ride.status }}</b>
+                <br>
+              <img v-bind:src="interest.ride.image">
             </span>
             <span v-if="interest.ride.status === 'operational'" style="color: Green;">
               <b>{{ interest.ride.status }}</b>
+                <br>
+              <img v-bind:src="interest.ride.image">
             </span>
             <span v-if="interest.ride.status === 'maintenance'" style="color: Orange;">
               <b>{{ interest.ride.status }}</b>
+                <br>
+              <img v-bind:src="interest.ride.image">
             </span>
             </p>
           </div>
