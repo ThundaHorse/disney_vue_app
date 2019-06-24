@@ -7,15 +7,17 @@
 
     <div v-for="trip in trips">
       <h2>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h2> 
+      {{ trip.id }}
       <h2>Your Parks & Attractions</h2>
     <button v-on:click.prevent="toggle()">Show All Attractions</button>
     
     <div v-for='int in interests'>
+      {{ int.id }} | {{ int.trip_id }}
       <div v-for="park in int.park">
         <transition 
             enter-active-class="animated fadeInDownBig"
-            leave-active-class="animated fadeOutDownBig">  
-          <p v-if='show' v-animation>{{ int.ride.name }}  | {{ park.name }}</p>
+            leave-active-class="animated fadeOutDownBig">   
+          <p v-if="show">{{ int.ride.name }}  | {{ park.name }}</p>
         </transition>
       </div>
     </div> 

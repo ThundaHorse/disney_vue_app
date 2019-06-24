@@ -18,9 +18,9 @@
     <button v-on:click.prevent="toggle()">Click</button>
       <div v-for='int in interests'>
         <transition 
-          enter-active-class="animated fade zoomIn"
-          leave-active-class="animated fade zoomOut">  
-          <li style="text-align: left; padding-left: 200px;" v-if="show" v-animation>{{ int.ride.name }} | {{ int.id }}<button v-on:click.prevent="remove(int)">Remove Attraction</button></li>
+          enter-active-class="animated rotateInDownLeft"
+          leave-active-class="animated rotateOutDownLeft">  
+          <p v-if="show" v-animation>{{ int.ride.name }} | {{ int.id }}  <button v-on:click.prevent="remove(int)">Remove Attraction</button></p>
         </transition>
       </div>
       <br>

@@ -3,8 +3,9 @@
     <h1>New Trip</h1>
   
     <form v-on:submit.prevent="submit()">
-      <h3>Arrival Day: <input v-model="arrival" type='text' id='arrival'></h3>
-      <h3>Departure Day: <input v-model='departure' type='text' id='departure'></h3>
+      <h3>Arrival Day: <input v-model="newArrival" type='date' id='arrival' placeholder="YYYY-MM-DD"></h3>
+      <h3>Departure Day: <input v-model='newDeparture' type='date' id='departure' placeholder="YYYY-MM-DD"></h3>
+      <h3>Maximum to Wait: <input v-model='newMaxWait' type='integer' id='max_wait' placeholder="total minutes i.e. 100"></h3>
       <h3>Parks: 
         <button v-on:click.prevent="toggleParks()">Show Parks</button>
       </h3>
@@ -39,7 +40,7 @@
           </transition>
         </div>
 
-        
+      <button v-on:click.prevent="submit()">Submit</button>
     </form>
   </div>
 </template>
@@ -56,7 +57,10 @@ export default {
       attraction_list: [],
       park_list: [],
       show: false,
-      show2: false
+      show2: false,
+      newArrival: '', 
+      newDeparture: '', 
+      newMaxWait: ''
     };
   },
   created: function() {
@@ -73,6 +77,16 @@ export default {
     },
     toggleParks: function() {
       this.show2 = !this.show2;
+    },
+    submit: function() {
+      var params = {
+        arrival_day: this.newArrival, 
+        departure_day: this.newDeparture,
+        max_wait_time: this.newMaxWait
+      }
+      axios.post('/api/trips/', params).then(response => {
+        this.$router.push('/trips/')
+      })
     }
   }
 };
