@@ -5,25 +5,41 @@
     <router-link v-bind:to="'/trips/new'">New Trip</router-link>
       <br>
     <div v-for="trip in trips">
-      <h2>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h2>
-      <h1>Your Parks & Attractions</h1>
-
-    <div v-for="int in interests">
-      <div v-for='admission in tickets'>
-      <p v-if='admission.id === int.ride.park_id'><b>{{ admission.park }}</b></p>
+      <h2>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h2> 
+      {{ trip.id }}
+      <h2>Your Parks & Attractions</h2>
+      <button v-on:click.prevent="toggle()">Show All Attractions</button>
+    <div v-for='int in interests'>
+      <div v-for="park in int.park">
+        <transition 
+            enter-active-class="animated fadeInDownBig"
+            leave-active-class="animated fadeOutDownBig">  
+          <p v-if='show' v-animation>{{ int.ride.name }}  | {{ park.name }}</p>
+        </transition>
       </div>
-      {{ int.ride.name }} | {{ int.ride.duration }} minutes
-    </div>
-      <br>
-      <button>
-        <router-link v-bind:to="'/trips/edit/' + trip.id">
-          Edit this Trip
-        </router-link>
-      </button>
+    </div>  
+        <br>
+        <span>
+          <button>
+            <router-link v-bind:to="'/trips/edit/' + trip.id">
+              Edit this Trip
+            </router-link>
+          </button>
+          |
+          <button v-on:click="deleteTrip(trip)">
+            Delete Trip
+          </button>
+        </span>
     </div>
   </div>
 </div>
 </template>
+
+<style>
+  h2 {
+    padding-left: 150px;
+  }
+</style>
 
 <script>
 import axios from 'axios' 
@@ -31,6 +47,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      show: false,
       trips: [],
       interests: [],
       tickets: [],
@@ -38,11 +55,11 @@ export default {
     }
   },
   created: function() {
-    axios.get('/api/trips').then(response => {
-      this.trips = response.data; 
-    })
     axios.get('/api/interests').then(response => {
       this.interests = response.data;
+    })
+    axios.get('/api/trips').then(response => {
+      this.trips = response.data; 
     })
     axios.get('/api/tickets').then(response => {
       this.tickets = response.data;
@@ -51,6 +68,13 @@ export default {
   methods: {
     toggle() {
       this.show = !this.show;
+    },
+    deleteTrip: function(trip) {
+      axios.delete('/api/trips/' + trip.id).then(response => {
+        this.$router.push('/trips')
+        var index = this.trips.indexOf(trip);
+        this.trips.splice(index, 1);
+      })
     }
   }
 };
