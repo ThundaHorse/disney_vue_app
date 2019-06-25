@@ -17,7 +17,7 @@
 <style>
   img.index {
     border-radius: 5%;
-    max-width: 25rem;
+    max-width: 30rem;
     float: right;
   }
   h2 {

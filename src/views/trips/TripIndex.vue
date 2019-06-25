@@ -10,16 +10,15 @@
       <h2>Your Parks & Attractions</h2>
 
     <button v-on:click.prevent="toggle()">Show All Attractions</button>
-    <div v-for='int in trip.interests'>
-      <div v-for='attractionInterest in int'>
-        <transition 
-            enter-active-class="animated fadeInDownBig"
-            leave-active-class="animated fadeOutDownBig">   
-          <p v-if="show">{{ attractionInterest.name }}</p>
-        </transition>
-      </div>
-    </div> 
-
+    <div v-for='int in interests'>
+      <div v-if="int.trip_id === trip.id">
+      <transition 
+        enter-active-class="animated fadeInDownBig"
+        leave-active-class="animated fadeOutDownBig">  
+      <p v-if="show">{{ int.ride.name }} | {{ int.park.name }}</p>
+      </transition>
+    </div>
+    </div>
       <br>
       <span>
         <button>

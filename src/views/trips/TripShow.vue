@@ -2,15 +2,20 @@
   <div class='trip-show'>
     <h1>Trip {{ trip.id }}</h1>
       <br>
+    <h4><router-link v-bind:to="'/trips/edit/' + this.$route.params.id">Edit Trip</router-link></h4>
     <h3>Arrival Day: {{ trip.dates.arrival }}</h3>
     <h3>Departure Day: {{ trip.dates.departure }}</h3>
+    <button v-on:click.prevent="toggle()">Show Attractions</button>
       <br>
     <h3>Attractions & Parks</h3>
       <div v-for='interest in interests'>
         <div v-if="interest.trip_id === trip.id">
-          <div v-for='park in interest.park'>
-            <h3 style='padding-left: 100px;'>{{ park.name }}</h3>
-            <p style='text-align: left; padding-left: 150px;'><b>{{ interest.ride.name }}</b> | {{ interest.ride.duration }} minutes | 
+        <transition 
+          enter-active-class="animated fadeInDown"
+          leave-active-class="animated fadeOutUp">  
+          <div v-if='show'>
+            <h3 style='text-align: center; padding-right: 100px;'>{{ interest.park.name }}</h3>
+            <p style='text-align: center;'><b>{{ interest.ride.name }}</b> | {{ interest.ride.duration }} minutes | 
             <span v-if="interest.ride.status === 'closed'" style="color: Red;">
               <b>{{ interest.ride.status }}</b>
                 <br>
@@ -28,6 +33,7 @@
             </span>
             </p>
           </div>
+        </transition>
         </div>
       </div>
     </div>
@@ -46,7 +52,8 @@ export default {
     return {
       trip: [],
       tickets: [],
-      interests: []
+      interests: [],
+      show: false
     };
   },
   created: function() {
@@ -61,7 +68,9 @@ export default {
     })
   },
   methods: {
-
+    toggle: function() {
+      this.show = !this.show;
+    }
   }
 };
 </script>
