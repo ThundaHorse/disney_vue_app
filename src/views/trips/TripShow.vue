@@ -5,15 +5,15 @@
     <h4><router-link v-bind:to="'/trips/edit/' + this.$route.params.id">Edit Trip</router-link></h4>
     <h3>Arrival Day: {{ trip.dates.arrival }}</h3>
     <h3>Departure Day: {{ trip.dates.departure }}</h3>
-    <button v-on:click.prevent="toggle()">Show Attractions</button>
+    <!-- <button v-on:click.prevent="toggle()">Show Attractions</button> -->
       <br>
     <h3>Attractions & Parks</h3>
       <div v-for='interest in interests'>
         <div v-if="interest.trip_id === trip.id">
-        <transition 
-          enter-active-class="animated fadeInDown"
-          leave-active-class="animated fadeOutUp">  
-          <div v-if='show'>
+        <!-- <transition  -->
+          <!-- enter-active-class="animated fadeInDown" -->
+          <!-- leave-active-class="animated fadeOutUp">   -->
+          <!-- <div v-if='show'> -->
             <h3 style='text-align: center; padding-right: 100px;'>{{ interest.park.name }}</h3>
             <p style='text-align: center;'><b>{{ interest.ride.name }}</b> | {{ interest.ride.duration }} minutes | 
             <span v-if="interest.ride.status === 'closed'" style="color: Red;">
@@ -32,8 +32,8 @@
               <img v-bind:src="interest.ride.image">
             </span>
             </p>
-          </div>
-        </transition>
+          <!-- </div> -->
+        <!-- </transition> -->
         </div>
       </div>
     </div>

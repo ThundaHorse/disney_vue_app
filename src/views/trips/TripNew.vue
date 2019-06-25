@@ -48,12 +48,12 @@
               leave-active-class="animated bounceOutDown">   -->
                 <!-- <p style='text-align: left; padding-left: 130px;' v-if="show" v-animation> -->
                 <p>
-                  <button v-bind:class="{ interested: createInterest }" v-on:click.prevent="createInterest(ride)">
-                    <div v-if='ride.interested' style='color:green;'>
-                      Interested
+                  <button v-on:click.prevent="createInterest(ride)">
+                    <div v-if='ride.interested' style='color:red;'>
+                      Click to remove
                     </div>
-                    <div v-else='!ride.interested' style='color:red;'>
-                      Not Interested
+                    <div v-else='!ride.interested' style='color:green;'>
+                      Click to add
                     </div>
                   </button>
                   <!-- If clicked (someone is interested), change the button color using v-bind:class -->     
@@ -77,8 +77,8 @@
                 </p>
             <!-- </transition> -->
           </div>
+          <button v-on:click.prevent="seeYourTrip()">Done</button>
       <!-- </div> -->
-      <!-- <button v-on:click.prevent="()">See Attractions</button> -->
     </form>
   </div>
 </template>
@@ -99,6 +99,8 @@ export default {
       show2: false,
       tripCreated: false,
       isInterested: false,
+
+      counter: 0,
 
       newArrival: '', 
       newDeparture: '', 
@@ -126,6 +128,12 @@ export default {
     // toggleParks: function() {
     //   this.show2 = !this.show2;
     // },
+    // isAdded() {
+    //   this.added = !this.added; 
+    // },
+    seeYourTrip() {
+      this.$router.push('/trips/' + this.newTrip.id);
+    },
     submit() {
       var params = {
         arrival_day: this.newArrival, 
@@ -137,19 +145,26 @@ export default {
       })
       this.tripCreated = true; 
     }, 
-
     createInterest(inputRide) {
+      this.counter += 1; 
       inputRide.interested = !inputRide.interested;
-
       if (this.newTrip.id !== undefined) {
         var interestParams = {
-          trip_id: this.newTrip.id,
-          attraction_id: inputRide.id,
-          start_time: this.dayAtPark + "T" + this.startTime +"Z"
+            trip_id: this.newTrip.id,
+            attraction_id: inputRide.id,
+            start_time: this.dayAtPark + "T" + this.startTime +"Z"
+          }
+        if (this.counter % 2 !== 0) {
+          console.log(this.counter);
+          axios.post('/api/interests', interestParams).then(response => {
+            alert(response.data.ride.name + " added successfully!");
+          })
+        } else {
+          console.log(this.counter);
+          axios.delete('/api/interests/' + inputRide.id).then(response => {
+            alert(response.data.ride.name + " removed successfully!"); 
+          });
         }
-        axios.post('/api/interests', interestParams).then(response => {
-          console.log(response.data + " Added successfully!");
-        })
       } else {
         setTimeout(createInterest(inputRide), 500);
       }

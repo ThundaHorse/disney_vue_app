@@ -6,28 +6,35 @@
           <label for='arrival'>Arrival Date: </label>
           <input v-model='trip.dates.arrival' type='text' id='arrival' v-bind:placeholder='trip.dates.arrival'>
             <br>
+            <br>
           <label for='departure'>Departure Date: </label>
           <input v-model='trip.dates.departure' type='text' id='departure' v-bind:placeholder='trip.dates.departure'>
+            <br>
             <br>
           <label for='maxWaitTime'>Maximum Willing Wait: </label>
           <input v-model='trip.max_wait_time' type='integer' id='waitTime' v-bind:placeholder='trip.max_wait_time'>
             <br>
             <br>
-          <label for='tripAttractions'>Your Attractions</label>
+          <label for='addMoreAttractions'>Add More Attractions</label>
+            <br>
+           <button v-on:click.prevent='addMore()'>Add More</button>
+            <br>
+            <br>
+          <h2 style='text-align:center;'>Your Attractions</h2>
             <br>
 
-    <button v-on:click.prevent="toggle()">Click</button>
+    <!-- <button v-on:click.prevent="toggle()">Click</button> -->
 
       <div v-for="int in interests">      
-        <transition 
-          enter-active-class="animated rotateInDownLeft"
-          leave-active-class="animated rotateOutUpRight">  
-          <div v-if='show'>
+        <!-- <transition 
+          enter-active-class="animated rotateInDownLeft" -->
+          <!-- <!-- leave-active-class="animated rotateOutUpRight">   --> 
+          <!-- <div v-if='show'> -->
             
-            <p v-if='int.trip_id === trip.id'>{{ int.ride.name }} | {{ int.ride.duration }} minutes | <button v-on:click.prevent="remove(int)">Remove Attraction</button></p>
+            <p v-if='int.trip_id === trip.id'>{{ int.ride.name }} | {{ int.ride.duration }} minutes | <br> <button v-on:click.prevent="remove(int)">Remove Attraction</button></p>
             <img v-if='int.trip_id === trip.id' v-bind:src="int.ride.image" v-bind:alt="int.ride.name" style="display: in-line block;">
-          </div>
-        </transition>
+          <!-- </div> -->
+        <!-- </transition> -->
         </div>
       <br>
       <br>

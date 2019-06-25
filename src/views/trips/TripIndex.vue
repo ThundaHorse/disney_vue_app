@@ -9,14 +9,16 @@
       <p><router-link v-bind:to="'/trips/' + trip.id">{{ trip.id }}</router-link></p>
       <h2>Your Parks & Attractions</h2>
 
-    <button v-on:click.prevent="toggle()">Show All Attractions</button>
+    <!-- <button v-on:click.prevent="toggle()">Show All Attractions</button> -->
     <div v-for='int in interests'>
+      <!-- {{ int }} -->
       <div v-if="int.trip_id === trip.id">
-      <transition 
-        enter-active-class="animated fadeInDownBig"
-        leave-active-class="animated fadeOutDownBig">  
-      <p v-if="show">{{ int.ride.name }} | {{ int.park.name }}</p>
-      </transition>
+      <!-- <transition  -->
+        <!-- enter-active-class="animated fadeInDownBig" -->
+        <!-- leave-active-class="animated fadeOutDownBig">   -->
+      <!-- <p v-if="show">{{ int.ride.name }} | {{ int.park.name }}</p> -->
+      <p>{{ int.ride.name }} | {{ int.park.name }}</p>
+      <!-- </transition> -->
     </div>
     </div>
       <br>
