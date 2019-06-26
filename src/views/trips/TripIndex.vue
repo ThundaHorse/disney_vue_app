@@ -3,11 +3,15 @@
   <div class="container">
     <h1>Your Trips</h1>
       <br>
+      <div v-if="trips == ''">
+        <h1>You have no trips currently, lets plan a trip!</h1>
+        <router-link to='/trips/new'>Click here</router-link>
+      </div>
     <div v-for="trip in trips">
       <br>
-      <h2>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h2> 
+      <h1>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h1> 
       <p><router-link v-bind:to="'/trips/' + trip.id">View this trip</router-link></p>
-      <h2>Your Parks & Attractions</h2>
+      <h1>Your Parks & Attractions</h1>
     <div v-for='int in interests'>
       <div v-if="int.trip_id === trip.id">
       <h4>{{ int.formatted.formatted_start_time }}</h4>
@@ -65,12 +69,17 @@ export default {
     }
   },
   created: function() {
-    axios.get('/api/interests').then(response => {
-      this.interests = response.data;
-    })
-    axios.get('/api/trips').then(response => {
-      this.trips = response.data; 
-    })
+    if (localStorage.getItem('jwt')) {
+      axios.get('/api/interests').then(response => {
+        this.interests = response.data;
+      })
+      axios.get('/api/trips').then(response => {
+        this.trips = response.data; 
+      })
+    } else {
+      alert("Sign in to view your trips!")
+      this.$router.push('/login')
+    }
   },
   methods: {
     deleteTrip: function(trip) {

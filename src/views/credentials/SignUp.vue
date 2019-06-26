@@ -12,9 +12,8 @@
       <p>First Name: <input type='firstName' v-model='firstName'></p>
       <p>Last Name: <input type='lastName' v-model='lastName'></p>
       <p>Email: <input type='email' v-model='email'></p>
-      <p>Image: <input type='image' v-model='image'></p>
+      <p>Image: <input type='text' v-model='image'></p>
       <p>Phone Number: <input type='phoneNumber' v-model='phoneNumber'></p>
-      <br>
       <p>Password: <input type='password' v-model='password'></p>
       <p>Password Confirmation: <input type='password' v-model='passwordConfirmation'></p>
   
@@ -59,7 +58,7 @@ export default {
 
       axios.post('/api/users', params) 
         .then(response => {
-          this.$router.push('/login'); 
+          this.$router.push('/trips'); 
         })
         .catch(error => {
           this.errors = error.response.data.errors; 

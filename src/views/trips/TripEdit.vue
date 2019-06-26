@@ -22,12 +22,12 @@
             <br>
           <h2 style='text-align:center;'>Your Attractions</h2>
             <br>
-      <div v-for="int in interests">      
-        <p v-if='int.trip_id === trip.id'>{{ int.ride.name }} | {{ int.ride.duration }} minutes | <br> <button v-on:click.prevent="remove(int)">Remove Attraction</button></p>
-        <img v-if='int.trip_id === trip.id' v-bind:src="int.ride.image" v-bind:alt="int.ride.name" style="display: in-line block;">
-      </div>
-        <br>
-        <br>
+        <div v-for="int in interests">      
+          <p v-if='int.trip_id === trip.id'>{{ int.ride.name }} | {{ int.ride.duration }} minutes | <br> <button v-on:click.prevent="remove(int)">Remove Attraction</button></p>
+          <img v-if='int.trip_id === trip.id' v-bind:src="int.ride.image" v-bind:alt="int.ride.name" style="display: in-line block;">
+        </div>
+      <br>
+      <br>
     <button type='submit'>Update</button> 
   </form>
     </div>
@@ -57,13 +57,16 @@ export default {
     };
   },
   created: function() {
-    axios.get('/api/trips/' + this.$route.params.id).then(response => {
-      this.trip = response.data; 
-    })
-    axios.get('/api/interests').then(response => {
-      this.interests = response.data;
-    })
-
+    if (localStorage.getItem('jwt')) {
+      axios.get('/api/trips/' + this.$route.params.id).then(response => {
+        this.trip = response.data; 
+      })
+      axios.get('/api/interests').then(response => {
+        this.interests = response.data;
+      })
+    } else {
+      this.$router.push('/login')
+    }
   },
   methods: {
     toggle: function() {

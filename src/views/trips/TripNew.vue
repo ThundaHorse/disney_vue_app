@@ -128,12 +128,17 @@ export default {
     };
   },
   created: function() {
-    axios.get('/api/attractions').then(response => {
-      this.attraction_list = response.data; 
-    })
-    axios.get('/api/parks').then(response => {
-      this.park_list = response.data;
-    })
+    if (localStorage.getItem('jwt')) {
+      axios.get('/api/attractions').then(response => {
+        this.attraction_list = response.data; 
+      })
+      axios.get('/api/parks').then(response => {
+        this.park_list = response.data;
+      })
+    } else {
+      alert("Sign up or Log in to book a new trip!")
+      this.$router.push('/login')
+    }
   },
   methods: {
     seeYourTrip() {
