@@ -14,6 +14,8 @@ import TripAdd from './views/trips/TripAdd.vue'
 import ParksShow from './views/parks/ParksShow.vue'
 import ParksIndex from './views/parks/ParksIndex.vue' 
 
+import AttractionsIndex from './views/attractions/AttractionsIndex.vue'
+
 
 Vue.use(Router)
 
@@ -33,6 +35,8 @@ export default new Router({
     { path: '/signup', name: 'sign-up', component: SignUp },
 
     {path: '/parks', name: 'parks-index', component: ParksIndex },
-    { path: '/parks/:id', name: 'parks-show', component: ParksShow }
+    { path: '/parks/:id', name: 'parks-show', component: ParksShow },
+
+    { path: '/attractions', name: 'attractions-index', component: AttractionsIndex}
   ]
 })

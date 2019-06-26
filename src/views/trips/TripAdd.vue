@@ -24,8 +24,6 @@
           </span>
         </p>
     </div>
-
-
   </div>
 </template>
 

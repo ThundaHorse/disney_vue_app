@@ -6,7 +6,8 @@
       <router-link to="/login">Log In</router-link> |
       <router-link to='/logout'>Log Out</router-link> 
         <br>
-      <router-link to='/trips/new'>New Trip</router-link>
+      <router-link to='/attractions'>Attractions</router-link> |
+      <router-link to='/trips/new'>New Trip</router-link> 
     </div>
     <router-view/>
   </div>
