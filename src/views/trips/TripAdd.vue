@@ -23,6 +23,7 @@
           </span>
         </p>
     </div>
+    <router-link v-bind:to="'/trips/' + this.trip.id">Done</router-link>
   </div>
 </template>
 

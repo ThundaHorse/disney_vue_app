@@ -41,7 +41,6 @@
       </h3>
         <h3>Attractions to Add:</h3>
           <div v-for='ride in attraction_list'>
-            {{ ride.ints[0] }}
             <p>
               <div v-if="!ride.interested" class="to-add">
                 <button v-on:click.prevent="createInterest(ride)"> 
@@ -54,6 +53,7 @@
                 </button>
               </div>
                 {{ ride.name }} <b> | </b>
+                <br>
               <span v-bind:class="{
                                     'epcot-button': ride.park === 'Epcot',
                                     'magic_kingdom-button': ride.park === 'Magic Kingdom',
@@ -62,6 +62,7 @@
                                     }" >
                 <b>{{ ride.park }}</b>
               </span> 
+              <br>
             </p>
           </div>
         <button v-on:click.prevent="seeYourTrip()">Done</button>
@@ -93,6 +94,14 @@
 
 .to-remove p {
   color: red;
+}
+
+button {
+  border-radius: 10px;
+}
+
+input {
+  background-color: darkgrey;
 }
 
 </style>

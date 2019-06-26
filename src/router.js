@@ -34,7 +34,7 @@ export default new Router({
     { path: '/logout', name: 'logout', component: Logout }, 
     { path: '/signup', name: 'sign-up', component: SignUp },
 
-    {path: '/parks', name: 'parks-index', component: ParksIndex },
+    {path: '/', name: 'parks-index', component: ParksIndex },
     { path: '/parks/:id', name: 'parks-show', component: ParksShow },
 
     { path: '/attractions', name: 'attractions-index', component: AttractionsIndex}

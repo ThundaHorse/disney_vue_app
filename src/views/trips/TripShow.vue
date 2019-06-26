@@ -10,9 +10,6 @@
     <h3>Attractions & Parks</h3>
       <div v-for='interest in interests'>
         <div v-if="interest.trip_id === trip.id">
-        <!-- <transition  -->
-          <!-- enter-active-class="animated fadeInDown" -->
-          <!-- leave-active-class="animated fadeOutUp">   -->
           <!-- <div v-if='show'> -->
               {{ interest.formatted.formatted_start_time }}
             <h3 style='text-align: center; padding-right: 100px;'>{{ interest.park.name }}</h3>
@@ -33,8 +30,7 @@
               <img v-bind:src="interest.ride.image">
             </span>
             </p>
-          <!-- </div> -->
-        <!-- </transition> -->
+          <!-- </div> --> 
         </div>
       </div>
     </div>
