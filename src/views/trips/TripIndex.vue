@@ -6,17 +6,11 @@
     <div v-for="trip in trips">
       <br>
       <h2>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h2> 
-      <p><router-link v-bind:to="'/trips/' + trip.id">{{ trip.id }}</router-link></p>
+      <p><router-link v-bind:to="'/trips/' + trip.id">View this trip</router-link></p>
       <h2>Your Parks & Attractions</h2>
-
-    <!-- <button v-on:click.prevent="toggle()">Show All Attractions</button> -->
     <div v-for='int in interests'>
-      <h4>{{ int.formatted.formatted_start_time }}</h4>
       <div v-if="int.trip_id === trip.id">
-      <!-- <transition  -->
-        <!-- enter-active-class="animated fadeInDownBig" -->
-        <!-- leave-active-class="animated fadeOutDownBig">   -->
-      <!-- <p v-if="show">{{ int.ride.name }} | {{ int.park.name }}</p> -->
+      <h4>{{ int.formatted.formatted_start_time }}</h4>
       <p>{{ int.ride.name }} | 
         <span v-if="int.park.name === 'Epcot'" style="color: blue">                
           <b>{{ int.park.name }}</b>
@@ -31,7 +25,6 @@
           <b>{{ int.park.name }}</b>
         </span>
       </p>
-      <!-- </transition> -->
     </div>
     </div>
       <br>
@@ -80,9 +73,6 @@ export default {
     })
   },
   methods: {
-    toggle() {
-      this.show = !this.show;
-    },
     deleteTrip: function(trip) {
       axios.delete('/api/trips/' + trip.id).then(response => {
         this.$router.push('/trips')

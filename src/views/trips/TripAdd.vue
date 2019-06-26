@@ -1,7 +1,6 @@
 <template>
   <div class='trip-add'>
     <h1>Trip {{ trip.id }}</h1>
-
       <div v-for='ride in attractions'>
         <p>
           Enter Time you would like to attend at: 

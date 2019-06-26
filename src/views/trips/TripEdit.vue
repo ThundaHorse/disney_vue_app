@@ -22,21 +22,12 @@
             <br>
           <h2 style='text-align:center;'>Your Attractions</h2>
             <br>
-
-    <!-- <button v-on:click.prevent="toggle()">Click</button> -->
-
       <div v-for="int in interests">      
-        <!-- <transition 
-          enter-active-class="animated rotateInDownLeft" -->
-          <!-- <!-- leave-active-class="animated rotateOutUpRight">   --> 
-          <!-- <div v-if='show'> -->
-            <p v-if='int.trip_id === trip.id'>{{ int.ride.name }} | {{ int.ride.duration }} minutes | <br> <button v-on:click.prevent="remove(int)">Remove Attraction</button></p>
-            <img v-if='int.trip_id === trip.id' v-bind:src="int.ride.image" v-bind:alt="int.ride.name" style="display: in-line block;">
-          <!-- </div> -->
-        <!-- </transition> -->
-        </div>
-      <br>
-      <br>
+        <p v-if='int.trip_id === trip.id'>{{ int.ride.name }} | {{ int.ride.duration }} minutes | <br> <button v-on:click.prevent="remove(int)">Remove Attraction</button></p>
+        <img v-if='int.trip_id === trip.id' v-bind:src="int.ride.image" v-bind:alt="int.ride.name" style="display: in-line block;">
+      </div>
+        <br>
+        <br>
     <button type='submit'>Update</button> 
   </form>
     </div>

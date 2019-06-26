@@ -1,0 +1,25 @@
+body {
+  background-color: lightslategray;
+}
+
+h2, h3, h4 {
+  color: gold;
+  text-decoration: underline;
+  text-decoration-color: coral;
+}
+
+h1 {
+  color: burlywood;
+}
+
+p {
+  color: greenyellow;
+}
+
+li {
+  color: lightgoldenrodyellow;
+}
+
+button {
+  background-color: darkgray;
+}
