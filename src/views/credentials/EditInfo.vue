@@ -1,7 +1,7 @@
 <template>
   <div class='edit-info'>
-    <h1>Your Info</h1>
-      <img v-bind:src="data.image" id="profile-pic" v-bind:alt="data.first_name">
+    <h1>Edit Your Info</h1>
+      <p id="image"><img v-bind:src="data.image" id="profile-pic" v-bind:alt="data.first_name"></p>
 
       <form v-on:submit.prevent="update()">
         <h3 id="editPage">First Name: <input v-model='personalInfo.firstName' type='text' id='firstName' v-bind:placeholder="data.first_name"></h3>
@@ -14,14 +14,23 @@
 
         <h3 id="editPage">Image: <input v-model='personalInfo.image' type='text' id='image' v-bind:placeholder="data.image"></h3>
         
-        <button type="submit">Update Info</button>
+        <div id="button-align">
+          <button type="submit">Update Info</button>
+        </div>
       </form>
     </div>
 </template>
 
 <style>
   img#profile-pic {
-    border-radius: 50%;
+    border-radius: 30%;
+    display: inline-block;
+  }
+  p#image {
+    text-align: center;
+  }
+  h1 {
+    text-align: center;
   }
   input {
     border-radius: 10px;
@@ -29,6 +38,9 @@
   h3#editPage {
     text-align: center;
     padding-right: 100px;
+  }
+  #button-align {
+    text-align: center;
   }
 
 </style>

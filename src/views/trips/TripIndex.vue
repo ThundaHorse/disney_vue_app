@@ -53,6 +53,9 @@
   h2 {
     padding-left: 150px;
   }
+  .container {
+    text-align: center;
+  }
 </style>
 
 <script>

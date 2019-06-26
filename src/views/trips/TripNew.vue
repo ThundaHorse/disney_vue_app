@@ -36,7 +36,6 @@
         </div>
       <!-- <div v-if="tripCreated === true"> -->
         <br>
-      <h3>Date Going: <datetime v-model="dayAtPark" type='datetime'></datetime></h3>
       <h3>Attractions:
       </h3>
         <h3>Attractions to Add:</h3>
@@ -44,15 +43,22 @@
             <p>
               <div v-if="!ride.interested" class="to-add">
                 <button v-on:click.prevent="createInterest(ride)"> 
-                  <p>Click to add </p>
+                  <p>Click to add</p>
                 </button>        
               </div>
               <div v-else="ride.interested" class="to-remove">
                 <button v-on:click.prevent="removeInterest(ride)">
-                  <p>Click to Remove</p>
+                  <p>Click to Remove</p> 
                 </button>
               </div>
-                {{ ride.name }} <b> | </b>
+                <span>
+                  <h2>
+                    Date and Time for Attraction: 
+                    <datetime v-model="dayAtPark" type='datetime' class="dateTime">
+                    </datetime>
+                  </h2>
+                     <p>{{ ride.name }}</p>
+                </span>
                 <br>
               <span v-bind:class="{
                                     'epcot-button': ride.park === 'Epcot',
@@ -102,6 +108,10 @@ button {
 
 input {
   background-color: darkgrey;
+}
+
+.dateTime {
+  margin-left: 150px;
 }
 
 </style>
