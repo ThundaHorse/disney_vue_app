@@ -11,13 +11,26 @@
 
     <!-- <button v-on:click.prevent="toggle()">Show All Attractions</button> -->
     <div v-for='int in interests'>
-      <!-- {{ int }} -->
+      <h4>{{ int.formatted.formatted_start_time }}</h4>
       <div v-if="int.trip_id === trip.id">
       <!-- <transition  -->
         <!-- enter-active-class="animated fadeInDownBig" -->
         <!-- leave-active-class="animated fadeOutDownBig">   -->
       <!-- <p v-if="show">{{ int.ride.name }} | {{ int.park.name }}</p> -->
-      <p>{{ int.ride.name }} | {{ int.park.name }}</p>
+      <p>{{ int.ride.name }} | 
+        <span v-if="int.park.name === 'Epcot'" style="color: blue">                
+          <b>{{ int.park.name }}</b>
+        </span>
+        <span v-if="int.park.name === 'Magic Kingdom'" style="color: red">
+          <b>{{ int.park.name }}</b>
+        </span>
+        <span v-if="int.park.name === 'Hollywood Studios'" style="color: orange">
+          <b>{{ int.park.name }}</b>
+        </span>
+        <span v-if="int.park.name === 'Animal Kingdom'" style="color: green">
+          <b>{{ int.park.name }}</b>
+        </span>
+      </p>
       <!-- </transition> -->
     </div>
     </div>
@@ -64,9 +77,6 @@ export default {
     })
     axios.get('/api/trips').then(response => {
       this.trips = response.data; 
-    })
-    axios.get('/api/tickets').then(response => {
-      this.tickets = response.data;
     })
   },
   methods: {

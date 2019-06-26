@@ -3,16 +3,22 @@
     <h1>New Trip</h1>
 
     <form v-on:submit.prevent="submit()">
-      <h3>Arrival Day: <input v-model="newArrival" type='date' id='arrival' placeholder="YYYY-MM-DD"></h3>
-      <h3>Departure Day: <input v-model='newDeparture' type='date' id='departure' placeholder="YYYY-MM-DD"></h3>
+      <h3>Arrival Day:<datetime v-model="newArrival" type="date"></datetime></h3>
+      <!-- <h3>Arrival Day: <input v-model="newArrival" type='date' id='arrival' placeholder="YYYY-MM-DD"></h3> -->
+      <h3>Departure Day: <datetime v-model="newDeparture" type="date"></datetime></h3>
       <h3>Maximum to Wait: <input v-model='newMaxWait' type='integer' id='max_wait' placeholder="total minutes i.e. 100"></h3>
 
-      <button v-on:click.prevent="submit()">
-        Next
-      </button>
+        <div v-if="tripCreated === false">
+          <button v-on:click.prevent="submit()">
+            Set Dates and wait
+          </button>
+        </div>
+        <div v-else="tripCreated === true">
+          <p2>Dates have been saved! Please select your attractions below!</p2>
+        </div>
 
       <h3>Parks: 
-        <button v-on:click.prevent="toggleParks()">Show Parks</button>
+        <!-- <button v-on:click.prevent="toggleParks()">Show Parks</button> -->
       </h3>
         <div v-for='park in park_list'>
           <!-- <transition 
@@ -35,32 +41,24 @@
               </p>
           <!-- </transition> -->
         </div>
-      <!-- <div v-if="tripCreated === true"> -->
-      <h3>Date Going: <input v-model='dayAtPark' type='date' id='dayAtPark'> | Start Time: <input v-model='startTime' type='time' id='startTime' placeholder="Desired starting time"></h3>
+      <div v-if="tripCreated === true">
+        <br>
+      <h3>Date Going: <datetime v-model="dayAtPark" type='datetime'></datetime></h3>
       <h3>Attractions:
-        <button v-on:click.prevent="toggle()">Show All Attractions</button>
+        <!-- <button v-on:click.prevent="toggle()">Show All Attractions</button> -->
       </h3>
         <h3>Attractions to Add:</h3>
           <div v-for='ride in attraction_list'>
-            {{ ride.id }}
             <!-- <transition 
               enter-active-class="animated bounceInDown"
-              leave-active-class="animated bounceOutDown">   -->
+              leave-active-class="animated bounceOut.Down">   -->
                 <!-- <p style='text-align: left; padding-left: 130px;' v-if="show" v-animation> -->
                 <p>
-                  <button v-on:click.prevent="createInterest(ride)">
-                    <div v-if='ride.interested' style='color:red;'>
-                      Click to remove
-                    </div>
-                    <div v-else='!ride.interested' style='color:green;'>
-                      Click to add
-                    </div>
-                  </button>
-                  <!-- If clicked (someone is interested), change the button color using v-bind:class -->     
-                  <!-- Will need v-on:click to send interest to back-end / back-end is when it gets created. -->             
-                  <!-- Make sure to validate response before adding to array -->
-                  <!-- In attraction view, if attraction.interest userid = current id, interested = true -->
-                  <!-- From back-end, can make f-end change easier -->
+                  <div v-bind:class="{ addOrRemove: ride.interest }">   
+                    <button v-on:click.prevent="createInterest(ride)"> 
+                      Click to add 
+                    </button>        
+                  </div>
                   {{ ride.name }} <b> | </b>
                   <span v-if="ride.park === 'Epcot'" style="color: blue">
                     <b>{{ ride.park }}</b>
@@ -78,7 +76,7 @@
             <!-- </transition> -->
           </div>
           <button v-on:click.prevent="seeYourTrip()">Done</button>
-      <!-- </div> -->
+      </div>
     </form>
   </div>
 </template>
@@ -92,6 +90,7 @@ import axios from 'axios'
 export default {
   data: function() {
     return {
+      errors: [], 
       attraction_list: [],
       park_list: [],
 
@@ -99,8 +98,6 @@ export default {
       show2: false,
       tripCreated: false,
       isInterested: false,
-
-      counter: 0,
 
       newArrival: '', 
       newDeparture: '', 
@@ -110,7 +107,9 @@ export default {
 
       newTrip: [], 
       attractionsToAdd: [],
-      newInterest: []
+      newInterest: [],
+
+      added: false
     };
   },
   created: function() {
@@ -121,6 +120,11 @@ export default {
       this.park_list = response.data;
     })
   },
+  computed: {
+    addOrRemove: function() {
+      console.log(this.content['addOrRemove'] ? 'add' : 'remove');
+    }
+  },
   methods: {
     // toggle: function() {
     //   this.show = !this.show;
@@ -128,9 +132,12 @@ export default {
     // toggleParks: function() {
     //   this.show2 = !this.show2;
     // },
-    // isAdded() {
-    //   this.added = !this.added; 
-    // },
+    toAdd() {
+
+    },
+    toRemove() {
+
+    },
     seeYourTrip() {
       this.$router.push('/trips/' + this.newTrip.id);
     },
@@ -142,11 +149,11 @@ export default {
       }
       axios.post('/api/trips', params).then(response => {
         this.newTrip = response.data; 
+        this.tripCreated = true; 
       })
-      this.tripCreated = true; 
     }, 
+
     createInterest(inputRide) {
-      this.counter += 1; 
       inputRide.interested = !inputRide.interested;
       if (this.newTrip.id !== undefined) {
         var interestParams = {
@@ -154,21 +161,41 @@ export default {
             attraction_id: inputRide.id,
             start_time: this.dayAtPark + "T" + this.startTime +"Z"
           }
-        if (this.counter % 2 !== 0) {
-          console.log(this.counter);
-          axios.post('/api/interests', interestParams).then(response => {
-            alert(response.data.ride.name + " added successfully!");
-          })
-        } else {
-          console.log(this.counter);
-          axios.delete('/api/interests/' + inputRide.id).then(response => {
-            alert(response.data.ride.name + " removed successfully!"); 
-          });
-        }
+        axios.post('/api/interests', interestParams).then(response => {
+          alert(response.data.ride.name + " added successfully!");
+        })
       } else {
         setTimeout(createInterest(inputRide), 500);
       }
     }
+  // submit: function() {
+  //   var params = {
+  //     arrival_day: this.newArrival, 
+  //     departure_day: this.newDeparture,
+  //     max_wait_time: this.newMaxWait
+  //   }
+
+  //   axios.post('/api/trips', params).then(response => {
+  //     this.newTrip = response.data; 
+  //     this.tripCreated = true; 
+
+  //     var interestParams = {
+  //       trip_id: this.newTrip.id,
+  //       attraction_id: inputRide.id,
+  //       start_time: this.dayAtPark + "T" + this.startTime +"Z"
+  //     }      
+  //   })
+  //   .then(function (interestParams) {
+  //     axios.post('/api/interests/', interestParams).then(response => {
+  //       this.errors = errors
+  //     })
+  //   })
+  //     .catch(function (errors) {
+  //       for (var i = 0; i < errors.length; i ++) {
+  //         console.log(errors[i]);
+  //       }
+  //     });
+  //   }
   }
 };
 </script>

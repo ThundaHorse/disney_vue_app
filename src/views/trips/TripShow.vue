@@ -15,6 +15,7 @@
           <!-- leave-active-class="animated fadeOutUp">   -->
           <!-- <div v-if='show'> -->
             <h3 style='text-align: center; padding-right: 100px;'>{{ interest.park.name }}</h3>
+              {{ interest.formatted.formatted_start_time }}
             <p style='text-align: center;'><b>{{ interest.ride.name }}</b> | {{ interest.ride.duration }} minutes | 
             <span v-if="interest.ride.status === 'closed'" style="color: Red;">
               <b>{{ interest.ride.status }}</b>

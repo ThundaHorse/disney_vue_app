@@ -15,9 +15,9 @@
           <input v-model='trip.max_wait_time' type='integer' id='waitTime' v-bind:placeholder='trip.max_wait_time'>
             <br>
             <br>
-          <label for='addMoreAttractions'>Add More Attractions</label>
+          <label for='addMoreAttractions'>Add more Attractions</label>
             <br>
-           <button v-on:click.prevent='addMore()'>Add More</button>
+           <router-link v-bind:to="'/trips/add/' + trip.id">Attractions</router-link>
             <br>
             <br>
           <h2 style='text-align:center;'>Your Attractions</h2>
@@ -30,7 +30,6 @@
           enter-active-class="animated rotateInDownLeft" -->
           <!-- <!-- leave-active-class="animated rotateOutUpRight">   --> 
           <!-- <div v-if='show'> -->
-            
             <p v-if='int.trip_id === trip.id'>{{ int.ride.name }} | {{ int.ride.duration }} minutes | <br> <button v-on:click.prevent="remove(int)">Remove Attraction</button></p>
             <img v-if='int.trip_id === trip.id' v-bind:src="int.ride.image" v-bind:alt="int.ride.name" style="display: in-line block;">
           <!-- </div> -->
@@ -60,6 +59,9 @@ export default {
     return {
       trip: [],
       interests: [], 
+      inputArrival: "",
+      inputDeparture: "",
+      inputWait: "",
       show: false
     };
   },
