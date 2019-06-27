@@ -1,18 +1,19 @@
 <template>
   <div class='login'>
     <h1>Log In</h1>
-    <br>
-    <form v-on:submit.prevent='submit()'>
-      <ul>
-        <li v-for="error in errors">
-          {{ error }}
-        </li>
-      </ul>
-      <p>Email: <input type='text' v-model='email'></p>
-      <p>Password: <input type='password' v-model='password'></p>
-      <br>
-      <button v-on:click="submit()">Log In</button>
-    </form>
+    <div class="container">
+      <form v-on:submit.prevent='submit()'>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" v-model='email'>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password" v-model='password'>
+        </div>
+        <button type="submit" class="btn btn-primary" v-on:click='submit()'>Log In</button>
+      </form>
+    </div>
   </div>
 </template>
 

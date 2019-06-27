@@ -23,12 +23,17 @@
           <h2 style='text-align:center;'>Your Attractions</h2>
             <br>
         <div v-for="int in interests">      
-          <p v-if='int.trip_id === trip.id'>{{ int.ride.name }} | {{ int.ride.duration }} minutes | <br> <button v-on:click.prevent="remove(int)">Remove Attraction</button></p>
+          <p v-if='int.trip_id === trip.id'>{{ int.ride.name }} | {{ int.ride.duration }} minutes | 
+            <br> 
+            <button class='btn-sm btn-danger' v-on:click.prevent="remove(int)">
+              Remove Attraction
+            </button>
+        </p>
           <img v-if='int.trip_id === trip.id' v-bind:src="int.ride.image" v-bind:alt="int.ride.name" style="display: in-line block;">
         </div>
       <br>
       <br>
-    <button type='submit'>Update</button> 
+    <button class='btn btn-info' type='submit'>Update</button> 
   </form>
     </div>
   </div>

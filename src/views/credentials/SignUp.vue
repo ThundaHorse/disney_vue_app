@@ -1,24 +1,54 @@
 <template>
   <div class='sign-up'>
+      <br>
     <h1>Sign Up</h1>
-    <br>
-    <form v-on:submit.prevent='submit()'>
+      <br>
       <ul>
         <li v-for="error in errors">
           {{ error }}
         </li>
       </ul>
 
-      <p>First Name: <input type='firstName' v-model='firstName'></p>
-      <p>Last Name: <input type='lastName' v-model='lastName'></p>
-      <p>Email: <input type='email' v-model='email'></p>
-      <p>Image: <input type='text' v-model='image'></p>
-      <p>Phone Number: <input type='phoneNumber' v-model='phoneNumber'></p>
-      <p>Password: <input type='password' v-model='password'></p>
-      <p>Password Confirmation: <input type='password' v-model='passwordConfirmation'></p>
-  
-      <input type="submit" value="submit">
-    </form>
+    <div class="container">
+      <form v-on:submit.prevent="update()">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <p style='text-align: left;'>First Name</p>
+              <input v-model="firstName" type="text" class="form-control" id="fistName" placeholder="First Name">
+            </div>
+
+            <div class="form-group col-md-6">
+              <p style='text-align: left;'>Last Name</p>
+              <input v-model="lastName" type="text" class="form-control" id="lastName" placeholder="Last Name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <p style='text-align:left;'>Email</p>
+            <input v-model="email" type="email" class="form-control" id="email" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <p style='text-align:left;'>Phone Number</p>
+            <input v-model="phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="Phone Number">
+          </div>
+          <div class="form-group">
+            <p style='text-align: left;'>Image</p>
+            <input v-model="image" type="text" class="form-control" id="image" placeholder="Image URL">
+          </div>
+          <div class="form-row">
+              <div class="form-group col-md-6">
+                <p style='text-align: left;'>Password</p>
+                <input v-model="password" type="password" class="form-control" id="password" placeholder="Password">
+              </div>
+
+              <div class="form-group col-md-6">
+                <p style='text-align: left;'>Password Confirmation</p>
+                <input v-model="passwordConfirmation" type="password" class="form-control" id="passwordConfirmation" placeholder="Confirm Password">
+              </div>
+          </div>
+      </form>
+      <button v-on:click="submit()" class="btn btn-primary">Sign Up</button>
+    </div>
   </div>
 </template>
 
@@ -42,7 +72,10 @@ export default {
     };
   },
   created: function() {
-
+    if (localStorage.getItem('jwt')) {
+      alert("You are already signed in!")
+      this.$router.push('/trips')
+    }
   },
   methods: {
     submit: function() {

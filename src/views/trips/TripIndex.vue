@@ -3,43 +3,50 @@
   <div class="container">
     <h1>Your Trips</h1>
       <br>
+
       <div v-if="trips == ''">
         <h1>You have no trips currently, lets plan a trip!</h1>
-        <router-link to='/trips/new'>Click here</router-link>
+          <br>
+        <button class='btn-lg btn-info' v-on:click.prevent='route()'>Add Trips</button>
       </div>
+
     <div v-for="trip in trips">
       <br>
       <h1>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h1> 
-      <p><router-link v-bind:to="'/trips/' + trip.id">View this trip</router-link></p>
+      <router-link v-bind:to="'/trips/' + trip.id">
+        <button class='btn-md btn-primary'>
+          View This Trip
+        </button>
+      </router-link>
       <h1>Your Parks & Attractions</h1>
     <div v-for='int in interests'>
       <div v-if="int.trip_id === trip.id">
       <h4>{{ int.formatted.formatted_start_time }}</h4>
-      <p>{{ int.ride.name }} | 
-        <span v-if="int.park.name === 'Epcot'" style="color: blue">                
-          <b>{{ int.park.name }}</b>
-        </span>
-        <span v-if="int.park.name === 'Magic Kingdom'" style="color: red">
-          <b>{{ int.park.name }}</b>
-        </span>
-        <span v-if="int.park.name === 'Hollywood Studios'" style="color: orange">
-          <b>{{ int.park.name }}</b>
-        </span>
-        <span v-if="int.park.name === 'Animal Kingdom'" style="color: green">
-          <b>{{ int.park.name }}</b>
-        </span>
-      </p>
-    </div>
+        <p>{{ int.ride.name }} • 
+          <span v-if="int.park.name === 'Epcot'" style="color: blue">                
+            <b>{{ int.park.name }}</b>
+          </span>
+          <span v-if="int.park.name === 'Magic Kingdom'" style="color: red">
+            <b>{{ int.park.name }}</b>
+          </span>
+          <span v-if="int.park.name === 'Hollywood Studios'" style="color: orange">
+            <b>{{ int.park.name }}</b>
+          </span>
+          <span v-if="int.park.name === 'Animal Kingdom'" style="color: green">
+            <b>{{ int.park.name }}</b>
+          </span>
+        </p>
+      </div>
     </div>
       <br>
       <span>
-        <button>
-          <router-link v-bind:to="'/trips/edit/' + trip.id">
-            Edit this Trip
-          </router-link>
-        </button>
-        |
-        <button v-on:click="deleteTrip(trip)">
+        <router-link v-bind:to="'/trips/edit/' + trip.id">
+          <button class='btn btn-primary'>
+              Edit this Trip
+          </button>
+        </router-link>
+        •
+        <button class='btn btn-danger' v-on:click="deleteTrip(trip)">
           Delete Trip
         </button>
       </span>
@@ -50,9 +57,6 @@
 </template>
 
 <style>
-  h2 {
-    padding-left: 150px;
-  }
   .container {
     text-align: center;
   }
@@ -91,6 +95,9 @@ export default {
         var index = this.trips.indexOf(trip);
         this.trips.splice(index, 1);
       })
+    },
+    route() {
+      this.$router.push('/trips/new')
     }
   }
 };

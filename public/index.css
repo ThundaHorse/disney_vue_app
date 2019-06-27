@@ -1,29 +1,26 @@
-#nav {
-  text-align: center;
-}
-
 body {
-  background-color: lightslategray;
+  background-image: url('https://wallpaperplay.com/walls/full/a/0/7/198394.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 h2, h3, h4 {
-  color: gold;
+  color: rgb(255, 255, 255);
+  -webkit-text-stroke: 0.4px;
+  -webkit-text-stroke-color: black;
   text-decoration: underline;
-  text-decoration-color: hotpink;
 }
 
 h1 {
-  color: burlywood;
+  color: white;
+  -webkit-text-stroke: 0.4px;
+  -webkit-text-stroke-color: black;
 }
 
 p {
-  color: greenyellow;
+  color: rgb(0, 0, 0);
 }
 
 li {
-  color: lightgoldenrodyellow;
-}
-
-button {
-  background-color: darkgray;
+  color: rgb(43, 43, 42);
 }

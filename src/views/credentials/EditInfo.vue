@@ -3,21 +3,40 @@
     <h1>Edit Your Info</h1>
       <p id="image"><img v-bind:src="data.image" id="profile-pic" v-bind:alt="data.first_name"></p>
 
-      <form v-on:submit.prevent="update()">
-        <h3 id="editPage">First Name: <input v-model='personalInfo.firstName' type='text' id='firstName' v-bind:placeholder="data.first_name"></h3>
+      <div class="container">
+        <form v-on:submit.prevent="update()">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="firstName">First Name</label>
+              <input v-model="personalInfo.firstName" type="text" class="form-control" id="fistName" v-bind:placeholder="data.first_name">
+            </div>
 
-        <h3 id="editPage">Last Name: <input v-model='personalInfo.lastName' type='text' id='lastName' v-bind:placeholder="data.last_name"></h3>
+            <div class="form-group col-md-6">
+              <label for="lastName">Last Name</label>
+              <input v-model="personalInfo.lastName" type="text" class="form-control" id="lastName" v-bind:placeholder="data.last_name">
+            </div>
 
-        <h3 id="editPage">Email: <input v-model='personalInfo.email' type='text' id='email' v-bind:placeholder="data.email"></h3>
+          </div>
 
-        <h3 id="editPage">Phone Number: <input v-model='personalInfo.phone_number' type='text' id='phoneNumber' v-bind:placeholder="data.phone_number"></h3>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" v-bind:placeholder="data.email">
+          </div>
 
-        <h3 id="editPage">Image: <input v-model='personalInfo.image' type='text' id='image' v-bind:placeholder="data.image"></h3>
-        
-        <div id="button-align">
-          <button type="submit">Update Info</button>
-        </div>
-      </form>
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" class="form-control" id="phoneNumber" v-bind:holder="data.phone_number">
+          </div>
+
+          <div class="form-group">
+            <label for="image">Image</label>
+            <input type="text" class="form-control" id="image" v-bind:holder="data.image">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Update info</button>
+        </form>
+      </div>
+      
     </div>
 </template>
 
@@ -32,17 +51,6 @@
   h1 {
     text-align: center;
   }
-  input {
-    border-radius: 10px;
-  }
-  h3#editPage {
-    text-align: center;
-    padding-right: 100px;
-  }
-  #button-align {
-    text-align: center;
-  }
-
 </style>
 
 <script>
