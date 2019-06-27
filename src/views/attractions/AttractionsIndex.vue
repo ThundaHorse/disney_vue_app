@@ -2,11 +2,10 @@
   <div class='attractions-index'>
     <div class="container">
 
-      <h1>Attractions</h1>
-
+      <h1>Attractions</h1>        
         <div v-for="attraction in attractions">
           <!-- {{ attraction.anticipated_wait_time }} -->
-          <p><router-link v-bind:to="'/attractions' + attraction.id">{{ attraction.name }} | </router-link>
+          <p><router-link v-bind:to="'/attractions/' + attraction.id">{{ attraction.name }} | </router-link>
             <span v-bind:class="{
                                   'operational-status': attraction.status === 'operational', 
                                   'maintenance-status':  attraction.status === 'maintenance',

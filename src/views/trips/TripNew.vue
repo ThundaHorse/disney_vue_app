@@ -14,7 +14,7 @@
             </button>
           </div>
           <div v-else="tripCreated === true">
-            <p2>Dates have been saved! Please select your attractions below!</p2>
+            <p>Dates have been saved! Please select your attractions below!</p>
           </div>
           <br>
         <h4 id='parks'>Parks: 
@@ -41,6 +41,8 @@
         </h4>
           <h4>Attractions to Add:</h4>
             <div v-for='ride in attraction_list'>
+              <!-- {{ ride.interested }} -->
+              {{ attraction_list }}
               <p>
                 <div v-if="!ride.interested" class="to-add">
                   <button class='btn-sm btn-success' v-on:click.prevent="createInterest(ride)"> 
@@ -160,10 +162,10 @@ export default {
             attraction_id: inputRide.id,
             start_time: this.dayAtPark + "T" + this.startTime +"Z"
           }
-        axios.post('/api/interests', interestParams).then(response => {
-          this.addedInterest = response.data
-          console.log(response.data.ride.name + " added successfully!");
-        })
+        // // axios.post('/api/interests', interestParams).then(response => {
+          // this.addedInterest = response.data
+          // // console.log(response.data.ride.name + " added successfully!");
+        // })
       } else {
         alert("Please create a trip first"); 
         setTimeout(createInterest(inputRide), 500);
@@ -171,9 +173,9 @@ export default {
     },
     removeInterest(inputRide) {
       inputRide.interested = !inputRide.interested;
-      axios.delete('/api/interests/' + this.addedInterest.id).then(response => {
-        console.log("Removed successfully!");
-      })
+      // // axios.delete('/api/interests/' + this.addedInterest.id).then(response => {
+        // console.log("Removed successfully!");
+      // })
     }
   }
 };

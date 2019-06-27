@@ -33,7 +33,7 @@
             <!-- <div class="form-group col-md-6"> -->
               <p style='text-align: left;'>Avatar</p>
               <div>
-                <input type="file" v-on:change="setFile($event)" ref="fileInput" class="form-control" id="avatar">
+                <input type="file" v-on:change="setFile($event)" ref="fileInput2" class="form-control" id="avatar">
               </div>
             <!-- </div> -->
 
@@ -51,7 +51,6 @@
           </div>
         <input type='submit' value='Sign Up'>
       </form>
-      <!-- <button v-on:click="submit()" class="btn btn-primary">Sign Up</button> -->
     </div>
   </div>
 </template>
@@ -72,19 +71,17 @@ export default {
         phoneNumber: '',
         avatar: '',
         password: '',
-        passwordConfirmation: '',
+        passwordConfirmation: ''
       },
       errors: [],
-      users: []
+      user: []
     };
   },
   created: function() {
-    // axios.get('/api/users').then(response => {
-    //   this.users = response.data
-    // })
+   
   },
   methods: {
-    setFile(event) {
+    setFile: function() {
       if (event.target.files.length > 0) {
         this.newInput.avatar = event.target.files[0];
       }
@@ -92,17 +89,18 @@ export default {
     submit: function() {
       var params = new FormData();
         params.append('avatar', this.newInput.avatar); 
-        params.append('first_name', this.firstName);
+        params.append('first_name', this.newInput.firstName);
         params.append('last_name', this.newInput.lastName);
-        params.append('phone_number', this.phoneNumber);
+        params.append('phone_number', this.newInput.phoneNumber);
         params.append('email', this.newInput.email); 
         params.append('password', this.newInput.password);
-        params.append('password_confirmation', this.newInput.password_confirmation); 
-
+        params.append('password_confirmation', this.newInput.passwordConfirmation); 
 
       axios.post('/api/users', params) 
-        .then(response => {    
-          this.user = response.data;     
+        .then(response => {     
+          alert('Signed up successfully!')
+
+          this.user = response.data;   
           // this.$router.push('/trips'); 
         })
         .catch(error => {
