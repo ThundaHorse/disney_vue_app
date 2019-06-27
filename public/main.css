@@ -1,5 +1,8 @@
 body {
-  background-image: url('https://wallpaperplay.com/walls/full/a/0/7/198394.jpg');
+  background-image: url('./disney/cloudCaste.jpg');
+  
+  /* background-image: url('./disney/'); */
+  background-position-x: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }

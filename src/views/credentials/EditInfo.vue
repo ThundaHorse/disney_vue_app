@@ -1,10 +1,14 @@
 <template>
   <div class='edit-info'>
     <h1>Edit Your Info</h1>
-      <p id="image"><img v-bind:src="data.image" id="profile-pic" v-bind:alt="data.first_name"></p>
-
+      <p id="image"><img v-bind:src="data.avatar" id="profile-pic" v-bind:alt="data.first_name"></p>
+       
       <div class="container">
         <form v-on:submit.prevent="update()">
+
+        <div>
+          Avatar: <input type="file" v-on:change="setFile($event)" ref="fileInput">
+        </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="firstName">First Name</label>
@@ -20,20 +24,14 @@
 
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" v-bind:placeholder="data.email">
+            <input v-model='personalInfo.email' type="email" class="form-control" id="email" v-bind:placeholder="data.email">
           </div>
 
           <div class="form-group">
             <label for="phoneNumber">Phone Number</label>
-            <input type="text" class="form-control" id="phoneNumber" v-bind:holder="data.phone_number">
+            <input v-model='personalInfo.phoneNumber' type="text" class="form-control" id="phoneNumber" v-bind:holder="data.phone_number">
           </div>
-
-          <div class="form-group">
-            <label for="image">Image</label>
-            <input type="text" class="form-control" id="image" v-bind:holder="data.image">
-          </div>
-
-          <button type="submit" class="btn btn-primary">Update info</button>
+          <input type="submit" value="Submit">
         </form>
       </div>
       
@@ -66,7 +64,7 @@ export default {
         lastName: '',
         email: '',
         phoneNumber: '', 
-        image: ''
+        avatar: ''
       }
     };
   },
@@ -81,14 +79,19 @@ export default {
     }
   },
   methods: {
-    update() {
-      var params = {
-        first_name: this.personalInfo.firstName || this.data.first_name,
-        last_name: this.personalInfo.lastName || this.data.last_name,
-        email: this.personalInfo.email || this.data.email,
-        phone_number: this.personalInfo.phoneNumber || this.data.phone_number,
-        image: this.personalInfo.image || this.data.image
+    setFile: function() {
+      if (event.target.files.length > 0) {
+        this.personalInfo.avatar = event.target.files[0]; 
       }
+    },
+    update() {
+      var params = new FormData();
+        params.append('avatar', this.personalInfo.avatar);
+        params.append('first_name', this.personalInfo.firstName);
+        params.append('last_name', this.personalInfo.lastName);
+        params.append('email', this.personalInfo.email);
+        params.append('phone_number', this.personalInfo.phoneNumber);
+
       axios.patch('/api/users/' + this.data.id, params).then(response => {
         alert("Updated!")
         this.data = response.data

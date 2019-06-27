@@ -8,46 +8,50 @@
           {{ error }}
         </li>
       </ul>
-
     <div class="container">
-      <form v-on:submit.prevent="update()">
+      <form v-on:submit.prevent="submit()">
           <div class="form-row">
             <div class="form-group col-md-6">
               <p style='text-align: left;'>First Name</p>
-              <input v-model="firstName" type="text" class="form-control" id="fistName" placeholder="First Name">
+              <input v-model="newInput.firstName" type="text" class="form-control" id="fistName" placeholder="First Name">
+            </div>
+            <div class="form-group col-md-6">
+              <p style='text-align: left;'>Last Name</p>
+              <input v-model="newInput.lastName" type="text" class="form-control" id="lastName" placeholder="Last Name">
+            </div>
+          </div>
+          <div class="form-group">
+            <p style='text-align:left;'>Email</p>
+            <input v-model="newInput.email" type="email" class="form-control" id="email" placeholder="Email">
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <p style='text-align:left;'>Phone Number</p>
+              <input v-model="newInput.phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="Phone Number">
+            </div>
+
+            <!-- <div class="form-group col-md-6"> -->
+              <p style='text-align: left;'>Avatar</p>
+              <div>
+                <input type="file" v-on:change="setFile($event)" ref="fileInput" class="form-control" id="avatar">
+              </div>
+            <!-- </div> -->
+
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <p style='text-align: left;'>Password</p>
+              <input v-model="newInput.password" type="password" class="form-control" id="password" placeholder="Password">
             </div>
 
             <div class="form-group col-md-6">
-              <p style='text-align: left;'>Last Name</p>
-              <input v-model="lastName" type="text" class="form-control" id="lastName" placeholder="Last Name">
+              <p style='text-align: left;'>Password Confirmation</p>
+              <input v-model="newInput.passwordConfirmation" type="password" class="form-control" id="passwordConfirmation" placeholder="Confirm Password">
             </div>
           </div>
-
-          <div class="form-group">
-            <p style='text-align:left;'>Email</p>
-            <input v-model="email" type="email" class="form-control" id="email" placeholder="Email">
-          </div>
-          <div class="form-group">
-            <p style='text-align:left;'>Phone Number</p>
-            <input v-model="phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="Phone Number">
-          </div>
-          <div class="form-group">
-            <p style='text-align: left;'>Image</p>
-            <input v-model="image" type="text" class="form-control" id="image" placeholder="Image URL">
-          </div>
-          <div class="form-row">
-              <div class="form-group col-md-6">
-                <p style='text-align: left;'>Password</p>
-                <input v-model="password" type="password" class="form-control" id="password" placeholder="Password">
-              </div>
-
-              <div class="form-group col-md-6">
-                <p style='text-align: left;'>Password Confirmation</p>
-                <input v-model="passwordConfirmation" type="password" class="form-control" id="passwordConfirmation" placeholder="Confirm Password">
-              </div>
-          </div>
+        <input type='submit' value='Sign Up'>
       </form>
-      <button v-on:click="submit()" class="btn btn-primary">Sign Up</button>
+      <!-- <button v-on:click="submit()" class="btn btn-primary">Sign Up</button> -->
     </div>
   </div>
 </template>
@@ -61,42 +65,50 @@ import axios from 'axios'
 export default {
   data: function() {
     return {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phoneNumber: '',
-      image: '',
-      password: '',
-      passwordConfirmation: '',
-      errors: []
+      newInput: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        avatar: '',
+        password: '',
+        passwordConfirmation: '',
+      },
+      errors: [],
+      users: []
     };
   },
   created: function() {
-    if (localStorage.getItem('jwt')) {
-      alert("You are already signed in!")
-      this.$router.push('/trips')
-    }
+    // axios.get('/api/users').then(response => {
+    //   this.users = response.data
+    // })
   },
   methods: {
+    setFile(event) {
+      if (event.target.files.length > 0) {
+        this.newInput.avatar = event.target.files[0];
+      }
+    },
     submit: function() {
-      var params = {
-        first_name: this.firstName,
-        last_name: this.lastName, 
-        email: this.email, 
-        phone_number: this.phoneNumber, 
-        image: this.image, 
-        password: this.password, 
-        password_confirmation: this.passwordConfirmation
-      };
+      var params = new FormData();
+        params.append('avatar', this.newInput.avatar); 
+        params.append('first_name', this.firstName);
+        params.append('last_name', this.newInput.lastName);
+        params.append('phone_number', this.phoneNumber);
+        params.append('email', this.newInput.email); 
+        params.append('password', this.newInput.password);
+        params.append('password_confirmation', this.newInput.password_confirmation); 
+
 
       axios.post('/api/users', params) 
-        .then(response => {
-          this.$router.push('/trips'); 
+        .then(response => {    
+          this.user = response.data;     
+          // this.$router.push('/trips'); 
         })
         .catch(error => {
           this.errors = error.response.data.errors; 
         }); 
-    }
+    } 
   }
 };
 </script>
