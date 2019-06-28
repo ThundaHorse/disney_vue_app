@@ -1,7 +1,7 @@
 <template>
   <div class='edit-info'>
     <h1>Edit Your Info</h1>
-      <p id="image"><img v-bind:src="data.avatar" id="profile-pic" v-bind:alt="data.first_name"></p>
+      <p id="image"><img v-bind:src="data.avatar" id="profile-pic" v-bind:alt="data.first_name" class='rounded-pill border-0'></p>
        
       <div class="container">
         <form v-on:submit.prevent="update()">
@@ -42,7 +42,6 @@
 
 <style>
   img#profile-pic {
-    border-radius: 30%;
     display: inline-block;
   }
   p#image {
@@ -97,7 +96,7 @@ export default {
       axios.patch('/api/users/' + this.data.id, params).then(response => {
         alert("Updated!")
         this.data = response.data
-        this.$router.push('/trips')
+        this.$router.push('/info')
       }).catch(errors => {
         this.errors = errors
         console.log(this.errors);

@@ -2,6 +2,9 @@
   <div class='login'>
     <h1>Log In</h1>
     <div class="container">
+      <ul v-for='error in errors'>
+        <li>{{ error }}</li>
+      </ul>
       <form v-on:submit.prevent='submit()'>
         <div class="form-group">
           <label for="email">Email address</label>

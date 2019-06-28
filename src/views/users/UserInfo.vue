@@ -4,7 +4,7 @@
     <div class='container'>
       <h1>Your Info</h1>
         <br>
-        <img v-bind:src="user.avatar" v-bind:alt="user.first_name" style="float:left; display: absolute;">
+        <img v-bind:src="user.avatar" v-bind:alt="user.first_name" style="float:left; display: absolute;" class='rounded-pill border-0'>
       <h4>Yo: {{ user.first_name }} {{ user.last_name }}</h4>
       <h4>Email: {{ user.email }}</h4>
       <h4>Phone number: {{ user.phone_number }}</h4>

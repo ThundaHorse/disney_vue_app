@@ -30,7 +30,7 @@
 
 <style>
   img.show { 
-    max-width: 45rem;
+    max-width: 55rem;
   }
 </style>
 

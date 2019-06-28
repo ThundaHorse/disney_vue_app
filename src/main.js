@@ -4,7 +4,9 @@ import App from './App.vue'
 import axios from 'axios'
 import Datetime from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
+import BackToTop from 'vue-backtotop'
 
+Vue.use(BackToTop)
 Vue.use(Datetime)
 
 axios.defaults.baseURL =
