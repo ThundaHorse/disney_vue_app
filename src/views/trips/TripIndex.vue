@@ -7,7 +7,7 @@
       <div v-if="trips == ''">
         <h1>You have no trips currently, lets plan a trip!</h1>
           <br>
-        <button class='btn-lg btn-info' v-on:click.prevent='route()'>Add Trips</button>
+        <button class='btn-lg btn-primary btn-outline-light' v-on:click.prevent='route()'>Add Trips</button>
       </div>
 
     <div v-for="trip in trips">

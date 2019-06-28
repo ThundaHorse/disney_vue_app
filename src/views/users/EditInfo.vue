@@ -7,8 +7,10 @@
         <form v-on:submit.prevent="update()">
 
         <div>
-          Avatar: <input type="file" v-on:change="setFile($event)" ref="fileInput">
+          <label for="avatarUpload">Select your photo</label>
+          Avatar: <input class='form-control-file' id='avatarUpload' type="file" v-on:change="setFile($event)" ref="fileInput">
         </div>
+        
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="firstName">First Name</label>

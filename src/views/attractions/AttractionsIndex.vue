@@ -4,7 +4,7 @@
 
       <h1>Attractions</h1>   
       <div>
-        Search by Thing: <input v-model="searchFilter">
+        Search by Thing: <input v-model="searchFilter" style='border-radius: 10px;'>
       </div>
       <table class="table table-striped table-dark mt-2">
         <thead>
@@ -53,7 +53,6 @@
           </tr>
         </tbody>
       </table>
-
     </div>
   </div>
 </template>
@@ -102,7 +101,7 @@
     color: greenyellow;
   }
   table {
-    opacity: 0.9;
+    opacity: 0.8;
   }
 
 </style>
@@ -136,7 +135,7 @@ export default {
     },
     isAscending: function(inputAttribute) {
       if (this.sortAttribute === inputAttribute) {
-        return this.sortAscending === 1 ? "⬆️" : "⬇️"; 
+        return this.sortAscending === 1 ? "^" : "v"; 
       }
     }
   },

@@ -33,7 +33,8 @@
             <!-- <div class="form-group col-md-6"> -->
               <p style='text-align: left;'>Avatar</p>
               <div>
-                <input type="file" v-on:change="setFile($event)" ref="fileInput2" class="form-control" id="avatar">
+                <label for="avatar">Upload a photo</label>
+                <input type="file" v-on:change="setFile($event)" ref="fileInput2" class="form-control-file" id="avatar">
               </div>
             <!-- </div> -->
 
@@ -49,7 +50,7 @@
               <input v-model="newInput.passwordConfirmation" type="password" class="form-control" id="passwordConfirmation" placeholder="Confirm Password">
             </div>
           </div>
-        <input type='submit' value='Sign Up'>
+        <input type='submit' class='btn-lg btn-primary' value='Sign Up'>
       </form>
     </div>
   </div>
