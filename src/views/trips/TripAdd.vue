@@ -6,14 +6,18 @@
         <p>
           Enter Time you would like to attend at: 
           <datetime v-model="startTime" type="time"></datetime>
-          <button class="btn-sm mr-4 btn-primary" v-on:click.prevent="handler(ride, interested)">
-            <div v-if="interested === true">
-              Added! 
-            </div> 
-            <div v-else>
-              Click to add 
-            </div>
-          </button>        
+
+          <div v-if="!ride.interested" class="to-add">
+            <button class='btn-sm btn-success' v-on:click.prevent="createInterest(ride)"> 
+              Click to add
+            </button>        
+          </div>
+          <div v-else class="to-remove">
+            <button class='btn-sm btn-danger' v-on:click.prevent="removeInterest(ride)">
+              Click to Remove 
+            </button>
+          </div>
+
           {{ ride.name }} <b> | </b>
           <span v-if="ride.park === 'Epcot'" style="color: blue">
             <b>{{ ride.park }}</b>
@@ -47,7 +51,8 @@ export default {
       trip: [],
       attractions: [],
       startTime: '',
-      interested: false 
+      interested: false,
+      addedInterest: []
     };
   },
   created: function() {
@@ -64,16 +69,17 @@ export default {
         var interestParams = {
           trip_id: this.trip.id,
           attraction_id: inputRide.id,
-          start_time: this.startTime
+          start_time: this.startTime + "Z"
         }
-      axios.post('/api/interests', interestParams)
+      axios.post('/api/interests', interestParams).then(response => {
+        this.addedInterest = response.data
+      })
     },
-    switcher: function() {
-      this.interested = !this.interested;
-    },
-    handler: function(arg1, arg2) {
-      this.createInterest(arg1);
-      this.switcher(arg2);
+    removeInterest(inputRide) {
+      inputRide.interested = !inputRide.interested
+      axios.delete('/api/interests/' + this.addedInterest.id).then(response => {
+        console.log("Removed successfully!");
+      })
     }
   }
 };

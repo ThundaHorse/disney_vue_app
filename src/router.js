@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Home from './views/Home.vue'
+
 import SignUp from './views/credentials/SignUp.vue' 
 import Logout from './views/credentials/Logout.vue' 
 import Login from './views/credentials/Login.vue'
@@ -28,6 +30,8 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    { path: '/', name: 'home', component: Home },
+
     { path: '/trips', name: 'trips-index', component: TripIndex },
     { path: '/trips/new', name: 'trip-new', component: TripNew },
     { path: '/trips/:id', name: 'trip-show', component: TripShow },
