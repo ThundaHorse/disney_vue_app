@@ -21,7 +21,7 @@
         </h4>
           <div v-for='park in park_list'>
             <p>
-              <span v-if="park.name === 'Epcot'" style="color: blue">                
+              <span v-if="park.name === 'Epcot'" style="color: blue">               
                 <b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b>
               </span>
               <span v-if="park.name === 'Magic Kingdom'" style="color: pink">

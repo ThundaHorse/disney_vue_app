@@ -1,12 +1,18 @@
 <template>
   <div class='trip-add'>
+    <div class='container'>
     <h1>Trip {{ trip.id }}</h1>
       <div v-for='ride in attractions'>
         <p>
           Enter Time you would like to attend at: 
           <datetime v-model="startTime" type="time"></datetime>
-          <button v-on:click.prevent="createInterest(ride)"> 
-            Click to add 
+          <button class="btn-sm mr-4 btn-primary" v-on:click.prevent="handler(ride, interested)">
+            <div v-if="interested === true">
+              Added! 
+            </div> 
+            <div v-else>
+              Click to add 
+            </div>
           </button>        
           {{ ride.name }} <b> | </b>
           <span v-if="ride.park === 'Epcot'" style="color: blue">
@@ -25,6 +31,7 @@
     </div>
     
     <button class='btn btn-info'><router-link v-bind:to="'/trips/' + this.trip.id">Done</router-link></button>
+    </div>
   </div>
 </template>
 
@@ -39,7 +46,8 @@ export default {
     return {
       trip: [],
       attractions: [],
-      startTime: ''
+      startTime: '',
+      interested: false 
     };
   },
   created: function() {
@@ -58,10 +66,14 @@ export default {
           attraction_id: inputRide.id,
           start_time: this.startTime
         }
-
-      axios.post('/api/interests', interestParams).then(response => {
-        alert(response.data.ride.name + " added successfully!");
-      })
+      axios.post('/api/interests', interestParams)
+    },
+    switcher: function() {
+      this.interested = !this.interested;
+    },
+    handler: function(arg1, arg2) {
+      this.createInterest(arg1);
+      this.switcher(arg2);
     }
   }
 };

@@ -2,7 +2,6 @@
   <div class='home'>
     <div class="container">
         <br>
-        {{ attraction }}
       <h1>{{ attraction.name }}</h1>
       <div style='overflow: hidden;'>
         <h3 style='float: left;'>Located in:</h3>
@@ -25,7 +24,7 @@
 </template>
 
 <style>
-  img#showPage {
+  img.showPage {
     height: 100%;
     width: 100%;
   }
@@ -37,8 +36,7 @@ import axios from 'axios'
 export default {
   data: function() {
     return {
-      attraction: [],
-      testInfo: []
+      attraction: []
     };
   },
   created: function() {

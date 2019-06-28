@@ -8,13 +8,22 @@
         <p id="title">{{ park.address }}</p>
         <p id="title"><b>Open</b>: {{ park.formatted.opening }} | <b>Close</b>: {{ park.formatted.closing }}</p>
       <h1>Attraction List</h1>
-      <p class ='show' v-for="attraction in park.attractions">
-        {{ attraction.name }}
+
+    <!-- <div v-for='attr in park.attractions'>
+      <div v-for="permalink in park.short"> -->
+        <!-- {{ permalink.name }} -->
+        <!-- {{ attr.name }} -->
+        <!-- <div v-if='attr.name === permalink.name'> -->
+          <!-- {{ permalink.permalink }} -->
+          <!-- {{ attr.name }} -->
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- </div> -->
+      <p class ='show' v-for="attraction in park.attractions"> 
+        {{ attraction.name }} 
       </p>
       <br>
     </div>
-
-
 
   </div>
 </template>
