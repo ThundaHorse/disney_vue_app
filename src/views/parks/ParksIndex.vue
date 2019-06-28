@@ -14,13 +14,14 @@
         <div class="container">
         <h1 class="display-4">{{ park.name }}</h1>
           <p class="lead">{{ park.formatted.opening}} to {{ park.formatted.closing }}</p>
-        <hr class="my-4">
+        <hr class="my-3">
           <p>{{ park.address }}</p>
-          <a v-on:click.prevent="parkPage(park)" class="btn btn-primary btn-lg" role="button">Learn more</a>
+          <a v-on:click.prevent="parkPage(park)" class="btn btn-primary btn-lg" role="button">
+            Learn more
+          </a>
         </div>
       </div>
     </div>
-    
       <br>
     </div>
     </div>
@@ -36,6 +37,8 @@
     background-size: 100% 100%;
     opacity: 0.8;
   } */
+/* 1078 x 257 */
+
   .magic .jumbotron {
     background: url("https://ewscripps.brightspotcdn.com/dims4/default/3c6b07a/2147483647/strip/true/crop/600x338+0+1/resize/1280x720!/quality/90/?url=https%3A%2F%2Fewscripps.brightspotcdn.com%2F05%2Fd3%2F8bdb71a64d7f88d9ed004a312c93%2Fdisney-fireworks.jpg") no-repeat center center; 
     -webkit-background-size: 100% 100%;

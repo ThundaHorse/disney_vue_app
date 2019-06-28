@@ -22,9 +22,7 @@ import ParksIndex from './views/parks/ParksIndex.vue'
 import AttractionsIndex from './views/attractions/AttractionsIndex.vue'
 import AttractionShow from './views/attractions/AttractionShow.vue'
 
-
 Vue.use(Router)
-
 
 export default new Router({
   mode: 'history',

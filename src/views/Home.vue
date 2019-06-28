@@ -1,11 +1,6 @@
 <template>
   <div class='home'>
-    <div class="container">
-        <br>
-      <h1>Welcome to your Disney Trip Planner!</h1>
-        <br>
-      <p>placeholder</p>
-    </div>
+    <h1>Message</h1>
   </div>
 </template>
 
