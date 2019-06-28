@@ -5,6 +5,9 @@ import SignUp from './views/credentials/SignUp.vue'
 import Logout from './views/credentials/Logout.vue' 
 import Login from './views/credentials/Login.vue'
 
+import EditInfo from './views/users/EditInfo.vue'
+import UserInfo from './views/users/UserInfo.vue'
+
 import TripIndex from './views/trips/TripIndex.vue'
 import TripShow from './views/trips/TripShow.vue'
 import TripEdit from './views/trips/TripEdit.vue'
@@ -13,6 +16,9 @@ import TripAdd from './views/trips/TripAdd.vue'
 
 import ParksShow from './views/parks/ParksShow.vue'
 import ParksIndex from './views/parks/ParksIndex.vue' 
+
+import AttractionsIndex from './views/attractions/AttractionsIndex.vue'
+import AttractionShow from './views/attractions/AttractionShow.vue'
 
 
 Vue.use(Router)
@@ -32,7 +38,13 @@ export default new Router({
     { path: '/logout', name: 'logout', component: Logout }, 
     { path: '/signup', name: 'sign-up', component: SignUp },
 
+    { path: '/info', name: 'user-info', component: UserInfo },
+    { path: '/edit-info', name: 'user-edit', component: EditInfo }, 
+
     {path: '/parks', name: 'parks-index', component: ParksIndex },
-    { path: '/parks/:id', name: 'parks-show', component: ParksShow }
+    { path: '/parks/:id', name: 'parks-show', component: ParksShow },
+
+    { path: '/attractions', name: 'attractions-index', component: AttractionsIndex},
+    { path: '/attractions/:id', name: 'attraction-show', component: AttractionShow }
   ]
 })

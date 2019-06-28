@@ -14,6 +14,7 @@ export default {
     delete axios.defaults.headers.common["Authorizations"];
     localStorage.removeItem("jwt");
     localStorage.removeItem('user_id');
+    alert("Logged out succesfully!")
     this.$router.push("/login");
   }
 };
