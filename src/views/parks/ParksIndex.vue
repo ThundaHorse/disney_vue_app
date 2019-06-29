@@ -44,8 +44,8 @@
     -webkit-background-size: 100% 100%;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
-    background-size: 100% 100%;
-    opacity: 0.8;
+    background-size: 75% 100%;
+    opacity: 0.9;
     color: white; 
     -webkit-text-stroke:0.9px; 
     -webkit-text-stroke-color: black;
@@ -55,8 +55,8 @@
     -webkit-background-size: 100% 100%;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
-    background-size: 100% 100%;
-    opacity: 0.8;
+    background-size: 75% 100%;
+    opacity: 0.9;
     color: white; 
     -webkit-text-stroke:0.9px; 
     -webkit-text-stroke-color: white;
@@ -66,8 +66,8 @@
     -webkit-background-size: 100% 100%;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
-    background-size: 100% 100%;
-    opacity: 0.8;
+    background-size: 85% 100%;
+    opacity: 0.9;
     color: white; 
     -webkit-text-stroke:0.9px; 
     -webkit-text-stroke-color: white;
@@ -77,8 +77,8 @@
     -webkit-background-size: 100% 100%;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
-    background-size: 100% 100%;
-    opacity: 0.8;
+    background-size: 85% 100%;
+    opacity: 0.9;
     color: white; 
     -webkit-text-stroke:0.9px; 
     -webkit-text-stroke-color: white;

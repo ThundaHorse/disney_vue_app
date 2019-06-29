@@ -2,12 +2,20 @@
   <div class='trip-add'>
     <div class='container'>
     <h1>Trip {{ trip.id }}</h1>
+      <br>
+    <router-link v-bind:to="'/trips/' + this.trip.id"><button class='btn-lg btn-primary'>Done</button></router-link>
       <div class="card-deck">
         <div v-for='ride in attractions'>
+
           <div class="card" style='width: 21rem; height: 40rem;'>
             <img v-bind:src="ride.image" class="card-img-top" v-bind:alt="ride.name">
+
               <div class="card-body">
                 <div v-if="!ride.interested" class="to-add">
+                  <br>
+                  Enter Time you would like to attend at: 
+                    <datetime v-model="startTime" type="time"></datetime>
+                  <br>
                   <button class='btn-sm btn-success' v-on:click.prevent="createInterest(ride)"> 
                     Click to add
                   </button>        
@@ -17,10 +25,6 @@
                     Click to Remove 
                   </button>
                 </div>
-                  <br>
-                  Enter Time you would like to attend at: 
-                    <datetime v-model="startTime" type="time"></datetime>
-                  <br>
                   <span v-if="ride.park === 'Epcot'" style="color: blue">
                       <b>{{ ride.park }}</b>
                     </span> 
@@ -44,7 +48,6 @@
           </div>
         </div>
         <br>
-      <button class='btn-lg btn-info'><router-link v-bind:to="'/trips/' + this.trip.id">Done</router-link></button>
       <br>
       <back-to-top text="Back to top"></back-to-top>
       </div>
@@ -85,7 +88,8 @@ export default {
           start_time: this.startTime + "Z"
         }
       axios.post('/api/interests', interestParams).then(response => {
-        this.addedInterest = response.data
+        this.addedInterest = response.data;
+        this.startTime = '';
       })
     },
     removeInterest(inputRide) {

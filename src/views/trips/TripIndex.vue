@@ -11,14 +11,17 @@
       </div>
 
     <div v-for="trip in trips">
-      <br>
-      <h1>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h1> 
       <router-link v-bind:to="'/trips/' + trip.id">
-        <button class='btn-md btn-primary'>
+        <button class='btn-lg btn-primary'>
           View This Trip
         </button>
       </router-link>
+        <br>
+        <br>
+      <h1>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h1> 
+        <br>
       <h1>Your Parks & Attractions</h1>
+        <br>
     <div v-for='int in interests'>
       <div v-if="int.trip_id === trip.id">
       <h4>{{ int.formatted.formatted_start_time }}</h4>

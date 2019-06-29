@@ -1,6 +1,6 @@
 <template>
   <div class='home'>
-    <h1>Message</h1>
+    <h1>Test Page</h1>
     
   </div>
 </template>
@@ -15,11 +15,11 @@ import axios from 'axios'
 export default {
   data: function() {
     return {
-
+      
     };
   },
   created: function() {
-
+    
   },
   methods: {
 

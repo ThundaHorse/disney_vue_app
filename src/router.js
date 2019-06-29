@@ -22,6 +22,8 @@ import ParksIndex from './views/parks/ParksIndex.vue'
 import AttractionsIndex from './views/attractions/AttractionsIndex.vue'
 import AttractionShow from './views/attractions/AttractionShow.vue'
 
+import Location from './views/locations/Location.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -47,6 +49,8 @@ export default new Router({
     { path: '/parks/:id', name: 'parks-show', component: ParksShow },
 
     { path: '/attractions', name: 'attractions-index', component: AttractionsIndex},
-    { path: '/attractions/:id', name: 'attraction-show', component: AttractionShow }
+    { path: '/attractions/:id', name: 'attraction-show', component: AttractionShow },
+
+    { path: '/locations', name: 'locations', component: Location }
   ]
 })

@@ -124,6 +124,14 @@ export default {
       this.attractions = response.data;
     })
   },
+  computed: {
+    get: function() {
+      return this.attractions.formatted_wait_times
+    }, 
+    set: function(newVal) {
+      this.attractions.formatted_wait_times += newVal
+    }
+  }, 
   methods: {
     setSortAttribute: function(inputAttribute) {
       if (this.sortAttribute === inputAttribute) {
