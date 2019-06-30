@@ -17,7 +17,7 @@
             <br>
           <label for='addMoreAttractions'>Add more Attractions</label>
             <br>
-           <router-link v-bind:to="'/trips/add/' + trip.id"><button class='btn-lg btn-outline-dark btn-info'>Attractions</button></router-link>
+           <router-link v-bind:to="'/trips/add/' + trip.id"><button class='btn btn-raised btn-lg btn-outline-dark btn-info'>Attractions</button></router-link>
             <br>
             <br>
           <h2 style='text-align:center;'>Your Attractions</h2>
@@ -25,7 +25,7 @@
         <div v-for="int in interests">      
           <p v-if='int.trip_id === trip.id'>{{ int.ride.name }} <b> | </b> {{ int.ride.anticipated_wait_time }} min wait 
             <br> 
-            <button class='btn-sm btn-danger' v-on:click.prevent="remove(int)">
+            <button class='btn btn-raised btn-outline-light btn-sm btn-danger' v-on:click.prevent="remove(int)">
               Remove Attraction
             </button>
         </p>

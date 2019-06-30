@@ -17,7 +17,7 @@
       <!-- </div> -->
     <!-- </div> -->
       
-      <p>Lattitude: {{ locations.data.results[0].geometry.location.lat }} | Longitude: {{ locations.data.results[0].geometry.location.lng }}</p>
+      <p style='color:black;'>Lattitude: {{ locations.data.results[0].geometry.location.lat }} | Longitude: {{ locations.data.results[0].geometry.location.lng }}</p>
       <p id="title"><b>Open</b>: {{ park.formatted.opening }} | <b>Close</b>: {{ park.formatted.closing }}</p>
         <h1>Attraction List</h1>
       <p class='show' v-for="attraction in park.attractions"> 
@@ -33,6 +33,9 @@
 <style>
   img.show { 
     max-width: 55rem;
+  }
+  p.show {
+    color: black;
   }
 </style>
 

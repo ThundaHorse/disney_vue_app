@@ -1,51 +1,68 @@
 <template>
   <div class='edit-info'>
     <h1>Edit Your Info</h1>
-      <p id="image"><img v-bind:src="data.avatar" id="profile-pic" v-bind:alt="data.first_name" class='rounded-pill border-0'></p>
-       
       <div class="container">
-        <form v-on:submit.prevent="update()">
-
-        <div>
-          <label for="avatarUpload">Select your photo</label>
-          Avatar: <input class='form-control-file' id='avatarUpload' type="file" v-on:change="setFile($event)" ref="fileInput">
+        <div class='image'>
+          <img v-bind:src="data.avatar" v-bind:alt="data.first_name" class='rounded-pill border-0'>
         </div>
-        
+
+        <div v-if='updated' class="alert alert-success alert-dismissible fade show" role="alert" style="opacity: 0.6">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          <p style='color:black;'>Updated! Click <a href='/trips' class="alert-link">here</a> to go to your trips!</p>
+        </div>
+
+        <form v-on:submit.prevent="update()">
+          <div>
+            <label for="avatarUpload"></label>
+            <input class='form-control-file' id='avatarUpload' type="file" v-on:change="setFile($event)" ref="fileInput">
+          </div>
+            <br>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="firstName">First Name</label>
+              <p style='text-align: left; color: black;'>First Name</p>
+              <label for="firstName" class="bmd-label-placeholder"></label>
               <input v-model="personalInfo.firstName" type="text" class="form-control" id="fistName" v-bind:placeholder="data.first_name">
             </div>
 
             <div class="form-group col-md-6">
-              <label for="lastName">Last Name</label>
+              <p style='text-align: left; color: black;'>Last Name</p>
+              <label for="lastName" class="bmd-label-placeholder"></label>
               <input v-model="personalInfo.lastName" type="text" class="form-control" id="lastName" v-bind:placeholder="data.last_name">
             </div>
-
           </div>
 
-          <div class="form-group">
-            <label for="email">Email</label>
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <label for="email"></label>
+            <p style='text-align: left; color: black;'>Email</p>
             <input v-model='personalInfo.email' type="email" class="form-control" id="email" v-bind:placeholder="data.email">
           </div>
 
+          <div class="form-group col-md-4">
+            <label for="avatarUpload"></label>
+            <input class='form-control-file' id='avatarUpload' type="file" v-on:change="setFile($event)" ref="fileInput">
+          </div>
+
+        </div>
+
           <div class="form-group">
-            <label for="phoneNumber">Phone Number</label>
+            <label for="phoneNumber"></label>
+            <p style='text-align: left; color: black;'>Phone Number</p>
             <input v-model='personalInfo.phoneNumber' type="text" class="form-control" id="phoneNumber" v-bind:placeholder="data.phone_number">
           </div>
-          <input class='btn btn-info btn-outline-light' type="submit" value="Submit">
+          <button class="btn btn-raised btn-primary" type='submit' value="Submit">Submit</button>
         </form>
       </div>
-      
     </div>
 </template>
 
 <style>
-  img#profile-pic {
-    display: inline-block;
-  }
-  p#image {
+  .image {
     text-align: center;
+    padding-left: 300px;
+    opacity: 0.8;
   }
   h1 {
     text-align: center;
@@ -60,6 +77,7 @@ export default {
     return {
       data: [],
       errors: [],
+      updated: false,
       personalInfo: {
         firstName: '',
         lastName: '',
@@ -94,13 +112,15 @@ export default {
         params.append('phone_number', this.personalInfo.phoneNumber || this.data.phone_number);
 
       axios.patch('/api/users/' + this.data.id, params).then(response => {
-        alert("Updated!")
+        // alert("Updated!")
         this.data = response.data
-        this.$router.push('/info')
+        // this.$router.push('/info')
       }).catch(errors => {
         this.errors = errors
         console.log(this.errors);
       })
+      this.updated = true; 
+        // this.$forceUpdate();
     }
   }
 };

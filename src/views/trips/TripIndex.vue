@@ -7,12 +7,12 @@
       <div v-if="trips == ''">
         <h1>You have no trips currently, lets plan a trip!</h1>
           <br>
-        <button class='btn-lg btn-primary btn-outline-light' v-on:click.prevent='route()'>Add Trips</button>
+        <button class='btn btn-raised btn-lg btn-primary btn-outline-dark' v-on:click.prevent='route()'>Add Trips</button>
       </div>
 
     <div v-for="trip in trips">
       <router-link v-bind:to="'/trips/' + trip.id">
-        <button class='btn-lg btn-primary'>
+        <button class='btn btn-raised btn-lg btn-outline-light btn-primary'>
           View This Trip
         </button>
       </router-link>
@@ -44,12 +44,12 @@
       <br>
       <span>
         <router-link v-bind:to="'/trips/edit/' + trip.id">
-          <button class='btn btn-primary'>
+          <button class='btn btn-raised btn-outline-dark btn-primary'>
               Edit this Trip
           </button>
         </router-link>
         •
-        <button class='btn btn-danger' v-on:click="deleteTrip(trip)">
+        <button class='btn btn-raised btn-outline-dark btn-danger' v-on:click="deleteTrip(trip)">
           Delete Trip
         </button>
       </span>
