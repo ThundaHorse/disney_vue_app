@@ -75,6 +75,7 @@
           <button v-on:click.prevent="seeYourTrip()">Done</button>
         <!-- </div> -->
       </form>
+      <back-to-top text="Back to top"></back-to-top>
     </div>
   </div>
 </template>

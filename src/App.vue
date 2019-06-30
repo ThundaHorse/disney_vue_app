@@ -9,6 +9,7 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
               <li class="nav-item active">
+
         <!-- Parks & Attractions  -->
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true">
@@ -46,12 +47,13 @@
                 </div>
               </li>
         <!-- End Account and Sign out in -->
+        
               </li>
             </ul>
           </div>
         </nav>
+      <router-view/>
     </div>
-    <router-view/>
   </div>
 </template>
 

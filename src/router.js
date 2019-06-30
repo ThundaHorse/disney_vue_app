@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import Home from './views/Home.vue'
+
 import SignUp from './views/credentials/SignUp.vue' 
 import Logout from './views/credentials/Logout.vue' 
 import Login from './views/credentials/Login.vue'
@@ -20,14 +22,16 @@ import ParksIndex from './views/parks/ParksIndex.vue'
 import AttractionsIndex from './views/attractions/AttractionsIndex.vue'
 import AttractionShow from './views/attractions/AttractionShow.vue'
 
+import Location from './views/locations/Location.vue'
 
 Vue.use(Router)
-
 
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    { path: '/', name: 'home', component: Home },
+
     { path: '/trips', name: 'trips-index', component: TripIndex },
     { path: '/trips/new', name: 'trip-new', component: TripNew },
     { path: '/trips/:id', name: 'trip-show', component: TripShow },
@@ -45,6 +49,8 @@ export default new Router({
     { path: '/parks/:id', name: 'parks-show', component: ParksShow },
 
     { path: '/attractions', name: 'attractions-index', component: AttractionsIndex},
-    { path: '/attractions/:id', name: 'attraction-show', component: AttractionShow }
+    { path: '/attractions/:id', name: 'attraction-show', component: AttractionShow },
+
+    { path: '/locations', name: 'locations', component: Location }
   ]
 })

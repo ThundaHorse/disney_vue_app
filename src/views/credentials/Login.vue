@@ -1,7 +1,11 @@
 <template>
   <div class='login'>
+    <br>
     <h1>Log In</h1>
     <div class="container">
+      <ul v-for='error in errors'>
+        <li>{{ error }}</li>
+      </ul>
       <form v-on:submit.prevent='submit()'>
         <div class="form-group">
           <label for="email">Email address</label>
@@ -11,7 +15,7 @@
           <label for="password">Password</label>
           <input type="password" class="form-control" id="password" placeholder="Password" v-model='password'>
         </div>
-        <button type="submit" class="btn btn-primary" v-on:click='submit()'>Log In</button>
+        <button type="submit" class="btn btn-raised btn-outline-light btn-info" v-on:click='submit()'>Log In</button>
       </form>
     </div>
   </div>

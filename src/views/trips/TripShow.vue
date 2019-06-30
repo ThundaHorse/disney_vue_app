@@ -3,7 +3,7 @@
     <div class='container'>
       <h1>Trip {{ trip.id }}</h1>
         <br>
-      <h4><router-link v-bind:to="'/trips/edit/' + this.$route.params.id">Edit Trip</router-link></h4>
+      <h4><router-link v-bind:to="'/trips/edit/' + this.$route.params.id"><button class='btn btn-raised btn-outline-light btn-lg btn-info'>Edit Trip</button></router-link></h4>
       <h3>Arrival Day: {{ trip.dates.arrival }}</h3>
       <h3>Departure Day: {{ trip.dates.departure }}</h3>
       <!-- <button v-on:click.prevent="toggle()">Show Attractions</button> -->
@@ -14,7 +14,7 @@
             <!-- <div v-if='show'> -->
                 {{ interest.formatted.formatted_start_time }}
               <h3>{{ interest.park.name }}</h3>
-              <p><b>{{ interest.ride.name }}</b> | {{ interest.ride.duration }} minutes | 
+              <p><b>{{ interest.ride.name }}</b> | {{ interest.ride.anticipated_wait_time }} minutes | 
               <span v-if="interest.ride.status === 'closed'" style="color: Red;">
                 <b>{{ interest.ride.status }}</b>
                   <br>
