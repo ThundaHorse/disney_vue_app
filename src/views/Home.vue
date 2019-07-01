@@ -1,11 +1,10 @@
 <template>
   <div class='home'>
-    <br>
     <div class="container">
-      <h1>Disney Trip Planning App</h1>
         <br>
+        <img src="../../public/disney/disneyLogo.png" style='width: 60%'>
+        <h1>Trip Planning App</h1>
       <h2>
-        Go to: 
         <br>
         <br>
         <router-link v-bind:to="'/trips'"><button class="btn btn-info btn-raised">Trips</button></router-link> • 
