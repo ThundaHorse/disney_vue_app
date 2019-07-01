@@ -101,7 +101,7 @@ export default {
         params.append('email', this.newInput.email); 
         params.append('password', this.newInput.password);
         params.append('password_confirmation', this.newInput.passwordConfirmation); 
-      axios.post('http://localhost:3000/api/users', params) 
+      axios.post('/api/users', params) 
         .then(response => {     
           alert('Signed up successfully!')
           this.user = response.data;   
