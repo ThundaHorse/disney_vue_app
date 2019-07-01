@@ -44,7 +44,6 @@
             <label for="avatarUpload"></label>
             <input class='form-control-file' id='avatarUpload' type="file" v-on:change="setFile($event)" ref="fileInput">
           </div>
-
         </div>
 
           <div class="form-group">
