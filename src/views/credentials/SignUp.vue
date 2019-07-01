@@ -64,7 +64,6 @@
 
 <script>
 import axios from 'axios'
-
 export default {
   data: function() {
     return {
@@ -99,7 +98,6 @@ export default {
         params.append('email', this.newInput.email); 
         params.append('password', this.newInput.password);
         params.append('password_confirmation', this.newInput.passwordConfirmation); 
-
       axios.post('/api/users', params) 
         .then(response => {     
           alert('Signed up successfully!')
