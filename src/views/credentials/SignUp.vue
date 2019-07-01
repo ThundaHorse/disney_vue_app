@@ -104,7 +104,7 @@ export default {
         .then(response => {     
           alert('Signed up successfully!')
           this.user = response.data;   
-          this.$router.push('/trips'); 
+          this.$router.push('/login'); 
         })
         .catch(error => {
           this.errors = error.response.data.errors; 
