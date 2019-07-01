@@ -5,7 +5,14 @@
       <h1>Your Info</h1>
         <br>
         <img v-bind:src="user.avatar" v-bind:alt="user.first_name" class='rounded-pill border-0'>
-      <h4>Yo: {{ user.first_name }} {{ user.last_name }}</h4>
+        
+      <div v-if="time() === 'AM'">
+        <h1>Good Morning {{ user.first_name }}!</h1>
+      </div>
+      <div v-else>
+        <h1>Good Evening {{ user.first_name }}!</h1>
+      </div>
+        <br>
       <h4>Email: {{ user.email }}</h4>
       <h4>Phone number: {{ user.phone_number }}</h4>
         <br>
@@ -44,6 +51,12 @@ export default {
   methods: {
     edit() {
       this.$router.push('/edit-info')
+    },
+    time() {
+      var time = new Date().toLocaleTimeString('en-US', { hour12: true, 
+                                             hour: "numeric", 
+                                             minute: "numeric"});
+      return time.split(" ")[1];
     }
   }
 };

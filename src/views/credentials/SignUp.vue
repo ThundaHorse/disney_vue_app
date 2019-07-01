@@ -4,7 +4,10 @@
     <h1>Sign Up</h1>
       <br>
       <ul>
-        <li v-for="error in errors">
+        <li
+         v-for="error in errors"
+         :key = "error"
+         >
           {{ error }}
         </li>
       </ul>

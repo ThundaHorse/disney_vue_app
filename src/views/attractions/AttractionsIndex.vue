@@ -9,10 +9,10 @@
       <table class="table table-striped table-dark mt-2">
         <thead>
           <tr>
-            <th v-on:click="setSortAttribute('id')" scope="col">{{ isAscending('id') }} ID</th>
-            <th v-on:click="setSortAttribute('name')" scope="col">{{ isAscending('name') }} Name</th>
-            <th v-on:click="setSortAttribute('formatted_wait_time')" scope="col">{{ isAscending('formatted_wait_time') }} Wait Time</th>
-            <th v-on:click="setSortAttribute('park')" scope="col">{{ isAscending('park') }} Park</th>
+            <th v-on:click="setSortAttribute('id')" scope="col" style="color:white;">{{ isAscending('id') }} ID</th>
+            <th v-on:click="setSortAttribute('name')" scope="col" style="color:white;">{{ isAscending('name') }} Name</th>
+            <th v-on:click="setSortAttribute('formatted_wait_time')" scope="col" style="color:white;">{{ isAscending('formatted_wait_time') }} Wait Time</th>
+            <th v-on:click="setSortAttribute('park')" scope="col" style="color:white;">{{ isAscending('park') }} Park</th>
           </tr>
         </thead>
 
@@ -23,7 +23,11 @@
                 {{ attraction.id }}
               </router-link>
             </th>
-              <td> {{ attraction.name }} </td>
+              <td> 
+                <router-link class='attr-link' v-bind:to="'/attractions/' + attraction.id">
+                  {{ attraction.name }} 
+                </router-link>
+              </td>
               <td> 
                 <span v-bind:class="{
                     'less-than-60': attraction.anticipated_wait_time <= 60, 
@@ -124,14 +128,7 @@ export default {
       this.attractions = response.data;
     })
   },
-  computed: {
-    get: function() {
-      return this.attractions.formatted_wait_times
-    }, 
-    set: function(newVal) {
-      this.attractions.formatted_wait_times += newVal
-    }
-  }, 
+  
   methods: {
     setSortAttribute: function(inputAttribute) {
       if (this.sortAttribute === inputAttribute) {
