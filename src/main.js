@@ -5,10 +5,12 @@ import axios from 'axios'
 import Datetime from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
 import BackToTop from 'vue-backtotop'
+import NowUiKit from './plugins/now-ui-kit';
 
-Vue.use(BackToTop)
-Vue.use(Datetime)
-// Vue.forceUpdate();
+Vue.use(BackToTop);
+Vue.use(Datetime);
+Vue.use(NowUiKit);
+
 
 axios.defaults.baseURL =
   process.env.NODE_ENV === "development" ? "http://localhost:3000" : "/";
