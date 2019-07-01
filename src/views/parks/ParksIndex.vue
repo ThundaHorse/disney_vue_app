@@ -30,16 +30,6 @@
 </template>
 
 <style>
-  /* .jumbotron {
-    background: url("https://ewscripps.brightspotcdn.com/dims4/default/3c6b07a/2147483647/strip/true/crop/600x338+0+1/resize/1280x720!/quality/90/?url=https%3A%2F%2Fewscripps.brightspotcdn.com%2F05%2Fd3%2F8bdb71a64d7f88d9ed004a312c93%2Fdisney-fireworks.jpg") no-repeat center center; 
-    -webkit-background-size: 100% 100%;
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    background-size: 100% 100%;
-    opacity: 0.8;
-  } */
-/* 1078 x 257 */
-
   .magic .jumbotron {
     /* box-shadow: 10px 10px 5px #888; */
     background: url("https://ewscripps.brightspotcdn.com/dims4/default/3c6b07a/2147483647/strip/true/crop/600x338+0+1/resize/1280x720!/quality/90/?url=https%3A%2F%2Fewscripps.brightspotcdn.com%2F05%2Fd3%2F8bdb71a64d7f88d9ed004a312c93%2Fdisney-fireworks.jpg") no-repeat center center; 
@@ -49,8 +39,8 @@
     background-size: 100% 100%;
     opacity: 0.9;
     color: white; 
-    -webkit-text-stroke:0.5px; 
-    -webkit-text-stroke-color: black;
+    /* -webkit-text-stroke:0.5px;  */
+    /* -webkit-text-stroke-color: black; */
   }
   .epcot .jumbotron {
     /* box-shadow: 10px 10px 5px #888; */
@@ -61,8 +51,8 @@
     background-size: 100% 100%;
     opacity: 0.9;
     color: white; 
-    -webkit-text-stroke:0.8px; 
-    -webkit-text-stroke-color: black;
+    /* -webkit-text-stroke:0.8px;  */
+    /* -webkit-text-stroke-color: black; */
   }
   .animal .jumbotron {
     /* box-shadow: 10px 10px 5px #888; */
@@ -73,8 +63,8 @@
     background-size: 100% 100%;
     opacity: 0.9;
     color: white; 
-    -webkit-text-stroke:0.5px; 
-    -webkit-text-stroke-color: black;
+    /* -webkit-text-stroke:0.5px;  */
+    /* -webkit-text-stroke-color: black; */
   }
   .holly .jumbotron {
     /* box-shadow: 10px 10px 5px #888; */
@@ -85,8 +75,8 @@
     background-size: 100% 100%;
     opacity: 0.9;
     color: white; 
-    -webkit-text-stroke:0.5px; 
-    -webkit-text-stroke-color: black;
+    /* -webkit-text-stroke:0.5px;  */
+    /* -webkit-text-stroke-color: black; */
   }
   img.index {
     border-radius: 5%;

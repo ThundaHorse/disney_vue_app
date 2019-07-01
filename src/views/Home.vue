@@ -2,7 +2,12 @@
   <div class='home'>
     <div class="container">
         <br>
-        <img src="../../public/disney/disneyLogo.png" style='width: 60%'>
+          <br>
+          <br>
+          <br>
+          <br>
+        <br>
+        <img src="../../public/disney/disneyLogo.png" style='width: 70%'>
         <h1>Trip Planning App</h1>
       <h2>
         <br>
@@ -21,6 +26,7 @@
 </style>
 
 <script>
+
 export default {
   data: function() {
     return {

@@ -24,33 +24,160 @@ import AttractionShow from './views/attractions/AttractionShow.vue'
 
 import Location from './views/locations/Location.vue'
 
+import MainNavbar from './layout/MainNavbar.vue';
+import MainFooter from './layout/MainFooter.vue';
+
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
+  hash: false, 
   base: process.env.BASE_URL,
   routes: [
-    { path: '/', name: 'home', component: Home },
+    { 
+      path: '/', 
+      name: 'home', 
+      components: { default: Home, header: MainNavbar, footer: MainFooter }, 
+      props: { 
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' }
+      } 
+    },
+    { 
+      path: '/trips', 
+      name: 'trips-index', 
+      components: { default: TripIndex, header: MainNavbar, footer: MainFooter }, 
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' }
+      } 
+    },
+    { 
+      path: '/trips/new', 
+      name: 'trip-new', 
+      components: { default: TripNew, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' }
+      }
+    },
+    { 
+      path: '/trips/:id', 
+      name: 'trip-show', 
+      components: { default: TripShow, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' }
+      }
+    },
+    { 
+      path: '/trips/edit/:id', 
+      name: 'trip-edit', 
+      components: { default: TripEdit, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' }
+      }
+    }, 
+    { 
+      path: '/trips/add/:id', 
+      name: 'trip-add', 
+      components: { default: TripAdd, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' }
+      }
+    },
 
-    { path: '/trips', name: 'trips-index', component: TripIndex },
-    { path: '/trips/new', name: 'trip-new', component: TripNew },
-    { path: '/trips/:id', name: 'trip-show', component: TripShow },
-    { path: '/trips/edit/:id', name: 'trip-edit', component: TripEdit }, 
-    { path: '/trips/add/:id', name: 'trip-add', component: TripAdd },
+    { path: '/login', 
+      name: 'login', 
+      components: { default: Login, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' }
+      }
+    },
+    { path: '/logout', 
+      name: 'logout', 
+      components: { default: Logout, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' }
+      }
+    }, 
+    { path: '/signup', 
+      name: 'sign-up', 
+      components: { default: SignUp, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' } 
+      }
+    },
 
-    { path: '/login', name: 'login', component: Login },
-    { path: '/logout', name: 'logout', component: Logout }, 
-    { path: '/signup', name: 'sign-up', component: SignUp },
+    { path: '/info', 
+      name: 'user-info', 
+      components: { default: UserInfo, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 }, 
+        footer: { backgroundColor: 'white' }
+      }
+    },
+    { path: '/edit-info', 
+      name: 'user-edit', 
+      components: { default: EditInfo, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 }, 
+        footer: { backgroundColor: 'white' }
+      }
+    }, 
 
-    { path: '/info', name: 'user-info', component: UserInfo },
-    { path: '/edit-info', name: 'user-edit', component: EditInfo }, 
+    { path: '/parks', 
+      name: 'parks-index', 
+      components: { default: ParksIndex, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' }
+      }
+    },
+    { path: '/parks/:id', 
+      name: 'parks-show', 
+      components: { default: ParksShow, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' }
+      } 
+    },
 
-    {path: '/parks', name: 'parks-index', component: ParksIndex },
-    { path: '/parks/:id', name: 'parks-show', component: ParksShow },
-
-    { path: '/attractions', name: 'attractions-index', component: AttractionsIndex},
-    { path: '/attractions/:id', name: 'attraction-show', component: AttractionShow },
-
-    { path: '/locations', name: 'locations', component: Location }
-  ]
+    { path: '/attractions', 
+      name: 'attractions-index', 
+      components: { default: AttractionsIndex, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' }
+      }
+    },
+    { path: '/attractions/:id', 
+      name: 'attraction-show', 
+      components: { default: AttractionShow, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' }
+      } 
+    },
+    { path: '/locations', 
+      name: 'locations', 
+      components: { default: Location, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: 'white' }
+      } 
+    }
+  ],
+  scrollBehavior: to => {
+    if (to.hash) {
+      return { selector: to.hash };
+    } else {
+      return { x: 0, y: 0 };
+    }
+  }
 })
