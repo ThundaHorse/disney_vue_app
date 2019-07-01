@@ -103,9 +103,8 @@ export default {
       axios.post('/api/users', params) 
         .then(response => {     
           alert('Signed up successfully!')
-
           this.user = response.data;   
-          // this.$router.push('/trips'); 
+          this.$router.push('/trips'); 
         })
         .catch(error => {
           this.errors = error.response.data.errors; 

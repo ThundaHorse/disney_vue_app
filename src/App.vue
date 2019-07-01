@@ -2,7 +2,9 @@
   <div id="app">
     <div id="nav">
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#c4eaf7">
-          <a class="navbar-brand" href="/parks">Parks</a>
+          <a class="navbar-brand" href="/">
+            <img src='./../public/disney/mickey.png' alt='logo' style='height: 40px; width: 40px;'>
+          </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
