@@ -6,7 +6,7 @@
         <h5 id='trip'>Arrival Day: <datetime v-model="newArrival" type="date" id='arrival'></datetime></h5>
         <h5 id='trip'>Departure Day: <datetime v-model="newDeparture" type="date" id='departure'></datetime></h5>
           <br>
-        <h5 id='trip'>Maximum to Wait: <input v-model='newMaxWait' type='integer' id='max_wait' placeholder="total minutes i.e. 100"></h5>
+        <h5 id='trip'>Maximum time willing to wait: <input v-model='newMaxWait' type='integer' id='max_wait' placeholder="total minutes i.e. 100"></h5>
           <br>
           <div v-if="tripCreated === false" class='button-condition'>
             <button class='btn btn-primary' v-on:click.prevent="submit()">
@@ -41,6 +41,7 @@
         </h4>
           <h4>Attractions to Add:</h4>
             <div v-for='ride in attraction_list'>
+              <img v-bind:src="ride.image" v-bind:alt="ride.name">
               <p>
                 <div v-if="!ride.interested" class="to-add">
                   <button class='btn-sm btn-success' v-on:click.prevent="createInterest(ride)"> 
