@@ -135,15 +135,15 @@ export default new Router({
       name: 'parks-index', 
       components: { default: ParksIndex, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'white' }
+        header: { colorOnScroll: '400' }
+        // footer: { backgroundColor: 'grey' }
       }
     },
     { path: '/parks/:id', 
       name: 'parks-show', 
       components: { default: ParksShow, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
+        header: { colorOnScroll: '400' },
         footer: { backgroundColor: 'white' }
       } 
     },

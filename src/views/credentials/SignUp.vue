@@ -4,13 +4,13 @@
     <div class="section section-signup">
       <div class="container">
         <div class="row">
-          <card class="card-signup" header-classes="text-center" color="orange">
+          <card class="card-signup" header-classes="text-center" color= "blue" v-on:submit.prevent="submit()">
             <template slot="header">
               <h3 class="card-title title-up">Sign Up</h3>
               <!-- <div class="social-line">
               </div> -->
               </template>
-              <template v-on:click.prevent="submit()">
+              <template>
               <fg-input
                 v-model="newInput.firstName"
                 type="text"
@@ -40,7 +40,7 @@
 
               <fg-input
                 class="no-border"
-                v-model="newInput.phone_number"
+                v-model="newInput.phoneNumber"
                 
                 placeholder="Phone Number"
                 addon-left-icon="now-ui-icons ui-1_email-85"
@@ -58,7 +58,7 @@
 
               <fg-input
                 class="no-border"
-                v-model="newInput.password_confirmation"
+                v-model="newInput.passwordConfirmation"
                 type="password"
                 placeholder="Confirm password"
                 addon-left-icon="now-ui-icons text_caps-small"
@@ -68,9 +68,7 @@
               <input type="file" v-on:change="setFile($event)" ref="fileInput2" class="no-border" id="avatar">
 
               <div class="card-footer text-center">
-                <!-- <input type="submit"> -->
-                <input type='submit' class='btn btn-raised btn-info' value='Sign Up'>
-                <!-- <n-button type="neutral" v-on:click="submit()" round size="lg"><input type="submit"></n-button> -->
+                <button value='submit' class='btn-md btn-round' v-on:click="submit()">Submit</button>
               </div>
             </template>
             </card>

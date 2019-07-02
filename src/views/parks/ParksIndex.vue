@@ -1,30 +1,26 @@
 <template>
   <div class='parks-index'>
-    <div class="container">
     <h1>Walt Disney World Parks</h1>
-      <br>
-    <div v-for="park in parks">
-    <div v-bind:class="{
-                        'epcot': park.name === 'Epcot',
-                        'holly': park.name === 'Hollywood Studios',
-                        'magic': park.name === 'Magic Kingdom',
-                        'animal': park.name === 'Animal Kingdom'
-                        }">
-    <!-- <div class="shadow p-3 mb-5 bg-dark rounded"> -->
-      <div class="jumbotron shadow-lg p-5 mb-5 bg-white rounded">
-        <!-- <div class="container"> -->
-        <h1>{{ park.name }}</h1>
-          <p class="lead">{{ park.formatted.opening}} to {{ park.formatted.closing }}</p>
-        <hr class="my-3">
-          <p>{{ park.address }}</p>
-          <a v-on:click.prevent="parkPage(park)" class="btn btn-raised btn-primary btn-lg btn-outline-light" role="button">
-            Learn more
-          </a>
-        <!-- </div> -->
+    <div class="container">
+      <div v-for="park in parks">
+        <div v-bind:class="{
+                            'epcot': park.name === 'Epcot',
+                            'holly': park.name === 'Hollywood Studios',
+                            'magic': park.name === 'Magic Kingdom',
+                            'animal': park.name === 'Animal Kingdom'
+                            }">
+            <div class="jumbotron shadow-lg p-5 mb-5 bg-white rounded">
+              <h1>{{ park.name }}</h1>
+                  <p class="lead">{{ park.formatted.opening}} to {{ park.formatted.closing }}</p>
+                <hr class="my-3">
+                  <p>{{ park.address }}</p>
+                  <a v-on:click.prevent="parkPage(park)" class="btn btn-round btn-lg btn-info" role="button">
+                    Learn more
+                  </a>
+            </div>
+          </div>
+        <br>
       </div>
-    </div>
-      <br>
-    </div>
     </div>
   </div>
 </template>

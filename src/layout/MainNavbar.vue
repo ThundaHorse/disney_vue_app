@@ -7,7 +7,7 @@
     menu-classes="ml-auto"
   >
     <template slot-scope="{ toggle, isToggled }">
-      <router-link v-popover:popover1 class="navbar-brand" to="/">
+      <router-link to="/">
         <img src="../../public/disney/mickey.png" style='height: 40px; width: 40px;'>
       </router-link>
     </template>
