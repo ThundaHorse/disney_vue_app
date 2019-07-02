@@ -119,7 +119,6 @@ export default {
         console.log(this.errors);
       })
       this.updated = true; 
-        // this.$forceUpdate();
     }
   }
 };
