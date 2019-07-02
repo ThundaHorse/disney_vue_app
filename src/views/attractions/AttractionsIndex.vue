@@ -4,7 +4,7 @@
 
       <h1>Attractions</h1>   
       <div>
-        Search by Thing: <input v-model="searchFilter" style='border-radius: 10px;'>
+        Search: <input v-model="searchFilter" style='border-radius: 10px;'>
       </div>
       <table class="table table-striped table-dark mt-2">
         <thead>
@@ -57,40 +57,20 @@
           </tr>
         </tbody>
       </table>
+      <back-to-top text="Back to top"></back-to-top>
     </div>
   </div>
 </template>
 
 <style>
-  .operational-status {
-    color: green;
-    -webkit-text-stroke-width: 0.5px;
-    -webkit-text-stroke-color: black;
+  .operational-status, .less-than-60 {
+    color: rgb(22, 165, 22);
   }
-  .maintenance-status {
-    color: orangered;
-    -webkit-text-stroke-width: 0.5px;
-    -webkit-text-stroke-color: black;    
+  .maintenance-status, .less-than-100 {
+    color: yellow;
   }
-  .closed-status {
+  .closed-status, .over-100 {
     color: red;
-    -webkit-text-stroke-width: 0.4px;
-    -webkit-text-stroke-color: black;
-  }
-  .less-than-60 {
-    color: greenyellow;
-    -webkit-text-stroke-width: 0.4px;
-    -webkit-text-stroke-color: black;
-  }
-  .less-than-100 {
-    color: orange;
-    -webkit-text-stroke-width: 0.4px;
-    -webkit-text-stroke-color: black;
-  }
-  .over-100 {
-    color: red;
-    -webkit-text-stroke-width: 0.4px;
-    -webkit-text-stroke-color: black;
   }
   .magic-kingdom {
     color: palevioletred;

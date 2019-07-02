@@ -14,6 +14,7 @@
         </div>
 
         <form v-on:submit.prevent="update()">
+          
           <div>
             <label for="avatarUpload"></label>
             <input class='form-control-file' id='avatarUpload' type="file" v-on:change="setFile($event)" ref="fileInput">
@@ -32,25 +33,24 @@
               <input v-model="personalInfo.lastName" type="text" class="form-control" id="lastName" v-bind:placeholder="data.last_name">
             </div>
           </div>
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <label for="email"></label>
+              <p style='text-align: left; color: black;'>Email</p>
+              <input v-model='personalInfo.email' type="email" class="form-control" id="email" v-bind:placeholder="data.email">
+            </div>
 
-        <div class="form-row">
-          <div class="form-group col-md-8">
-            <label for="email"></label>
-            <p style='text-align: left; color: black;'>Email</p>
-            <input v-model='personalInfo.email' type="email" class="form-control" id="email" v-bind:placeholder="data.email">
+            <div class="form-group col-md-4">
+              <label for="avatarUpload"></label>
+              <input class='form-control-file' id='avatarUpload' type="file" v-on:change="setFile($event)" ref="fileInput">
+            </div>
           </div>
-
-          <div class="form-group col-md-4">
-            <label for="avatarUpload"></label>
-            <input class='form-control-file' id='avatarUpload' type="file" v-on:change="setFile($event)" ref="fileInput">
-          </div>
-        </div>
-
           <div class="form-group">
             <label for="phoneNumber"></label>
             <p style='text-align: left; color: black;'>Phone Number</p>
             <input v-model='personalInfo.phoneNumber' type="text" class="form-control" id="phoneNumber" v-bind:placeholder="data.phone_number">
           </div>
+
           <button class="btn btn-raised btn-primary" type='submit' value="Submit">Submit</button>
         </form>
       </div>
@@ -119,7 +119,6 @@ export default {
         console.log(this.errors);
       })
       this.updated = true; 
-        // this.$forceUpdate();
     }
   }
 };
