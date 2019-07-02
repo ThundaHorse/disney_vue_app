@@ -6,6 +6,7 @@
       <div>
         Search: <input v-model="searchFilter" style='border-radius: 10px;'>
       </div>
+      <p style='text-align: right;'>{{ attractions[9].last_update }}</p>
       <table class="table table-striped table-dark mt-2">
         <thead>
           <tr>
@@ -15,7 +16,6 @@
             <th v-on:click="setSortAttribute('park')" scope="col" style="color:white;">{{ isAscending('park') }} Park</th>
           </tr>
         </thead>
-
         <tbody is="transition-group" appear enter-active-class="animated lightSpeedIn" leave-active-class="animated lightSpeedOut">
           <tr v-for="attraction in orderBy(filterBy(attractions, searchFilter, 'name'), sortAttribute, sortAscending)" v-bind:key="attraction.id">
             <th scope="row">
