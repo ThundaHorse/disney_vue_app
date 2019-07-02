@@ -4,12 +4,17 @@
     <div class='container'>
       <h1>Your Info</h1>
         <br>
-        <img v-bind:src="user.avatar" v-bind:alt="user.first_name" class='rounded-pill border-0'>
-        
+
+        <div class="photo-container">
+          <img v-bind:src="user.avatar" v-bind:alt="user.first_name" class='img-circle'>
+        </div>
+
       <div v-if="time() === 'AM'">
+          <br>
         <h1>Good Morning {{ user.first_name }}!</h1>
       </div>
       <div v-else>
+          <br>
         <h1>Good Evening {{ user.first_name }}!</h1>
       </div>
         <br>
@@ -22,11 +27,10 @@
 </template>
 
 <style>
-  img.rounded-pill {
+  img.img-raised {
     box-shadow: 4px 5px 10px rgb(70, 70, 70);
-    float: left;
-    display: absolute;
-    border-radius: 50%;
+    width: 60%;
+    overflow: hidden;
   }
 </style>
 

@@ -2,15 +2,20 @@
   <div class='home'>
     <div class="container">
         <br>
-        <img src="../../public/disney/disneyLogo.png" style='width: 60%'>
+          <br>
+          <br>
+          <br>
+          <br>
+        <br>
+        <img src="../../public/disney/disneyLogo.png" style='width: 70%'>
         <h1>Trip Planning App</h1>
       <h2>
         <br>
         <br>
-        <router-link v-bind:to="'/trips'"><button class="btn btn-info btn-raised">Trips</button></router-link> • 
-        <router-link v-bind:to="'/parks'"><button class="btn btn-info btn-raised">Parks</button></router-link> • 
-        <router-link v-bind:to="'/attractions'"><button class="btn btn-info btn-raised">Attractions</button></router-link> • 
-        <router-link v-bind:to="'/info'"><button class="btn btn-info btn-raised">Profile</button></router-link>
+        <router-link v-bind:to="'/trips'"><button class="btn btn-info btn-round">Trips</button></router-link> • 
+        <router-link v-bind:to="'/parks'"><button class="btn btn-primary btn-round">Parks</button></router-link> • 
+        <router-link v-bind:to="'/attractions'"><button class="btn btn-success btn-round">Attractions</button></router-link> • 
+        <router-link v-bind:to="'/info'"><button class="btn btn-warning btn-round">Profile</button></router-link>
       </h2>
     </div>
   </div>
@@ -21,6 +26,7 @@
 </style>
 
 <script>
+
 export default {
   data: function() {
     return {

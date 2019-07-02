@@ -1,45 +1,31 @@
 <template>
   <div class='parks-index'>
-    <div class="container">
     <h1>Walt Disney World Parks</h1>
-      <br>
-    <div v-for="park in parks">
-    <div v-bind:class="{
-                        'epcot': park.name === 'Epcot',
-                        'holly': park.name === 'Hollywood Studios',
-                        'magic': park.name === 'Magic Kingdom',
-                        'animal': park.name === 'Animal Kingdom'
-                        }">
-    <!-- <div class="shadow p-3 mb-5 bg-dark rounded"> -->
-      <div class="jumbotron shadow-lg p-5 mb-5 bg-white rounded">
-        <!-- <div class="container"> -->
-        <h1>{{ park.name }}</h1>
-          <p class="lead">{{ park.formatted.opening}} to {{ park.formatted.closing }}</p>
-        <hr class="my-3">
-          <p>{{ park.address }}</p>
-          <a v-on:click.prevent="parkPage(park)" class="btn btn-raised btn-primary btn-lg btn-outline-light" role="button">
-            Learn more
-          </a>
-        <!-- </div> -->
+    <div class="container">
+      <div v-for="park in parks">
+        <div v-bind:class="{
+                            'epcot': park.name === 'Epcot',
+                            'holly': park.name === 'Hollywood Studios',
+                            'magic': park.name === 'Magic Kingdom',
+                            'animal': park.name === 'Animal Kingdom'
+                            }">
+            <div class="jumbotron shadow-lg p-5 mb-5 bg-white rounded">
+              <h1>{{ park.name }}</h1>
+                  <p class="lead">{{ park.formatted.opening}} to {{ park.formatted.closing }}</p>
+                <hr class="my-3">
+                  <p>{{ park.address }}</p>
+                  <a v-on:click.prevent="parkPage(park)" class="btn btn-round btn-lg btn-info" role="button">
+                    Learn more
+                  </a>
+            </div>
+          </div>
+        <br>
       </div>
-    </div>
-      <br>
-    </div>
     </div>
   </div>
 </template>
 
 <style>
-  /* .jumbotron {
-    background: url("https://ewscripps.brightspotcdn.com/dims4/default/3c6b07a/2147483647/strip/true/crop/600x338+0+1/resize/1280x720!/quality/90/?url=https%3A%2F%2Fewscripps.brightspotcdn.com%2F05%2Fd3%2F8bdb71a64d7f88d9ed004a312c93%2Fdisney-fireworks.jpg") no-repeat center center; 
-    -webkit-background-size: 100% 100%;
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    background-size: 100% 100%;
-    opacity: 0.8;
-  } */
-/* 1078 x 257 */
-
   .magic .jumbotron {
     /* box-shadow: 10px 10px 5px #888; */
     background: url("https://ewscripps.brightspotcdn.com/dims4/default/3c6b07a/2147483647/strip/true/crop/600x338+0+1/resize/1280x720!/quality/90/?url=https%3A%2F%2Fewscripps.brightspotcdn.com%2F05%2Fd3%2F8bdb71a64d7f88d9ed004a312c93%2Fdisney-fireworks.jpg") no-repeat center center; 
@@ -49,8 +35,8 @@
     background-size: 100% 100%;
     opacity: 0.9;
     color: white; 
-    -webkit-text-stroke:0.5px; 
-    -webkit-text-stroke-color: black;
+    /* -webkit-text-stroke:0.5px;  */
+    /* -webkit-text-stroke-color: black; */
   }
   .epcot .jumbotron {
     /* box-shadow: 10px 10px 5px #888; */
@@ -61,8 +47,8 @@
     background-size: 100% 100%;
     opacity: 0.9;
     color: white; 
-    -webkit-text-stroke:0.8px; 
-    -webkit-text-stroke-color: black;
+    /* -webkit-text-stroke:0.8px;  */
+    /* -webkit-text-stroke-color: black; */
   }
   .animal .jumbotron {
     /* box-shadow: 10px 10px 5px #888; */
@@ -73,8 +59,8 @@
     background-size: 100% 100%;
     opacity: 0.9;
     color: white; 
-    -webkit-text-stroke:0.5px; 
-    -webkit-text-stroke-color: black;
+    /* -webkit-text-stroke:0.5px;  */
+    /* -webkit-text-stroke-color: black; */
   }
   .holly .jumbotron {
     /* box-shadow: 10px 10px 5px #888; */
@@ -85,8 +71,8 @@
     background-size: 100% 100%;
     opacity: 0.9;
     color: white; 
-    -webkit-text-stroke:0.5px; 
-    -webkit-text-stroke-color: black;
+    /* -webkit-text-stroke:0.5px;  */
+    /* -webkit-text-stroke-color: black; */
   }
   img.index {
     border-radius: 5%;

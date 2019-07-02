@@ -1,22 +1,38 @@
 <template>
   <div class='login'>
     <br>
-    <h1>Log In</h1>
     <div class="container">
       <ul v-for='error in errors'>
         <li>{{ error }}</li>
       </ul>
-      <form v-on:submit.prevent='submit()'>
-        <div class="form-group">
-          <label for="email">Email address</label>
-          <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" v-model='email'>
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" placeholder="Password" v-model='password'>
-        </div>
-        <button type="submit" class="btn btn-raised btn-outline-light btn-info" v-on:click='submit()'>Log In</button>
-      </form>
+      <card v-on:submit.prevent='submit()' style='background: none;'>
+        <template slot='header'>
+          <h3 class='card-title title-up'>
+            Log In
+          </h3>
+        </template>
+        <template>
+          <fg-input 
+            v-model="email"
+            type='email'
+            class='no-border'
+            placeholder='Email'
+            >
+          </fg-input>
+
+          <fg-input 
+            v-model="password"
+            type='password'
+            class='no-border'
+            placeholder='Password'
+            >
+          </fg-input>
+
+          <div class='card-footer text-center'>
+            <button value='submit' class='btn-md btn-round' v-on:click="submit()">Submit</button>
+          </div>
+        </template>
+      </card>
     </div>
   </div>
 </template>
@@ -26,6 +42,7 @@
 
 <script>
 import axios from 'axios'
+import { Card, FormGroupInput, Button } from '@/components';
 
 export default {
   data: function() {
@@ -38,8 +55,13 @@ export default {
   created: function() {
     if (localStorage.getItem('jwt')) {
       alert("You are already logged in! Taking you home!") 
-      this.$router.push('/trips')
+      this.$router.push('/info')
     }
+  },
+  components: {
+    Card,
+    [Button.name]: Button,
+    [FormGroupInput.name]: FormGroupInput
   },
   methods: {
     submit: function() {

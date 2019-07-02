@@ -1,72 +1,96 @@
 <template>
   <div class='sign-up'>
-      <br>
-    <h1>Sign Up</h1>
-      <br>
-      <ul>
-        <li
-         v-for="error in errors"
-         :key = "error"
-         >
-          {{ error }}
-        </li>
-      </ul>
-    <div class="container">
-      <form v-on:submit.prevent="submit()">
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <p style='text-align: left;' class="bmd-label-floating">First Name</p>
-              <input v-model="newInput.firstName" type="text" class="form-control" id="fistName" placeholder="">
-            </div>
-            <div class="form-group col-md-6">
-              <p style='text-align: left;' class="bmd-label-floating">Last Name</p>
-              <input v-model="newInput.lastName" type="text" class="form-control" id="lastName" placeholder="">
-            </div>
-          </div>
-          <div class="form-group">
-            <p style='text-align:left;' class="bmd-label-floating">Email</p>
-            <input v-model="newInput.email" type="email" class="form-control" id="email" placeholder="">
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <p style='text-align:left;' class="bmd-label-floating">Phone Number</p>
-              <input v-model="newInput.phoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="">
-            </div>
 
-            <!-- <div class="form-group col-md-6"> -->
-              <p style='text-align: left;' class="bmd-label-floating">Avatar</p>
-              <div>
-                <label for="avatar" class="bmd-label-floating">Upload a photo</label>
-                <input type="file" v-on:change="setFile($event)" ref="fileInput2" class="form-control-file" id="avatar">
+    <div class="section section-signup">
+      <div class="container">
+        <div class="row">
+          <card class="card-signup" header-classes="text-center" color= "blue" v-on:submit.prevent="submit()">
+            <template slot="header">
+              <h3 class="card-title title-up">Sign Up</h3>
+              <!-- <div class="social-line">
+              </div> -->
+              </template>
+              <template>
+              <fg-input
+                v-model="newInput.firstName"
+                type="text"
+                class="no-border"
+                placeholder="First Name"
+                addon-left-icon="now-ui-icons users_circle-08"
+              >
+              </fg-input>
+
+              <fg-input
+                class="no-border"
+                v-model="newInput.lastName"
+                type="text"
+                placeholder="Last Name"
+                addon-left-icon="now-ui-icons text_caps-small"
+              >
+              </fg-input>
+
+              <fg-input
+                class="no-border"
+                v-model="newInput.email"
+                type="text"
+                placeholder="Email"
+                addon-left-icon="now-ui-icons ui-1_email-85"
+              >
+              </fg-input>
+
+              <fg-input
+                class="no-border"
+                v-model="newInput.phoneNumber"
+                
+                placeholder="Phone Number"
+                addon-left-icon="now-ui-icons ui-1_email-85"
+              >
+              </fg-input>
+
+              <fg-input
+                class="no-border"
+                v-model="newInput.password"
+                type="password"
+                placeholder="Password"
+                addon-left-icon="now-ui-icons text_caps-small"
+              >
+              </fg-input>
+
+              <fg-input
+                class="no-border"
+                v-model="newInput.passwordConfirmation"
+                type="password"
+                placeholder="Confirm password"
+                addon-left-icon="now-ui-icons text_caps-small"
+              >
+              </fg-input>
+                <br>
+              <input type="file" v-on:change="setFile($event)" ref="fileInput2" class="no-border" id="avatar">
+
+              <div class="card-footer text-center">
+                <button value='submit' class='btn-md btn-round' v-on:click="submit()">Submit</button>
               </div>
-            <!-- </div> -->
-
+            </template>
+            </card>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <p style='text-align: left;' class="bmd-label-floating">Password</p>
-              <input v-model="newInput.password" type="password" class="form-control" id="password" placeholder="">
-            </div>
-
-            <div class="form-group col-md-6">
-              <p style='text-align: left;' class="bmd-label-floating">Password Confirmation</p>
-              <input v-model="newInput.passwordConfirmation" type="password" class="form-control" id="passwordConfirmation" placeholder="">
-            </div>
-          </div>
-        <input type='submit' class='btn btn-raised btn-primary' value='Sign Up'>
-      </form>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style>
-  p {
+  /* p {
     color: white;
-  }
+  } */
+
 </style>
 
 <script>
 import axios from 'axios'
+import { Card, FormGroupInput, Button } from '@/components';
+
+
 export default {
   data: function() {
     return {
@@ -80,11 +104,17 @@ export default {
         passwordConfirmation: ''
       },
       errors: [],
-      user: []
+      user: [],
+      focused: false
     };
   },
   created: function() {
    
+  },
+  components: {
+    Card,
+    [Button.name]: Button,
+    [FormGroupInput.name]: FormGroupInput
   },
   methods: {
     setFile: function() {
