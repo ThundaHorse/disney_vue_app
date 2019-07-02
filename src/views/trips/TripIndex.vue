@@ -18,7 +18,7 @@
       </router-link>
         <br>
         <br>
-      <h1>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h1> 
+      <h1>From {{ trip.arrival }} to {{ trip.departure }}</h1> 
         <br>
       <h1>Your Parks & Attractions</h1>
         <br>

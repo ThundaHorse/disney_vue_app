@@ -19,6 +19,7 @@
           <br>
         <h4 id='parks'>Parks: 
         </h4>
+        <div class='header'>
           <div v-for='park in park_list'>
             <p>
               <span v-if="park.name === 'Epcot'" style="color: blue">               
@@ -35,6 +36,7 @@
               </span>
             </p>
           </div>
+        </div>
         <!-- <div v-if="tripCreated === true"> -->
           <br>
         <!-- <h4 id='attractions'>Attractions: -->
@@ -107,6 +109,7 @@ h#info {
 
 <script>
 import axios from 'axios'
+import { Parallax } from '@/components'
 
 export default {
   data: function() {
@@ -138,6 +141,9 @@ export default {
       alert("Sign up or Log in to book a new trip!")
       this.$router.push('/login')
     }
+  },
+  components: {
+    Parallax
   },
   methods: {
     seeYourTrip() {

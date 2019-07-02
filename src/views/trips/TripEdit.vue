@@ -3,14 +3,22 @@
     <h1>Edit Trip</h1>
     <div class="container">
       <form v-on:submit.prevent="submit()">
-          <label for='arrival'>Arrival Date: </label>
-          <input v-model='trip.dates.arrival' type='text' id='arrival' v-bind:placeholder='trip.dates.arrival'>
+          <!-- <label for='arrival'>Arrival Date: </label> -->
+          <div class="block">
+            <span class="demonstration">Arrival and Departure</span>
+            <el-date-picker
+              v-model="dates"
+              type="daterange"
+              clearable=true
+              value-format="yyyy-MM-dd"
+              range-separator="To"
+              v-bind:start-placeholder="trip.arrival_day"
+              v-bind:end-placeholder="trip.departure_day">
+            </el-date-picker>
+          </div>
+
             <br>
-            <br>
-          <label for='departure'>Departure Date: </label>
-          <input v-model='trip.dates.departure' type='text' id='departure' v-bind:placeholder='trip.dates.departure'>
-            <br>
-            <br>
+
           <label for='maxWaitTime'>Maximum Willing Wait: </label>
           <input v-model='trip.max_wait_time' type='integer' id='waitTime' v-bind:placeholder='trip.max_wait_time'>
             <br>
@@ -49,17 +57,17 @@
 
 <script>
 import axios from 'axios'
+import DatePicker from 'element-ui'
 
 export default {
   data: function() {
     return {
       trip: [],
       interests: [], 
-      inputArrival: "",
-      inputDeparture: "",
       inputWait: "",
-      show: false
-    };
+      show: false,
+      dates: []  
+    }
   },
   created: function() {
     if (localStorage.getItem('jwt')) {
@@ -73,19 +81,25 @@ export default {
       this.$router.push('/login')
     }
   },
+  components: {
+    DatePicker
+  },
   methods: {
     toggle: function() {
       this.show = !this.show;
     },
     submit: function() {
       var params = {
-        arrival: this.trip.dates.arrival, 
-        departure: this.trip.dates.departure, 
+        arrival_day: this.dates[0], 
+        departure_day: this.dates[1], 
         max_wait_time: this.trip.max_wait_time
       }
       axios.patch('/api/trips/' + this.$route.params.id, params).then(response => {
         this.$router.push('/trips/' + this.$route.params.id);
       })
+      console.log(params);
+      console.log('---');
+      console.log(this.dates);
     },
     remove: function(int) {
       axios.delete("/api/interests/" + int.id).then(response => {

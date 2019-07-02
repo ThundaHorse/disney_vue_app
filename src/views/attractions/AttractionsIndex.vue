@@ -6,6 +6,7 @@
       <div>
         Search: <input v-model="searchFilter" style='border-radius: 10px;'>
       </div>
+        <p style='text-align:right;'>Last update: {{ attractions[9].last_update }}</p>
       <table class="table table-striped table-dark mt-2">
         <thead>
           <tr>
@@ -24,9 +25,9 @@
               </router-link>
             </th>
               <td> 
-                <router-link class='attr-link' v-bind:to="'/attractions/' + attraction.id">
+                <a class='attr-link' v-bind:href="'/attractions/' + attraction.id">
                   {{ attraction.name }} 
-                </router-link>
+                </a>
               </td>
               <td> 
                 <span v-bind:class="{

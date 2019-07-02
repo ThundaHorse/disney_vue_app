@@ -6,11 +6,12 @@ import Datetime from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
 import BackToTop from 'vue-backtotop'
 import NowUiKit from './plugins/now-ui-kit';
+import { DatePicker } from 'element-ui'
 
 Vue.use(BackToTop);
 Vue.use(Datetime);
 Vue.use(NowUiKit);
-
+Vue.use(DatePicker)
 
 axios.defaults.baseURL =
   process.env.NODE_ENV === "development" ? "http://localhost:3000" : "/";
