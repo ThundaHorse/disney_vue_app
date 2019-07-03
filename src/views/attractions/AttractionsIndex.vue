@@ -6,17 +6,17 @@
       <div>
         Search: <input v-model="searchFilter" style='border-radius: 10px;'>
       </div>
-      <p style='text-align: right;'>{{ attractions[9].last_update }}</p>
       <table class="table table-striped table-dark mt-2">
         <thead>
           <tr>
             <th v-on:click="setSortAttribute('id')" scope="col" style="color:white;">{{ isAscending('id') }} ID</th>
             <th v-on:click="setSortAttribute('name')" scope="col" style="color:white;">{{ isAscending('name') }} Name</th>
-            <th v-on:click="setSortAttribute('formatted_wait_time')" scope="col" style="color:white;">{{ isAscending('formatted_wait_time') }} Wait Time</th>
+            <th v-on:click="setSortAttribute('anticipated_wait_time')" scope="col" style="color:white;">{{ isAscending('anticipated_wait_time') }} Wait Time</th>
             <th v-on:click="setSortAttribute('park')" scope="col" style="color:white;">{{ isAscending('park') }} Park</th>
+            <th v-on:click="setSortAttribute('last_update')" scope="col" style="color:white;">{{ isAscending('last_update') }} Last Update</th>
           </tr>
         </thead>
-        <tbody is="transition-group" appear enter-active-class="animated lightSpeedIn" leave-active-class="animated lightSpeedOut">
+        <tbody>
           <tr v-for="attraction in orderBy(filterBy(attractions, searchFilter, 'name'), sortAttribute, sortAscending)" v-bind:key="attraction.id">
             <th scope="row">
               <router-link class="attr-link" v-bind:to="'/attractions/' + attraction.id">
@@ -35,7 +35,7 @@
                     'over-100': attraction.anticipated_wait_time > 100
                     }">
                     <div v-if="!attraction.anticipated_wait_time">
-                      {{ '-' }}
+                      {{ '' }}
                     </div>
                     <div>
                       {{ attraction.formatted_wait_time }} 
@@ -53,6 +53,10 @@
                   {{ attraction.park }}
                 </router-link>
               </span>
+
+              <td>
+                {{ attraction.last_update }}
+              </td>
             </td>
           </tr>
         </tbody>
@@ -93,23 +97,59 @@
 <script>
 import axios from 'axios';
 import Vue2Filters from 'vue2-filters';
+import ActionCable from 'actioncable';
 
 export default {
   data: function() {
     return {
       attractions: [],
       searchFilter: "",
-      sortAttribute: "id",
-      sortAscending: 1
+      sortAttribute: "",
+      sortAscending: 1,
+      park: '',  
+      interval: null
     };
   },
   created: function() {
     axios.get('/api/attractions').then(response => {
       this.attractions = response.data;
     })
+    var cable = ActionCable.createConsumer('ws://localhost:3000/cable');
+
+    cable.subscriptions.create("WaitTimesChannel", {
+      connected: () => {
+        console.log("Connected");
+      },
+      disconnected: () => {
+        console.log("Disconnected");
+      },
+      received: data => {
+        console.log("Communicating");
+        this.attractions = resposne.data;
+      }
+    })
   },
-  
+  update: function () {
+      axios.get('/api/attractions/').then(response => {
+        console.log('received');
+        this.attractions = response.data;
+      }).bind(this);
+    },
+  ready: function() {
+    this.update();
+    this.interval = setInterval(function () {
+      this.update();
+      }.bind(this), 1000 * 60 * 1); 
+  },
+  beforeDestroy: function(){
+    clearInterval(this.interval);
+  },
   methods: {
+    // communicatingWithAPI: function() {
+    //   axios.get('/api/communicating').then(response => {
+    //     console.log(response.data);
+    //   })
+    // },
     setSortAttribute: function(inputAttribute) {
       if (this.sortAttribute === inputAttribute) {
         this.sortAscending *= -1;

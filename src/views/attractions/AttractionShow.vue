@@ -32,6 +32,7 @@
 
 <script>
 import axios from 'axios'
+import ActionCable from 'actioncable'
 
 export default {
   data: function() {
@@ -42,10 +43,23 @@ export default {
   created: function() {
     axios.get('/api/attractions/' + this.$route.params.id).then(response => {
       this.attraction = response.data;
-      console.log(this.attraction.name);
-    });
+      // console.log(this.attraction.name);
+    })
+     var cable = ActionCable.createConsumer('ws://localhost:3000/cable');
 
-    // axios.get('')
+    cable.subscriptions.create("AttractionsChannel", {
+      id: this.$route.params.id,
+      connected: () => {
+        console.log("Connected");
+      }, 
+      disconnected: () => {
+        console.log("Disconnected");
+      }, 
+      received: data => {
+        console.log("Communicating");
+        this.attraction .unshift(data);
+      }
+    })
   },
   methods: {
 
