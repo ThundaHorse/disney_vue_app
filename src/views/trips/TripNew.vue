@@ -3,8 +3,20 @@
     <h1>New Trip</h1>
     <div class="container">
       <form v-on:submit.prevent="submit()">
-        <h5 id='trip'>Arrival Day: <datetime v-model="newArrival" type="date" id='arrival'></datetime></h5>
-        <h5 id='trip'>Departure Day: <datetime v-model="newDeparture" type="date" id='departure'></datetime></h5>
+        <div class="container">
+          <div class="block">
+            <span class="demonstration"><h5>Dates</h5></span>
+              <fg-input>
+                <el-date-picker v-model="dates"
+                                popper-class="daterange-picker-primary"
+                                type="daterange"
+                                range-separator="To"
+                                start-placeholder="Select date"
+                                end-placeholder="Departure">
+                </el-date-picker>
+              </fg-input>
+          </div>
+        </div>
           <br>
         <h5 id='trip'>Maximum time willing to wait: <input v-model='newMaxWait' type='integer' id='max_wait' placeholder="total minutes i.e. 100"></h5>
           <br>
@@ -35,10 +47,12 @@
               </span>
             </p>
           </div>
-        <!-- <div v-if="tripCreated === true"> -->
+      <!-- <div v-if="tripCreated === true"> -->
           <br>
         <!-- <h4 id='attractions'>Attractions: -->
-        </h4>
+        <!-- </h4> -->
+          <button v-on:click.prevent="seeYourTrip()">Done</button>
+          <br>
           <h4>Attractions to Add:</h4>
             <div v-for='ride in attraction_list'>
               <img v-bind:src="ride.image" v-bind:alt="ride.name">
@@ -54,11 +68,23 @@
                   </button>
                 </div>
                   <span>
+                  <!-- <div class="container"> -->
                     <h4 id='datetime'>
                       Date and Time for Attraction: 
-                      <datetime v-model="dayAtPark" type='datetime' class="dateTime">
-                      </datetime>
+
+                      <div class="container">
+                        <fg-input>
+                          <el-date-picker v-model="attrTime"
+                                          popper-class="date-time-picker-primary"
+                                          type="datetime"
+                                          placeholder="Select date & Time">
+                            </el-date-picker>
+                        </fg-input>
+                      </div>
+
                     </h4>
+                  <!-- </div> -->
+
                       <p>{{ ride.name }}</p>
                   </span>
                   <br>
@@ -73,11 +99,10 @@
                 <br>
               </p>
             </div>
-          <button v-on:click.prevent="seeYourTrip()">Done</button>
         <!-- </div> -->
       </form>
-      <back-to-top text="Back to top"></back-to-top>
     </div>
+      <back-to-top text="Back to top"></back-to-top>
   </div>
 </template>
 
@@ -103,10 +128,27 @@
 h#info {
   text-align: left;
 }
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 200px;
+  margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n+1) {
+  background-color: #d3dce6;
+}
 </style>
 
 <script>
 import axios from 'axios'
+import { DatePicker } from 'element-ui'
+import { FormGroupInput } from '@/components'
 
 export default {
   data: function() {
@@ -116,11 +158,9 @@ export default {
       park_list: [],
       tripCreated: false,
 
-      newArrival: '', 
-      newDeparture: '', 
+      dates: '',
       newMaxWait: '',
-      startTime: '',  
-      dayAtPark: '',
+      attrTime: '',
 
       newTrip: [], 
       addedInterest: []
@@ -139,14 +179,18 @@ export default {
       this.$router.push('/login')
     }
   },
+  components: {
+    [DatePicker.name]: DatePicker,
+    [FormGroupInput.name]: FormGroupInput
+  },
   methods: {
     seeYourTrip() {
       this.$router.push('/trips/' + this.newTrip.id);
     },
     submit() {
       var params = {
-        arrival_day: this.newArrival, 
-        departure_day: this.newDeparture,
+        arrival_day: this.dates[0], 
+        departure_day: this.dates[1],
         max_wait_time: this.newMaxWait
       }
       axios.post('/api/trips', params).then(response => {
@@ -160,7 +204,7 @@ export default {
         var interestParams = {
             trip_id: this.newTrip.id,
             attraction_id: inputRide.id,
-            start_time: this.dayAtPark + "T" + this.startTime +"Z"
+            start_time: this.attrTime
           }
         axios.post('/api/interests', interestParams).then(response => {
           this.addedInterest = response.data
