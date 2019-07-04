@@ -17,5 +17,5 @@
 </template>
 
 <style>
-export default {};
+export default {}
 </style>

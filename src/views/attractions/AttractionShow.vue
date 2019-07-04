@@ -8,10 +8,9 @@
         <h4 style='fload:right;'>{{ attraction.park }}</h4>
       </div>
 
-      <button v-on:click="talkToApi()">
+      <!-- <button v-on:click="talkToApi()">
         Talk
-      </button>
-
+      </button> -->
 
       <div style='overflow: hidden;'>
         <h3 style='float: left;'>Current Status:</h3>
@@ -23,7 +22,7 @@
         <h4 style='fload:right;' v-on:change="talkToApi()">{{ attraction.formatted_wait_time }}</h4>
       </div>
         <br>
-      <img class='showPage' v-bind:src="attraction.image" v-bind:alt="attraction.name">
+      <!-- <img class='showPage' v-bind:src="attraction.image" v-bind:alt="attraction.name"> -->
     </div>
   </div>
 </template>
@@ -43,7 +42,7 @@ export default {
   data: function() {
     return {
       attraction: [],
-      ride: [] 
+      ride: []   
     }
   },
   created: function() {
