@@ -8,7 +8,7 @@ import Progress from './Progress.vue';
 import Button from './Button.vue';
 
 import DropDown from './Dropdown.vue';
-
+// import GoogleMaps from './GoogleMaps.vue';
 import Card from './Cards/Card.vue';
 import Collapse from './Collapse/Collapse.vue';
 import CollapseItem from './Collapse/CollapseItem.vue';
@@ -45,4 +45,5 @@ export {
   Parallax,
   Slider,
   Button
+  // GoogleMaps
 };

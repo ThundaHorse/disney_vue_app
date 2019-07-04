@@ -8,7 +8,6 @@
       </div> 
       <div class="container">
       </div>
-
     <div class="wrapper">
       <router-view />
     </div>
@@ -17,5 +16,11 @@
 </template>
 
 <style>
-export default {}
 </style>
+
+
+<script>
+export default {
+  
+}
+</script>
