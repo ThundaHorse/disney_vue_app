@@ -8,6 +8,11 @@
         <h4 style='fload:right;'>{{ attraction.park }}</h4>
       </div>
 
+      <button v-on:click="talkToApi()">
+        Talk
+      </button>
+
+
       <div style='overflow: hidden;'>
         <h3 style='float: left;'>Current Status:</h3>
         <h4 style='fload:right;'>{{ attraction.status }}</h4>
@@ -15,7 +20,7 @@
 
       <div style='overflow: hidden;'>
         <h3 style='float: left;'>Anticipated Wait:</h3>
-        <h4 style='fload:right;'>{{ attraction.formatted_wait_time }}</h4>
+        <h4 style='fload:right;' v-on:change="talkToApi()">{{ attraction.formatted_wait_time }}</h4>
       </div>
         <br>
       <img class='showPage' v-bind:src="attraction.image" v-bind:alt="attraction.name">
@@ -37,18 +42,18 @@ import ActionCable from 'actioncable'
 export default {
   data: function() {
     return {
-      attraction: []
-    };
+      attraction: [],
+      ride: [] 
+    }
   },
   created: function() {
     axios.get('/api/attractions/' + this.$route.params.id).then(response => {
       this.attraction = response.data;
-      // console.log(this.attraction.name);
     })
-     var cable = ActionCable.createConsumer('ws://localhost:3000/cable');
+
+    var cable = ActionCable.createConsumer('ws://localhost:3000/cable');
 
     cable.subscriptions.create("AttractionsChannel", {
-      id: this.$route.params.id,
       connected: () => {
         console.log("Connected");
       }, 
@@ -56,13 +61,20 @@ export default {
         console.log("Disconnected");
       }, 
       received: data => {
-        console.log("Communicating");
-        this.attraction .unshift(data);
+        // console.log(`Received: ${data}`);
+        // attraction.push(data);
+        this.ride = data;
       }
     })
   },
   methods: {
-
+     talkToApi: function() {
+      axios.get('/api/attractions/' + this.$route.params.id).then(response => {
+        this.attraction = response.data; 
+        location.reload();
+      })
+      this.attraction = this.ride; 
+    }
   }
 };
 </script>

@@ -6,19 +6,31 @@
         <div class="container">
           <div class="block">
             <span class="demonstration"><h5>Dates</h5></span>
-              <fg-input>
-                <el-date-picker v-model="dates"
-                                popper-class="daterange-picker-primary"
-                                type="daterange"
-                                range-separator="To"
-                                start-placeholder="Select date"
-                                end-placeholder="Departure">
-                </el-date-picker>
-              </fg-input>
+              <!-- <fg-input> -->
+              
+              <div class="class">
+                <fg-input>
+                  <el-date-picker v-model="dates"
+                                  popper-class="daterange-picker-primary"
+                                  type="daterange"
+                                  range-separator="To"
+                                  start-placeholder="Select date"
+                                  end-placeholder="Departure">
+                  </el-date-picker>
+                </fg-input>
+              </div>
           </div>
         </div>
           <br>
-        <h5 id='trip'>Maximum time willing to wait: <input v-model='newMaxWait' type='integer' id='max_wait' placeholder="total minutes i.e. 100"></h5>
+        <h5 id='trip'>Maximum time willing to wait:</h5>
+
+          
+
+          <slider class="slider-success"
+             v-model="simple">
+          </slider>
+
+
           <br>
           <div v-if="tripCreated === false" class='button-condition'>
             <button class='btn btn-primary' v-on:click.prevent="submit()">
@@ -32,20 +44,18 @@
         <h4 id='parks'>Parks: 
         </h4>
           <div v-for='park in park_list'>
-            <p>
-              <span v-if="park.name === 'Epcot'" style="color: blue">               
-                <b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b>
-              </span>
-              <span v-if="park.name === 'Magic Kingdom'" style="color: pink">
-                <b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b>
-              </span>
-              <span v-if="park.name === 'Hollywood Studios'" style="color: orange">
-                <b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b>
-              </span>
-              <span v-if="park.name === 'Animal Kingdom'" style="color: lightgreen">
-                <b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b>
-              </span>
-            </p>
+             <span v-bind:class="{
+                                      'epcot-button': park.name === 'Epcot',
+                                      'magic_kingdom-button': park.name === 'Magic Kingdom',
+                                      'animal-kingdom-button': park.name === 'Animal Kingdom',
+                                      'hollywood-studios-button': park.name === 'Hollywood Studios'
+                                      }" >
+                <p>
+                  {{ park.name }} <b>•</b> {{ park.address }} 
+                    <br>
+                  {{ park.formatted.opening }} to {{ park.formatted.closing }}
+                </p>
+              </span> 
           </div>
       <!-- <div v-if="tripCreated === true"> -->
           <br>
@@ -83,8 +93,6 @@
                       </div>
 
                     </h4>
-                  <!-- </div> -->
-
                       <p>{{ ride.name }}</p>
                   </span>
                   <br>
@@ -128,21 +136,7 @@
 h#info {
   text-align: left;
 }
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 200px;
-  margin: 0;
-}
 
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n+1) {
-  background-color: #d3dce6;
-}
 </style>
 
 <script>

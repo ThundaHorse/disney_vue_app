@@ -116,7 +116,7 @@ export default {
     })
     var cable = ActionCable.createConsumer('ws://localhost:3000/cable');
 
-    cable.subscriptions.create("WaitTimesChannel", {
+    cable.subscriptions.create("AttractionsChannel", {
       connected: () => {
         console.log("Connected");
       },
@@ -125,25 +125,25 @@ export default {
       },
       received: data => {
         console.log("Communicating");
-        this.attractions = resposne.data;
+        this.attractions = data;
       }
     })
   },
-  update: function () {
-      axios.get('/api/attractions/').then(response => {
-        console.log('received');
-        this.attractions = response.data;
-      }).bind(this);
-    },
-  ready: function() {
-    this.update();
-    this.interval = setInterval(function () {
-      this.update();
-      }.bind(this), 1000 * 60 * 1); 
-  },
-  beforeDestroy: function(){
-    clearInterval(this.interval);
-  },
+  // update: function () {
+  //     axios.get('/api/attractions/').then(response => {
+  //       console.log('received');
+  //       this.attractions = response.data;
+  //     }).bind(this);
+  //   },
+  // ready: function() {
+  //   this.update();
+  //   this.interval = setInterval(function () {
+  //     this.update();
+  //     }.bind(this), 1000 * 60 * 1); 
+  // },
+  // beforeDestroy: function(){
+  //   clearInterval(this.interval);
+  // },
   methods: {
     // communicatingWithAPI: function() {
     //   axios.get('/api/communicating').then(response => {
