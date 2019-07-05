@@ -5,20 +5,41 @@
 export default {
   name: 'google-map',
   props: {
-    rideName: String, 
+    parkName: String, 
     latitude: String,
     longitude: String,
-    wait: String
+    address: String,
+    opening: String,
+    closing: String 
   },
   data: function () {
     return {
       mapName: this.name + "-map",
-      attractionCoord: [{
-        latitude: this.latitude,
-        longitude: this.longitude, 
-        rideName: this.rideName,
-        wait: this.wait
-      }],
+      markerCoordinates: [{
+                          name: "Magic Kingdom",
+                          address: "1180 Seven Seas Dr, Lake Buena Vista, FL 32830",
+                          hours: "9AM - 10PM",
+                          latitude: 28.4177,
+                          longitude: -81.5812
+                          }, {
+                          name: "Animal Kingdom",
+                          address: " 2901 Osceola Pkwy, Orlando, FL 32830",
+                          hours: "9AM - 10PM",
+                          latitude: 28.3597,
+                          longitude: -81.5913
+                          }, {
+                          name: "Hollywood Studios",
+                          address: "1180 Seven Seas Dr, Lake Buena Vista, FL 32830",
+                          hours: "9AM - 10PM",
+                          latitude: 28.3575,
+                          longitude: -81.5583
+                          }, {
+                          name: "Epcot",
+                          address: "200 Epcot Center Dr, Orlando, FL 32821",
+                          hours: "9AM - 10PM",
+                          latitude: 28.3747,
+                          longitude: -81.5494
+                        }],
       map: null,
       bounds: null,
       markers: [],
@@ -30,13 +51,13 @@ export default {
     this.bounds = new google.maps.LatLngBounds();
     const element = document.getElementById(this.mapName)
 
-    const mapCentre = { lat: this.attractionCoord[0].latitude, lng: this.attractionCoord[0].longitude, rideName: this.attractionCoord[0].rideName, wait: this.attractionCoord[0].wait }
+    const mapCentre = { lat: this.markerCoordinates[0].latitude, lng: this.markerCoordinates[0].longitude, rideName: this.markerCoordinates[0].rideName, wait: this.markerCoordinates[0].wait }
 
     const middle = new google.maps.LatLng(mapCentre.lat, mapCentre.lng)    
 
     this.map = new google.maps.Map(element, {zoom:10, center: middle});
 
-    this.attractionCoord.forEach((coord) => { 
+    this.markerCoordinates.forEach((coord) => { 
       const position = new google.maps.LatLng(coord.latitude, coord.longitude);
       const marker = new google.maps.Marker({ 
         position,
@@ -46,9 +67,9 @@ export default {
     console.log(coord.rideName);
     var contentString = '<div id="content">'+
                           '<div id="container">'+
-                            `<h2 id="firstHeading" class="firstHeading" style='text-align:center;'>${coord.rideName}</h2>`+
+                            `<h2 id="firstHeading" class="firstHeading" style='text-align:center;'>${coord.parkName}</h2>`+
                           '<div id="bodyContent">'+
-                            `<p>Estimated Wait: ${coord.wait}</p>` +
+                            `<p>${coord.address}</p>` +
                           '</div>'+
                         '</div>'+
                       '</div>';

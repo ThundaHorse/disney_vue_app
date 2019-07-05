@@ -17,17 +17,17 @@
         <div class='text-center'>
           <h1 id="title">{{ park.name }}</h1>
           <h2>{{ park.address }}</h2>
-          <h3>Lattitude: {{ locations.data.results[0].geometry.location.lat }} | Longitude: {{ locations.data.results[0].geometry.location.lng }}</h3>
           <h3><b>Open</b>: {{ park.formatted.opening }} | <b>Close</b>: {{ park.formatted.closing }}</h3>
         </div>
         <br>
       </div>
     </div>
+      <google-map>
+      </google-map>
     <div class="container">
             <br>
             <h1>Attraction List</h1>
           <p class='show' v-for="attraction in park.attractions"> 
-            <!-- {{ attraction }} -->
             {{ attraction.name }} • Estimated wait: {{ attraction.anticipated_wait_time }}
           </p>
         <br>
@@ -67,8 +67,23 @@
 <script>
 import axios from 'axios'
 import { Parallax } from '@/components';
+import ParkLocations from './../locations/ParkLocations.vue';
 
 export default {
+  computed: {
+    parkName: function() {
+      return this.park.name
+    }, 
+    address: function() {
+      return this.park.address
+    },
+    opening: function() {
+      return this.park.formatted.opening
+    },
+    closing: function() {
+      return this.park.formatted.closing
+    }
+  },
   data: function() {
     return {
       park: [],
@@ -84,7 +99,8 @@ export default {
     })
   },
   components: {
-    Parallax
+    Parallax,
+    [ParkLocations.name]:ParkLocations
   },
   methods: {
 

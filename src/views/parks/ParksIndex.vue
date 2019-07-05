@@ -2,6 +2,9 @@
   <div class='parks-index'>
     <h1>Walt Disney World Parks</h1>
     <div class="container">
+      <Location>
+        
+      </Location>
       <div v-for="park in parks">
         <div v-bind:class="{
                             'epcot': park.name === 'Epcot',
@@ -100,8 +103,12 @@
 
 <script>
 import axios from 'axios'
+import ParkLocation from '../locations/ParkLocations.vue'
 
 export default {
+  components: {
+    [ParkLocation.name]:ParkLocation
+  },
   data: function() {
     return {
       parks: []

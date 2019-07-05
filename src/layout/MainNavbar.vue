@@ -26,6 +26,9 @@
           <nav-link to='/attractions'>
             Attractions
           </nav-link>
+          <nav-link to='/locations'>
+            Map
+          </nav-link>
         </drop-down>
       </li>
 
