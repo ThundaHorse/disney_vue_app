@@ -22,7 +22,7 @@ import ParksIndex from './views/parks/ParksIndex.vue'
 import AttractionsIndex from './views/attractions/AttractionsIndex.vue'
 import AttractionShow from './views/attractions/AttractionShow.vue'
 
-import Location from './views/locations/Location.vue'
+import LocationHome from './views/locations/LocationHome.vue'
 
 import MainNavbar from './layout/MainNavbar.vue';
 import MainFooter from './layout/MainFooter.vue';
@@ -136,7 +136,6 @@ export default new Router({
       components: { default: ParksIndex, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 }
-        // footer: { backgroundColor: 'grey' }
       }
     },
     { path: '/parks/:id', 
@@ -166,7 +165,7 @@ export default new Router({
     },
     { path: '/locations', 
       name: 'locations', 
-      components: { default: Location, header: MainNavbar, footer: MainFooter },
+      components: { default: LocationHome, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: 'white' }

@@ -63,12 +63,12 @@ export default {
         position,
         map: this.map
       });
-    console.log(coord.wait);
-    console.log(coord.rideName);
+    console.log(coord.hours);
     var contentString = '<div id="content">'+
                           '<div id="container">'+
-                            `<h2 id="firstHeading" class="firstHeading" style='text-align:center;'>${coord.parkName}</h2>`+
+                            `<h2 id="firstHeading" class="firstHeading" style='text-align:center;'>${coord.name}</h2>`+
                           '<div id="bodyContent">'+
+                            `<p style='text-align:center;'>${coord.hours}</p>`+
                             `<p>${coord.address}</p>` +
                           '</div>'+
                         '</div>'+

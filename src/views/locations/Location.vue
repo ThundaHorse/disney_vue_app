@@ -34,16 +34,21 @@ export default {
 
     const middle = new google.maps.LatLng(mapCentre.lat, mapCentre.lng)    
 
+    
     this.map = new google.maps.Map(element, {zoom:10, center: middle});
 
     this.attractionCoord.forEach((coord) => { 
+
       const position = new google.maps.LatLng(coord.latitude, coord.longitude);
+
       const marker = new google.maps.Marker({ 
         position,
         map: this.map
       });
+
     console.log(coord.wait);
     console.log(coord.rideName);
+    
     var contentString = '<div id="content">'+
                           '<div id="container">'+
                             `<h2 id="firstHeading" class="firstHeading" style='text-align:center;'>${coord.rideName}</h2>`+
@@ -54,9 +59,10 @@ export default {
                       '</div>';
       // var infoWindow = new google.maps.InfoWindow;
       var infoWindow = new google.maps.InfoWindow({
-        // size: new google.maps.Size(150, 100)
+        size: new google.maps.Size(150, 100),
         content: contentString
       });
+      
       marker.addListener('click', function() {
         if (this.infoWindow != null) {
           infoWindow.close();

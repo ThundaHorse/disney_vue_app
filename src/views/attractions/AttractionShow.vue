@@ -25,7 +25,6 @@
         <h3 style='float:right;' v-on:change="talkToApi()">{{ attraction.formatted_wait_time }}</h3>
       </div>
 
-
 {{ lats }} | {{ longs }}
       <google-map 
         style="border-radius: 5%;"
