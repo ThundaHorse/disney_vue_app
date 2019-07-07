@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="attraction in orderBy(filterBy(attractions, searchFilter, 'name'), sortAttribute, sortAscending)" v-bind:key="attraction.id">
+          <tr v-for="(attraction, componentKey) in orderBy(filterBy(attractions, searchFilter, 'name'), sortAttribute, sortAscending)" v-bind:key="attraction.id" :key="componentKey">
             <th scope="row">
               <router-link class="attr-link" v-bind:to="'/attractions/' + attraction.id">
                 {{ attraction.id }}
@@ -34,8 +34,8 @@
                     'less-than-100': attraction.anticipated_wait_time > 60 && attraction.anticipated_wait_time <= 100,
                     'over-100': attraction.anticipated_wait_time > 100
                     }">
-                    <div v-if="!attraction.anticipated_wait_time">
-                      {{ '' }}
+                    <div v-if="attraction.anticipated_wait_time <= 0 && attraction.status !== 'closed'">
+                      {{ 'N/A' }}
                     </div>
                     <div>
                       {{ attraction.formatted_wait_time }} 
@@ -107,7 +107,10 @@ export default {
       sortAttribute: "",
       sortAscending: 1,
       park: '',  
-      interval: null
+      udpated: [],
+      old: [],
+      index: undefined,
+      componentKey: 0
     };
   },
   created: function() {
@@ -125,31 +128,24 @@ export default {
       },
       received: data => {
         console.log("Communicating");
-        this.attractions = data;
+        // for (var i = 0; i < this.attractions.length; i ++) {
+          // if (this.attractions[i].id === data.id) {
+        //     console.log(this.attractions.slice(0, i));
+            // this.index = i;
+            // this.old = this.attractions[i] 
+            // this.attractions[i] = data;
+          // }
+        // }
+        // this.attractions.shift(this.attractions[this.index])
+        // this.attractions.unshift(data)
+        // this.forceRenderer(this.attractions);
       }
     })
   },
-  // update: function () {
-  //     axios.get('/api/attractions/').then(response => {
-  //       console.log('received');
-  //       this.attractions = response.data;
-  //     }).bind(this);
-  //   },
-  // ready: function() {
-  //   this.update();
-  //   this.interval = setInterval(function () {
-  //     this.update();
-  //     }.bind(this), 1000 * 60 * 1); 
-  // },
-  // beforeDestroy: function(){
-  //   clearInterval(this.interval);
-  // },
   methods: {
-    // communicatingWithAPI: function() {
-    //   axios.get('/api/communicating').then(response => {
-    //     console.log(response.data);
-    //   })
-    // },
+    forceRenderer() {
+      this.componentKey += 1 
+    },
     setSortAttribute: function(inputAttribute) {
       if (this.sortAttribute === inputAttribute) {
         this.sortAscending *= -1;

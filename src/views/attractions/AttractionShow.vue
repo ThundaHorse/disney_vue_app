@@ -2,6 +2,7 @@
   <div class='home'>
     <div class="container">
         <br>
+      <!-- <img class='showPage' v-bind:src="attraction.image" v-bind:alt="attraction.name"> -->
         {{ attraction.lat }} | {{ attraction.lng }}
       <h1>{{ attraction.name }}</h1>
     <div class="container">
@@ -26,16 +27,9 @@
       </div>
 
 {{ lats }} | {{ longs }}
-      <google-map 
-        style="border-radius: 5%;"
-        :latitude="lats"
-        :longitude="longs"
-        :wait="waitTime"
-        :rideName="rideName"
-        ></google-map>
+      
     </div>
         <br>
-      <!-- <img class='showPage' v-bind:src="attraction.image" v-bind:alt="attraction.name"> -->
     </div>
   </div>  
 </template>
@@ -44,6 +38,7 @@
   img.showPage {
     height: 100%;
     width: 100%;
+    float: right;
   }
 </style>
 
@@ -74,17 +69,6 @@ export default {
     [Location.wait]:Location,
     [Location.name]:Location
   },
-  // props: {
-  //   name: {
-  //     type: String,
-  //     default: 'google-map',
-  //   },
-  //   latitude: {
-    // 28.42013,-81.5813294
-  //     type: Number, 
-  //     default: 0
-  //   }
-  // },
   data: function() {
     return {
       attraction: [],

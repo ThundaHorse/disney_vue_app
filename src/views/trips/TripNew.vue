@@ -26,9 +26,9 @@
 
           
 
-          <slider class="slider-success"
-             v-model="simple">
-          </slider>
+        <fg-input>
+          <input v-model="newMaxWait" type="number">
+        </fg-input>
 
 
           <br>
@@ -53,7 +53,7 @@
                 <p>
                   {{ park.name }} <b>•</b> {{ park.address }} 
                     <br>
-                  {{ park.formatted.opening }} to {{ park.formatted.closing }}
+                  {{ park.opening }} to {{ park.closing }}
                 </p>
               </span> 
           </div>

@@ -7,8 +7,9 @@
           <br>
           <br>
         <br>
-        <img src="../../public/disney/disneyLogo.png" style='width: 70%'>
-        <h1>Trip Planning App</h1>
+        <h1><b>Let's</b> Go To</h1>
+        <br>
+        <img src="../../public/disney/disneyLogo.png" style='width: 70%; height: 30%;'>
       <h2>
         <br>
         <br>

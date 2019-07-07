@@ -3,56 +3,62 @@
   <div class="container">
     <h1>Your Trips</h1>
       <br>
-
       <div v-if="trips == ''">
         <h1>You have no trips currently, lets plan a trip!</h1>
           <br>
         <button class='btn btn-raised btn-lg btn-primary btn-outline-dark' v-on:click.prevent='route()'>Add Trips</button>
       </div>
 
-    <div v-for="trip in trips">
-      <router-link v-bind:to="'/trips/' + trip.id">
-        <button class='btn btn-raised btn-lg btn-outline-light btn-primary'>
-          View This Trip
-        </button>
-      </router-link>
-        <br>
-        <br>
-      <h1>From {{ trip.dates.arrival }} to {{ trip.dates.departure }}</h1> 
-        <br>
-      <h1>Your Parks & Attractions</h1>
-        <br>
-    <div v-for='int in interests'>
-      <div v-if="int.trip_id === trip.id">
-      <h4>{{ int.formatted.formatted_start_time }}</h4>
-        <p>{{ int.ride.name }} • 
-          <span v-if="int.park.name === 'Epcot'" style="color: blue">                
-            <b>{{ int.park.name }}</b>
-          </span>
-          <span v-if="int.park.name === 'Magic Kingdom'" style="color: red">
-            <b>{{ int.park.name }}</b>
-          </span>
-          <span v-if="int.park.name === 'Hollywood Studios'" style="color: orange">
-            <b>{{ int.park.name }}</b>
-          </span>
-          <span v-if="int.park.name === 'Animal Kingdom'" style="color: green">
-            <b>{{ int.park.name }}</b>
-          </span>
-        </p>
+
+      <div v-for='trip in trips' :key='index'>
+        <h4>From {{ trip.arrival }} to {{ trip.departure }} 
+              <router-link v-bind:to="'/trips/' + trip.id">
+                <button class='btn btn-raised btn-sm btn-outline-light btn-primary btn-round'>
+                  View This Trip
+                </button>
+              </router-link></h4>
+        <collapse :active-index="2" :animation-duration="500">
+          <collapse-item title="Trip Itinerary" :name="index">
+            <div>
+                <br>
+              <h1>Your Parks & Attractions</h1>
+                <br>
+                <div v-for='int in interests'>
+                  <div v-if="int.trip_id === trip.id">
+                  <h4>{{ int.formatted.formatted_start_time }}</h4>
+                    <p>{{ int.ride.name }} • 
+                      <span v-if="int.park.name === 'Epcot'" style="color: blue">                
+                        <b>{{ int.park.name }}</b>
+                      </span>
+                      <span v-if="int.park.name === 'Magic Kingdom'" style="color: red">
+                        <b>{{ int.park.name }}</b>
+                      </span>
+                      <span v-if="int.park.name === 'Hollywood Studios'" style="color: orange">
+                        <b>{{ int.park.name }}</b>
+                      </span>
+                      <span v-if="int.park.name === 'Animal Kingdom'" style="color: green">
+                        <b>{{ int.park.name }}</b>
+                      </span>
+                      <br>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <span>
+                <br>
+                <router-link v-bind:to="'/trips/edit/' + trip.id">
+                  <n-button type="primary" size='lg' outline round>
+                    <i class="fa fa-edit">Edit Trip</i>
+                  </n-button>
+                </router-link>
+                •
+                <n-button type='danger' size='lg' outline round v-on:click="deleteTrip(trip)"> 
+                  <i class="fa fa-trash">Delete Trip</i>
+                </n-button>
+              </span>
+          </collapse-item>
+      </collapse>
       </div>
-    </div>
-      <br>
-      <span>
-        <router-link v-bind:to="'/trips/edit/' + trip.id">
-          <button class='btn btn-raised btn-outline-dark btn-primary'>
-              Edit this Trip
-          </button>
-        </router-link>
-        •
-        <button class='btn btn-raised btn-outline-dark btn-danger' v-on:click="deleteTrip(trip)">
-          Delete Trip
-        </button>
-      </span>
     </div>
 
   </div>
@@ -67,6 +73,7 @@
 
 <script>
 import axios from 'axios' 
+import { Collapse, CollapseItem } from '../../components'
 
 export default {
   data() {
@@ -75,8 +82,13 @@ export default {
       trips: [],
       interests: [],
       tickets: [],
-      attractions: []
+      attractions: [],
+      index: 0
     }
+  },
+  components: {
+    Collapse,
+    CollapseItem
   },
   created: function() {
     if (localStorage.getItem('jwt')) {

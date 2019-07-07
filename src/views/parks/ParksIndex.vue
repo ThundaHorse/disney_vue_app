@@ -1,31 +1,41 @@
 <template>
   <div class='parks-index'>
-    <h1>Walt Disney World Parks</h1>
-    <div class="container">
-      <div v-for="park in parks">
-        <div v-bind:class="{
-                            'epcot': park.name === 'Epcot',
-                            'holly': park.name === 'Hollywood Studios',
-                            'magic': park.name === 'Magic Kingdom',
-                            'animal': park.name === 'Animal Kingdom'
-                            }">
-            <div class="jumbotron shadow-lg p-5 mb-5 bg-white rounded">
-              <h1>{{ park.name }}</h1>
-                  <p class="lead">{{ park.formatted.opening}} to {{ park.formatted.closing }}</p>
-                <hr class="my-3">
-                  <p>{{ park.address }}</p>
-                  <a v-on:click.prevent="parkPage(park)" class="btn btn-round btn-lg btn-info" role="button">
-                    Learn more
-                  </a>
+     <h1>Walt Disney World Parks</h1>
+      <nav class="nav flex-column nav-pills ml-5">
+        <tabs tabNavWrapperClasses="success" type='primary' vertical class="row" role='tablist' v-model="activeTab">
+          <div class="container">
+            <div v-for="park in parks">
+              <div v-bind:class="{
+                                  'epcot': park.name === 'Epcot',
+                                  'holly': park.name === 'Hollywood Studios',
+                                  'magic': park.name === 'Magic Kingdom',
+                                  'animal': park.name === 'Animal Kingdom'
+                                  }">
+                <tab :label="park.name">   
+                  <div class="jumbotron jumbotron-fluid shadow-lg mb-5 bg-white rounded">
+                    <h1>{{ park.name }}</h1>
+                      <p class="lead">{{ park.opening}} to {{ park.closing }}</p>
+                      <p class='footer'>{{ park.address }}</p>
+                      <a v-on:click.prevent="parkPage(park)" class="btn btn-round btn-lg btn-info" role="button">
+                        Learn more
+                      </a>
+                  </div>
+                </tab>
+              </div>
             </div>
+              <tab label='Map of Parks' style='color:white;'>   
+                <park-locations>
+                </park-locations>
+              </tab>
+            <br>
           </div>
-        <br>
-      </div>
+        </tabs>
+      </nav>
     </div>
   </div>
 </template>
 
-<style>
+<style scoped>
   .magic .jumbotron {
     /* box-shadow: 10px 10px 5px #888; */
     background: url("https://ewscripps.brightspotcdn.com/dims4/default/3c6b07a/2147483647/strip/true/crop/600x338+0+1/resize/1280x720!/quality/90/?url=https%3A%2F%2Fewscripps.brightspotcdn.com%2F05%2Fd3%2F8bdb71a64d7f88d9ed004a312c93%2Fdisney-fireworks.jpg") no-repeat center center; 
@@ -95,20 +105,24 @@
     font-size: 30px;
     color: white;
   }
-  
 </style>
 
 <script>
 import axios from 'axios'
-import ParkLocation from '../locations/ParkLocations.vue'
+import ParkLocations from './../locations/ParkLocations.vue';
+import Tab from './../../components/Tabs/Tab'
+import Tabs from './../../components/Tabs/Tabs'
 
 export default {
   components: {
-    [ParkLocation.name]:ParkLocation
+    ParkLocations,
+    Tabs,
+    Tab
   },
   data: function() {
     return {
-      parks: []
+      parks: [],
+      activeTab: 'Options'
     };
   },
   created: function() {

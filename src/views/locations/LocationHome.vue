@@ -71,6 +71,7 @@ export default {
         position, 
         map: this.map,
         name: park.name,
+        hours: park.hours,
         address: park.address
       });
 
@@ -82,6 +83,7 @@ export default {
                             '<div id="container">'+
                               `<h2 id="firstHeading" class="firstHeading" style='text-align:center;'>${marker.name}</h2>`+
                             '<div id="bodyContent">'+
+                              `<p>${marker.hours}</p>` +
                               `<p>${marker.address}</p>` +
                             '</div>'+
                           '</div>'+
@@ -91,6 +93,7 @@ export default {
           infoWindow.open(this.map, marker);
         });
       })(this.map, marker);   
+      
       this.markers.push(marker);
       this.map.fitBounds(this.bounds.extend(position));
     });

@@ -143,7 +143,7 @@ export default new Router({
       components: { default: ParksShow, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'white' }
+        footer: { backgroundColor: 'black' }
       } 
     },
 

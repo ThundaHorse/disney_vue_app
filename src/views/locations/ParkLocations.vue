@@ -50,45 +50,42 @@ export default {
   mounted: function () {
     this.bounds = new google.maps.LatLngBounds();
     const element = document.getElementById(this.mapName)
-
-    const mapCentre = { lat: this.markerCoordinates[0].latitude, lng: this.markerCoordinates[0].longitude, rideName: this.markerCoordinates[0].rideName, wait: this.markerCoordinates[0].wait }
-
+    const mapCentre = { lat: 28.3838229, lng: -81.5886027 }
     const middle = new google.maps.LatLng(mapCentre.lat, mapCentre.lng)    
+    const infoWindow = new google.maps.InfoWindow();
 
-    this.map = new google.maps.Map(element, {zoom:10, center: middle});
-
+    this.map = new google.maps.Map(element, { zoom: 13, center: middle });
+    
     this.markerCoordinates.forEach((coord) => { 
       const position = new google.maps.LatLng(coord.latitude, coord.longitude);
-      const marker = new google.maps.Marker({ 
-        position,
-        map: this.map
+      var marker = new google.maps.Marker({
+        position, 
+        map: this.map,
+        name: coord.name,
+        hours: coord.hours,
+        address: coord.address
       });
-    console.log(coord.hours);
-    var contentString = '<div id="content">'+
-                          '<div id="container">'+
-                            `<h2 id="firstHeading" class="firstHeading" style='text-align:center;'>${coord.name}</h2>`+
-                          '<div id="bodyContent">'+
-                            `<p style='text-align:center;'>${coord.hours}</p>`+
-                            `<p>${coord.address}</p>` +
-                          '</div>'+
-                        '</div>'+
-                      '</div>';
-      // var infoWindow = new google.maps.InfoWindow;
-      var infoWindow = new google.maps.InfoWindow({
-        // size: new google.maps.Size(150, 100)
-        content: contentString
-      });
-      marker.addListener('click', function() {
-        if (this.infoWindow != null) {
-          infoWindow.close();
-        } 
-        // infoWindow.setContent(`${coord.name} \n ${coord.address}`);
-        this.infoWindow = infoWindow;
-        infoWindow.open(this.map, marker);
-      })
 
-      this.markers.push(marker)
-      this.map.fitBounds(this.bounds.extend(position))
+    (function (map, marker) {
+      google.maps.event.addListener(marker, "click", function (e) {
+
+      var contentString = '<div id="content">'+
+                            '<div id="container">'+
+                              `<h2 id="firstHeading" class="firstHeading" style='text-align:center; color: black;'>${marker.name}</h2>`+
+                            '<div id="bodyContent">'+
+                              `<p style='color:black;'>${marker.hours}</p>` +
+                              `<p style='color:black;'>${marker.address}</p>` +
+                            '</div>'+
+                          '</div>'+
+                        '</div>';
+
+        infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + contentString + "</div>");
+          infoWindow.open(this.map, marker);
+        });
+      })(this.map, marker); 
+
+      this.markers.push(marker);
+      this.map.fitBounds(this.bounds.extend(position));
     });
   }
 };

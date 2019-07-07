@@ -6,37 +6,31 @@
                         'magic': park.name === 'Magic Kingdom',
                         'animal': park.name === 'Animal Kingdom'
                         }">
-    <parallax 
-      class="page-header-image"
-      style="background-image:url('img/disney/mickey.png')"
-      >
-    </parallax>
-    
+  
       <div class='page-header'>
         <br>
         <div class='text-center'>
           <h1 id="title">{{ park.name }}</h1>
           <h2>{{ park.address }}</h2>
-          <h3><b>Open</b>: {{ park.formatted.opening }} | <b>Close</b>: {{ park.formatted.closing }}</h3>
+          <h3><b>Open</b>: {{ park.opening }} | <b>Close</b>: {{ park.closing }}</h3>
+          <h1>Attraction List</h1>
+          <div class="container">
+            <div class="scroll-box">
+              <div v-for="attraction in park.attractions" :key='attraction.id'> 
+                <h5><b>{{ attraction.name }}</b></h5>
+                <h5>Status: {{ attraction.status }} • Estimated Wait: {{ attraction.anticipated_wait_time }}</h5>
+                <br>
+              </div>
+            </div>
+          </div>
+          <br>
         </div>
-        <br>
       </div>
-    </div>
-      <google-map>
-      </google-map>
-    <div class="container">
-            <br>
-            <h1>Attraction List</h1>
-          <p class='show' v-for="attraction in park.attractions"> 
-            {{ attraction.name }} • Estimated wait: {{ attraction.anticipated_wait_time }}
-          </p>
-        <br>
     </div>
   </div>
 </template>
 
-    </div>
-<style>
+<style scoped>
   .epcot {
     background: url("https://secure.cdn1.wdpromedia.com/resize/mwImage/1/640/360/75/dam/wdpro-assets/gallery/destinations/epcot/epcot-gallery-00.jpg?1537220971715") no-repeat center center;
     background-size: cover;
@@ -62,28 +56,23 @@
     -webkit-text-stroke: 0.5px;
     -webkit-text-stroke-color: black;
   }
+  .scroll-box {
+    background-color: black;
+    margin-left: 220px; 
+    margin-right: 220px;
+    border-radius: 5%;
+    opacity: 0.6; 
+    height: 400px;
+    padding: 10px;
+    overflow-y: scroll;
+  }
+  .scroll-box::-webkit-scrollbar { width: 0 !important }
 </style>
 
 <script>
 import axios from 'axios'
-import { Parallax } from '@/components';
-import ParkLocations from './../locations/ParkLocations.vue';
 
 export default {
-  computed: {
-    parkName: function() {
-      return this.park.name
-    }, 
-    address: function() {
-      return this.park.address
-    },
-    opening: function() {
-      return this.park.formatted.opening
-    },
-    closing: function() {
-      return this.park.formatted.closing
-    }
-  },
   data: function() {
     return {
       park: [],
@@ -99,8 +88,7 @@ export default {
     })
   },
   components: {
-    Parallax,
-    [ParkLocations.name]:ParkLocations
+   
   },
   methods: {
 
