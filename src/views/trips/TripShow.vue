@@ -3,8 +3,25 @@
     <div class='container'>
       <h1>Trip {{ trip.id }}</h1>
         <br>
-      <h3>Arrival Day: {{ trip.arrival }}</h3>
-      <h3>Departure Day: {{ trip.departure }}</h3>
+        <div class="container">
+            <!-- Dates -->
+          <div class="row">
+            <div class='col-6'>
+              Arrival Day
+            </div>
+            <div class="col-6">
+              Departure Day
+            </div>
+          </div>
+          <div class="row">
+            <div class='col-6'>
+              <h3>{{ trip.arrival }}</h3>
+            </div>
+            <div class='col-6'>
+              <h3>{{ trip.departure }}</h3>
+            </div>
+          </div>
+        </div>
       <!-- <button v-on:click.prevent="toggle()">Show Attractions</button> -->
         <br>
     <h3>Attractions & Parks</h3>
@@ -96,17 +113,27 @@ export default {
     [DatePicker.name]: DatePicker
   },
   created: function() {
-    axios.get('/api/trips/' + this.$route.params.id ).then(response => {
-      this.trip = response.data;
-    })
-    axios.get('/api/interests').then(response => {
-      this.interests = response.data;
-    })
-    axios.get('/api/tickets').then(response => {
-      this.tickets = response.data;
-    })
+    axios.all([
+      this.getTickets(),
+      this.getInterests(),
+      this.getTrips()
+    ])
+    .then(axios.spread((first_response, second_response, third_response) => {
+      this.tickets = first_response.data;
+      this.interests = second_response.data;
+      this.trip = third_response.data;
+    }))
   },
   methods: {
+    getTickets() {
+      return axios.get('/api/tickets')
+    },
+    getInterests() {
+      return axios.get('/api/interests')
+    },
+    getTrips() {
+      return axios.get('/api/trips/' + this.$route.params.id )
+    },
     toggle: function() {
       this.show = !this.show;
     }

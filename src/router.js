@@ -39,8 +39,7 @@ export default new Router({
       name: 'home', 
       components: { default: Home, header: MainNavbar, footer: MainFooter }, 
       props: { 
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'white' }
+        header: { colorOnScroll: 400 }
       } 
     },
     { 
@@ -48,8 +47,7 @@ export default new Router({
       name: 'trips-index', 
       components: { default: TripIndex, header: MainNavbar, footer: MainFooter }, 
       props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'white' }
+        header: { colorOnScroll: 400 }
       } 
     },
     { 
@@ -57,8 +55,7 @@ export default new Router({
       name: 'trip-new', 
       components: { default: TripNew, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'white' }
+        header: { colorOnScroll: 400 }
       }
     },
     { 
@@ -66,8 +63,7 @@ export default new Router({
       name: 'trip-show', 
       components: { default: TripShow, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'white' }
+        header: { colorOnScroll: 400 }
       }
     },
     { 
@@ -75,8 +71,7 @@ export default new Router({
       name: 'trip-edit', 
       components: { default: TripEdit, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'white' }
+        header: { colorOnScroll: 400 }
       }
     }, 
     { 
@@ -84,8 +79,7 @@ export default new Router({
       name: 'trip-add', 
       components: { default: TripAdd, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'white' }
+        header: { colorOnScroll: 400 }
       }
     },
 
@@ -93,8 +87,7 @@ export default new Router({
       name: 'login', 
       components: { default: Login, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'white' }
+        header: { colorOnScroll: 400 }
       }
     },
     { path: '/logout', 
@@ -109,8 +102,7 @@ export default new Router({
       name: 'sign-up', 
       components: { default: SignUp, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: 'white' } 
+        header: { colorOnScroll: 400 }
       }
     },
 
@@ -118,16 +110,14 @@ export default new Router({
       name: 'user-info', 
       components: { default: UserInfo, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 }, 
-        footer: { backgroundColor: 'white' }
+        header: { colorOnScroll: 400 }
       }
     },
     { path: '/edit-info', 
       name: 'user-edit', 
       components: { default: EditInfo, header: MainNavbar, footer: MainFooter },
       props: {
-        header: { colorOnScroll: 400 }, 
-        footer: { backgroundColor: 'white' }
+        header: { colorOnScroll: 400 }
       }
     }, 
 
@@ -172,6 +162,7 @@ export default new Router({
       } 
     }
   ],
+  
   scrollBehavior: to => {
     if (to.hash) {
       return { selector: to.hash };

@@ -92,8 +92,8 @@ export default {
 </script>
 <style scoped>
 .google-map {
-  width: 1000px;
-  height: 700px;
+  width: 1100px;
+  height: 500px;
   margin: 0 auto;
   background: gray;
 }

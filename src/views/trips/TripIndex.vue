@@ -11,7 +11,7 @@
 
 
       <div v-for='trip in trips' :key='index'>
-        <h4>From {{ trip.arrival }} to {{ trip.departure }} 
+        <h4><img src='../../../public/disney/oswald.png' style='width: auto; height: 50px;'>    From {{ trip.arrival }} to {{ trip.departure }} 
               <router-link v-bind:to="'/trips/' + trip.id">
                 <button class='btn btn-raised btn-sm btn-outline-light btn-primary btn-round'>
                   View This Trip
@@ -92,18 +92,26 @@ export default {
   },
   created: function() {
     if (localStorage.getItem('jwt')) {
-      axios.get('/api/interests').then(response => {
-        this.interests = response.data;
-      })
-      axios.get('/api/trips').then(response => {
-        this.trips = response.data; 
-      })
+      axios.all([
+        this.getInterests(),
+        this.getTrips()
+      ])
+      .then(axios.spread((first_response, second_response) => {
+            this.interests = first_response.data;
+            this.trips = second_response.data;
+          }))
     } else {
       alert("Sign in to view your trips!")
       this.$router.push('/login')
     }
   },
   methods: {
+    getInterests() {
+      return axios.get('/api/interests')
+    },
+    getTrips() {
+      return axios.get('/api/trips')
+    },
     deleteTrip: function(trip) {
       axios.delete('/api/trips/' + trip.id).then(response => {
         this.$router.push('/trips')

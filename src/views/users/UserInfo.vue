@@ -2,13 +2,6 @@
   <div class='user-info'>
       <br>
     <div class='container'>
-      <h1>Your Info</h1>
-        <br>
-
-        <div class="photo-container">
-          <img v-bind:src="user.avatar" v-bind:alt="user.first_name" class='img-circle'>
-        </div>
-
       <div v-if="time() === 'AM'">
           <br>
         <h1>Good Morning {{ user.first_name }}!</h1>
@@ -18,10 +11,21 @@
         <h1>Good Evening {{ user.first_name }}!</h1>
       </div>
         <br>
-      <h4>Email: {{ user.email }}</h4>
-      <h4>Phone number: {{ user.phone_number }}</h4>
+        <div class="photo-container">
+          <img v-bind:src="user.avatar" v-bind:alt="user.first_name" class='img-circle'>
+        </div>
+        
+      <div v-if="this.userTrips.length >= 1">
+        <h4 v-bind="computedTripLength()">{{numberOfTrips}} Click <router-link to='/trips'>here</router-link> to see your trips!</h4>
+      </div>
+      <div v-else>
+        <h4 v-bind="computedTripLength()">{{numberOfTrips}} Click <router-link to='/trips/new'>here</router-link> to plan a trip!</h4>
+      </div>
         <br>
-    <button class="btn btn-raised btn-lg btn-info btn-outline-light" v-on:click="edit()">Edit</button>    
+
+      <h5>Email: {{ user.email }}</h5>
+      <h5>Phone number: {{ user.phone_number }}</h5>
+    <button class="btn btn-raised btn-md btn-info btn-outline-light" v-on:click="edit()">Edit your info</button>    
     </div>
   </div>
 </template>
@@ -41,18 +45,27 @@ export default {
   data: function() {
     return {
       user: [],
-      user_trips: []
+      userTrips: [],
+      numberOfTrips: ''
     };
   },
   created: function() {
-    axios.get('/api/users/' + localStorage.getItem('user_id')).then(response => {
-      this.user = response.data;
-    });
-    axios.get('/api/trips').then(response => {
-      this.user_trips = response.data;
-    })
+    axios.all([
+      this.getUser(),
+      this.getTrips()
+    ])
+    .then(axios.spread((first_response, second_response) => {
+      this.user = first_response.data;
+      this.userTrips = second_response.data;
+    }))
   },
   methods: {
+    getUser() {
+      return axios.get('/api/users/' + localStorage.getItem('user_id'))
+    },
+    getTrips() {
+      return axios.get('/api/trips')
+    },
     edit() {
       this.$router.push('/edit-info')
     },
@@ -61,6 +74,16 @@ export default {
                                              hour: "numeric", 
                                              minute: "numeric"});
       return time.split(" ")[1];
+    },
+    computedTripLength () {
+      if (this.userTrips.length > 1) {
+        this.numberOfTrips = `You have ${this.userTrips.length} upcoming trips!`
+      } else if (this.userTrips.length === 1) {
+        this.numberOfTrips = "You have 1 upcoming trip!"
+      } else if (this.userTrips.length <= 0) {
+        this.numberOfTrips = "You currently have no planned trips."
+      }
+      return this.numberOfTrips
     }
   }
 };

@@ -2,7 +2,7 @@
   <div class='parks-index'>
      <h1>Walt Disney World Parks</h1>
       <nav class="nav flex-column nav-pills ml-5">
-        <tabs tabNavWrapperClasses="success" type='primary' vertical class="row" role='tablist' v-model="activeTab">
+        <tabs tabNavWrapperClasses="success" type='success' vertical class="row" role='tablist'>
           <div class="container">
             <div v-for="park in parks">
               <div v-bind:class="{
@@ -121,8 +121,7 @@ export default {
   },
   data: function() {
     return {
-      parks: [],
-      activeTab: 'Options'
+      parks: []
     };
   },
   created: function() {

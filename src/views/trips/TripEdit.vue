@@ -112,17 +112,25 @@ export default {
   },
   created: function() {
     if (localStorage.getItem('jwt')) {
-      axios.get('/api/trips/' + this.$route.params.id).then(response => {
-        this.trip = response.data; 
-      })
-      axios.get('/api/interests').then(response => {
-        this.interests = response.data;
-      })
+      axios.all([
+        this.getTrips(),
+        this.getInterests()
+      ])
+      .then(axios.spread((first_response, second_response) => {
+        this.trip = first_response.data;
+        this.interests = second_response.data;
+      }))
     } else {
       this.$router.push('/login')
     }
   },
   methods: {
+    getTrips() {
+      return axios.get('/api/trips/' + this.$route.params.id) 
+    },
+    getInterests() {
+      return axios.get('/api/interests')
+    },
     toggle: function() {
       this.show = !this.show;
     },

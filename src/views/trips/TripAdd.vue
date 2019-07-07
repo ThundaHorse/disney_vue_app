@@ -111,14 +111,22 @@ export default {
     Card
   },
   created: function() {
-    axios.get('/api/trips/' + this.$route.params.id).then(response => {
-      this.trip = response.data;
-    })
-    axios.get('/api/attractions').then(response => {
-      this.attractions = response.data; 
-    })
+    axios.all([
+      this.getTrips(),
+      this.getAttractions()
+    ])
+    .then(axios.spread((first_response, second_response) => {
+      this.trip = first_response.data;
+      this.attractions = second_response.data;
+    }))
   },
   methods: {
+    getTrips() {
+      return axios.get('/api/trips/' + this.$route.params.id)
+    },
+    getAttractions() {
+      return axios.get('/api/attractions')
+    },
     createInterest(inputRide) {
       inputRide.interested = !inputRide.interested;
         var interestParams = {
