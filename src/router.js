@@ -11,7 +11,6 @@ import EditInfo from './views/users/EditInfo.vue'
 import UserInfo from './views/users/UserInfo.vue'
 
 import TripIndex from './views/trips/TripIndex.vue'
-import TripShow from './views/trips/TripShow.vue'
 import TripEdit from './views/trips/TripEdit.vue'
 import TripNew from './views/trips/TripNew.vue'
 import TripAdd from './views/trips/TripAdd.vue'
@@ -54,14 +53,6 @@ export default new Router({
       path: '/trips/new', 
       name: 'trip-new', 
       components: { default: TripNew, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 }
-      }
-    },
-    { 
-      path: '/trips/:id', 
-      name: 'trip-show', 
-      components: { default: TripShow, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 }
       }

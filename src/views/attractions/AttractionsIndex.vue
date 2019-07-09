@@ -6,6 +6,7 @@
       <div>
         Search: <input v-model="searchFilter" style='border-radius: 10px;'>
       </div>
+      <p style='float: right;'>Last Update: {{ attractions[0].last_update }}</p>
       <table class="table table-striped table-dark mt-2">
         <thead>
           <tr>
@@ -13,7 +14,7 @@
             <th v-on:click="setSortAttribute('name')" scope="col" style="color:white;">{{ isAscending('name') }} Name</th>
             <th v-on:click="setSortAttribute('anticipated_wait_time')" scope="col" style="color:white;">{{ isAscending('anticipated_wait_time') }} Wait Time</th>
             <th v-on:click="setSortAttribute('park')" scope="col" style="color:white;">{{ isAscending('park') }} Park</th>
-            <th v-on:click="setSortAttribute('last_update')" scope="col" style="color:white;">{{ isAscending('last_update') }} Last Update</th>
+            <th v-on:click="setSortAttribute('status')" scope="col" style="color:white;">{{ isAscending('status') }} Status</th>
           </tr>
         </thead>
         <tbody>
@@ -53,9 +54,14 @@
                   {{ attraction.park }}
                 </router-link>
               </span>
-
               <td>
-                {{ attraction.last_update }}
+                <span v-bind:class="{
+                                    'operating-status': attraction.status === 'Operating',
+                                    'down-status': attraction.status === 'Down',
+                                    'closed-status': attraction.status === 'Closed'
+                                    }">
+                  {{ attraction.status }}
+                </span>
               </td>
             </td>
           </tr>
@@ -67,10 +73,10 @@
 </template>
 
 <style>
-  .operational-status, .less-than-60 {
+  .operating-status, .less-than-60 {
     color: rgb(22, 165, 22);
   }
-  .maintenance-status, .less-than-100 {
+  .down-status, .less-than-100 {
     color: yellow;
   }
   .closed-status, .over-100 {

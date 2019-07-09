@@ -11,9 +11,8 @@
         <h1>Good Evening {{ user.first_name }}!</h1>
       </div>
         <br>
-        <div class="photo-container">
-          <img v-bind:src="user.avatar" v-bind:alt="user.first_name" class='img-circle'>
-        </div>
+          <img v-bind:src="user.avatar" v-bind:alt="user.first_name" class='img-display'>
+
         
       <div v-if="this.userTrips.length >= 1">
         <h4 v-bind="computedTripLength()">{{numberOfTrips}} Click <router-link to='/trips'>here</router-link> to see your trips!</h4>
@@ -25,17 +24,19 @@
 
       <h5>Email: {{ user.email }}</h5>
       <h5>Phone number: {{ user.phone_number }}</h5>
-    <button class="btn btn-raised btn-md btn-info btn-outline-light" v-on:click="edit()">Edit your info</button>    
+    <button class="btn btn-round btn-raised btn-md btn-info" v-on:click="edit()">Edit your info</button>    
     </div>
   </div>
 </template>
 
-<style>
-  img.img-raised {
+<style scoped>
+  img.img-display {
     box-shadow: 4px 5px 10px rgb(70, 70, 70);
-    width: 60%;
+    width: auto;
     overflow: hidden;
+    border-radius: 4%;
   }
+  
 </style>
 
 <script>
@@ -51,8 +52,8 @@ export default {
   },
   created: function() {
     axios.all([
-      this.getUser(),
-      this.getTrips()
+      axios.get('/api/users/' + localStorage.getItem('user_id')),
+      axios.get('/api/trips')
     ])
     .then(axios.spread((first_response, second_response) => {
       this.user = first_response.data;
@@ -60,12 +61,6 @@ export default {
     }))
   },
   methods: {
-    getUser() {
-      return axios.get('/api/users/' + localStorage.getItem('user_id'))
-    },
-    getTrips() {
-      return axios.get('/api/trips')
-    },
     edit() {
       this.$router.push('/edit-info')
     },

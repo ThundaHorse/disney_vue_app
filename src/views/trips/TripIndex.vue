@@ -9,50 +9,85 @@
         <button class='btn btn-raised btn-lg btn-primary btn-outline-dark' v-on:click.prevent='route()'>Add Trips</button>
       </div>
 
-
       <div v-for='trip in trips' :key='index'>
-        <h4><img src='../../../public/disney/oswald.png' style='width: auto; height: 50px;'>    From {{ trip.arrival }} to {{ trip.departure }} 
-              <router-link v-bind:to="'/trips/' + trip.id">
-                <button class='btn btn-raised btn-sm btn-outline-light btn-primary btn-round'>
-                  View This Trip
-                </button>
-              </router-link></h4>
+        {{ trip.id }}
+        <h4>
+          <img src='../../../public/disney/oswald.png' style='width: auto; height: 50px;'>    
+          From {{ trip.arrival }} to {{ trip.departure }} 
+        </h4>
         <collapse :active-index="2" :animation-duration="500">
           <collapse-item title="Trip Itinerary" :name="index">
             <div>
                 <br>
               <h1>Your Parks & Attractions</h1>
-                <br>
-                <div v-for='int in interests'>
-                  <div v-if="int.trip_id === trip.id">
-                  <h4>{{ int.formatted.formatted_start_time }}</h4>
-                    <p>{{ int.ride.name }} • 
-                      <span v-if="int.park.name === 'Epcot'" style="color: blue">                
-                        <b>{{ int.park.name }}</b>
-                      </span>
-                      <span v-if="int.park.name === 'Magic Kingdom'" style="color: red">
-                        <b>{{ int.park.name }}</b>
-                      </span>
-                      <span v-if="int.park.name === 'Hollywood Studios'" style="color: orange">
-                        <b>{{ int.park.name }}</b>
-                      </span>
-                      <span v-if="int.park.name === 'Animal Kingdom'" style="color: green">
-                        <b>{{ int.park.name }}</b>
-                      </span>
-                      <br>
-                    </p>
+                <div class="container">
+                  <div class="card-columns">
+                    <div class="col-md-6">
+                      <div v-for='interest in interests'>
+                        <div v-if="interest.trip_id === trip.id">
+
+                          <card text-center class='card p-2' :raised='true' :style="cardColoring(interest.park.name)" header-classes='text-center'>
+                            <template slot='image'>
+                              <div class="card-image">
+                                <slot name="image">
+                                  <img v-bind:src="interest.ride.image">
+                                </slot>
+                              </div>
+                            </template>
+
+                            <template slot='header'>
+                                <br>
+                              <h3>{{ interest.park.name }}</h3>
+                            </template>
+
+                            <template slot='header'>
+                                <div class="info">
+                                  <slot name="info">
+                                      <h5><b>{{ interest.ride.name }}</b></h5>
+                                  </slot>
+                                </div>
+                            </template>
+
+                            <div class="card-footer text-center">
+                              <p>Updated at: {{ interest.last_update }}</p>
+                              <div class="info">
+                                  <slot name="info">
+                                    <p>{{ interest.ride.anticipated_wait_time }} minutes | 
+                                      <span v-if="interest.ride.status === 'closed'" style="color: Red;">
+                                          <b>{{ interest.ride.status }}</b>
+                                          <br>
+                                      </span>
+                                          
+                                      <span v-if="interest.ride.status === 'operational'" style="color: Green;">
+                                        <b>{{ interest.ride.status }}</b>
+                                          <br>
+                                      </span>
+
+                                      <span v-if="interest.ride.status === 'maintenance'" style="color: Orange;">
+                                        <b>{{ interest.ride.status }}</b>
+                                          <br>
+                                      </span>
+                                  </p>
+                                </slot>
+                              </div>
+                            </div>
+                          </card>
+                          
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
               <span>
                 <br>
                 <router-link v-bind:to="'/trips/edit/' + trip.id">
-                  <n-button type="primary" size='lg' outline round>
+                  <n-button type="warning" size='md' outline round>
                     <i class="fa fa-edit">Edit Trip</i>
                   </n-button>
                 </router-link>
                 •
-                <n-button type='danger' size='lg' outline round v-on:click="deleteTrip(trip)"> 
+                <n-button type='danger' size='md' outline round v-on:click="deleteTrip(trip)"> 
                   <i class="fa fa-trash">Delete Trip</i>
                 </n-button>
               </span>
@@ -74,6 +109,7 @@
 <script>
 import axios from 'axios' 
 import { Collapse, CollapseItem } from '../../components'
+import { Card, Button } from '@/components';
 
 export default {
   data() {
@@ -83,18 +119,21 @@ export default {
       interests: [],
       tickets: [],
       attractions: [],
-      index: 0
+      index: 0,
+      cardColor: ''
     }
   },
   components: {
     Collapse,
-    CollapseItem
+    CollapseItem,
+    Card,
+    [Button.name]: Button
   },
   created: function() {
     if (localStorage.getItem('jwt')) {
       axios.all([
-        this.getInterests(),
-        this.getTrips()
+        axios.get('/api/interests'),
+        axios.get('/api/trips')
       ])
       .then(axios.spread((first_response, second_response) => {
             this.interests = first_response.data;
@@ -106,18 +145,23 @@ export default {
     }
   },
   methods: {
-    getInterests() {
-      return axios.get('/api/interests')
-    },
-    getTrips() {
-      return axios.get('/api/trips')
-    },
     deleteTrip: function(trip) {
       axios.delete('/api/trips/' + trip.id).then(response => {
         this.$router.push('/trips')
         var index = this.trips.indexOf(trip);
         this.trips.splice(index, 1);
       })
+    },
+    cardColoring(park) {
+      if (park === 'Epcot') {
+        return 'width: 22rem; height: 40rem; background-color: #F4DB9F;'
+      } else if (park === 'Magic Kingdom') {
+        return 'width: 22rem; height: 40rem; background-color: #BBA2DA;'
+      } else if (park === 'Animal Kingdom') {
+        return 'width: 22rem; height: 40rem; background-color: #83CBAE;'
+      } else {
+        return 'width: 22rem; height: 40rem; background-color: #D13A1D;'
+      }
     },
     route() {
       this.$router.push('/trips/new')
