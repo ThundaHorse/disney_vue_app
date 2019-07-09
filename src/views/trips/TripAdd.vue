@@ -7,8 +7,7 @@
     <div class="card-columns">
       <div class="col-md-6">
         <div v-for='ride in attractions'>
-
-          <card text-center class='card p-2' :raised='true' style="width: 22rem; height: 40rem;" header-classes='text-center' color='blue'>
+          <card text-center class='card p-2' :raised='true' :style="cardColoring(ride.park)" header-classes='text-center' color='blue'>
              <template slot='header'>
             <!-- Add or Remove -->                
                <slot name="info">
@@ -112,8 +111,8 @@ export default {
   },
   created: function() {
     axios.all([
-      this.getTrips(),
-      this.getAttractions()
+      axios.get('/api/trips/' + this.$route.params.id),
+      axios.get('/api/attractions')
     ])
     .then(axios.spread((first_response, second_response) => {
       this.trip = first_response.data;
@@ -121,11 +120,16 @@ export default {
     }))
   },
   methods: {
-    getTrips() {
-      return axios.get('/api/trips/' + this.$route.params.id)
-    },
-    getAttractions() {
-      return axios.get('/api/attractions')
+    cardColoring(park) {
+      if (park === 'Epcot') {
+        return 'width: 22rem; height: 40rem; background-color: #F4DB9F;'
+      } else if (park === 'Magic Kingdom') {
+        return 'width: 22rem; height: 40rem; background-color: #BBA2DA;'
+      } else if (park === 'Animal Kingdom') {
+        return 'width: 22rem; height: 40rem; background-color: #83CBAE;'
+      } else {
+        return 'width: 22rem; height: 40rem; background-color: #D13A1D;'
+      }
     },
     createInterest(inputRide) {
       inputRide.interested = !inputRide.interested;

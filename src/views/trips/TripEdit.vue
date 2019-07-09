@@ -45,7 +45,7 @@
         <div class="col-md-6">
             <div v-for="interest in interests">
 
-              <card text-center class='card p-3' :raised='true' style="width: 23rem; height: 43rem;" header-classes='text-center' color='blue'>
+              <card text-center class='card p-3' :raised='true' :style="cardColoring(interest.park.name)" header-classes='text-center' color='blue'>
                 <template slot='image'>
                   <div class="card-image">
                     <slot name="image">
@@ -113,8 +113,8 @@ export default {
   created: function() {
     if (localStorage.getItem('jwt')) {
       axios.all([
-        this.getTrips(),
-        this.getInterests()
+        axios.get('/api/trips/' + this.$route.params.id),
+        axios.get('/api/interests')
       ])
       .then(axios.spread((first_response, second_response) => {
         this.trip = first_response.data;
@@ -125,11 +125,16 @@ export default {
     }
   },
   methods: {
-    getTrips() {
-      return axios.get('/api/trips/' + this.$route.params.id) 
-    },
-    getInterests() {
-      return axios.get('/api/interests')
+    cardColoring(park) {
+      if (park === 'Epcot') {
+        return 'width: 22rem; height: 40rem; background-color: #F4DB9F;'
+      } else if (park === 'Magic Kingdom') {
+        return 'width: 22rem; height: 40rem; background-color: #BBA2DA;'
+      } else if (park === 'Animal Kingdom') {
+        return 'width: 22rem; height: 40rem; background-color: #83CBAE;'
+      } else {
+        return 'width: 22rem; height: 40rem; background-color: #D13A1D;'
+      }
     },
     toggle: function() {
       this.show = !this.show;
