@@ -31,7 +31,10 @@
 </template>
 
 <style>
-
+.home {
+  /* background-image: url("https://wpblink.com/sites/default/files/wallpaper/cartoon/66877/disney-wallpapers-hd-66877-2203605.png"); */
+  /* background-size: cover; */
+}
 </style>
 
 <script>

@@ -17,7 +17,7 @@
             <th v-on:click="setSortAttribute('status')" scope="col" style="color:white;">{{ isAscending('status') }} Status</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody is="transition-group" appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
           <tr v-for="(attraction, componentKey) in orderBy(filterBy(attractions, searchFilter, 'name'), sortAttribute, sortAscending)" v-bind:key="attraction.id" :key="componentKey">
             <th scope="row">
               <router-link class="attr-link" v-bind:to="'/attractions/' + attraction.id">
