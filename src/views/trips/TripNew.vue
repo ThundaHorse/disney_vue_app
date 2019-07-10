@@ -189,7 +189,7 @@ export default {
       return axios.get('/api/parks')
     },
     seeYourTrip() {
-      this.$router.push('/trips/' + this.newTrip.id);
+      this.$router.push('/trips/');
     },
     submit() {
       var params = {

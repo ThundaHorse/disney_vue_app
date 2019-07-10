@@ -2,19 +2,14 @@
   <div class='home'>
     <div class="container">
         <br>
-      <!-- <img class='showPage' v-bind:src="attraction.image" v-bind:alt="attraction.name"> -->
         {{ attraction.lat }} | {{ attraction.lng }}
       <h1>{{ attraction.name }}</h1>
+
     <div class="container">
       <div style='overflow: hidden;'>
         <h3 style='float: left;'>Located in:</h3>
         <h3 style='float:right;'>{{ attraction.park }}</h3>
       </div>
-
-
-      <!-- <button v-on:click="talkToApi()">
-        Talk
-      </button> -->
 
       <div style='overflow: hidden;'>
         <h3 style='float: left;'>Current Status:</h3>
@@ -26,6 +21,7 @@
         <h3 style='float:right;' v-on:change="talkToApi()">{{ attraction.formatted_wait_time }}</h3>
       </div>
 
+      <img class='showPage' style='border-radius: 5%;' v-bind:src="attraction.image" v-bind:alt="attraction.name">
 {{ lats }} | {{ longs }}
       
     </div>

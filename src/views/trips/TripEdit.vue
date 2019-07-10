@@ -44,7 +44,8 @@
       <div class="card-columns">
         <div class="col-md-6">
             <div v-for="interest in interests">
-
+              <!-- {{ interest.trip_id }} -->
+              <div v-if="interest.trip_id === trip.id">
               <card text-center class='card p-3' :raised='true' :style="cardColoring(interest.park.name)" header-classes='text-center' color='blue'>
                 <template slot='image'>
                   <div class="card-image">
@@ -69,7 +70,7 @@
                 </slot>
               </template>
             </card>
-
+          </div>
           </div>
         </div>
       </div>
@@ -146,7 +147,7 @@ export default {
         max_wait_time: this.inputWait
       }
       axios.patch('/api/trips/' + this.trip.id, params).then(response => {
-        this.$router.push('/trips/' + this.trip.id);
+        this.$router.push('/trips');
       })
     },
     remove: function(int) {

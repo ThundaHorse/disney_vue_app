@@ -7,7 +7,7 @@
         Search: <input v-model="searchFilter" style='border-radius: 10px;'>
       </div>
       <p style='float: right;'>Last Update: {{ attractions[0].last_update }}</p>
-      <table class="table table-striped table-dark mt-2">
+      <table class="table table-striped table-info mt-2">
         <thead>
           <tr>
             <th v-on:click="setSortAttribute('id')" scope="col" style="color:white;">{{ isAscending('id') }} ID</th>

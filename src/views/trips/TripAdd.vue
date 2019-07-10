@@ -3,7 +3,7 @@
     <div class='container'>
     <h1>Trip {{ trip.id }}</h1>
       <br>
-    <router-link v-bind:to="'/trips/' + this.trip.id"><button class='btn btn-round btn-raised btn-outline-light btn-lg btn-primary'>Done</button></router-link>
+    <router-link v-bind:to="'/trips/'"><button class='btn btn-round btn-raised btn-outline-light btn-lg btn-primary'>Done</button></router-link>
     <div class="card-columns">
       <div class="col-md-6">
         <div v-for='ride in attractions'>
@@ -14,17 +14,7 @@
                 <div v-if="!ride.interested" class="to-add">
                     <br>
                     Enter Time you would like to attend at: 
-                    <fg-input>
-                      <el-time-picker
-                        v-model="startTime"
-                        :picker-options="{
-                          start: '08:30',
-                          step: '00:15',
-                          end: '18:30'
-                        }"
-                        placeholder="Select time">
-                      </el-time-picker>
-                    </fg-input>
+                    <datetime type="time" v-model="startTime" use12-hour></datetime>
                       <br>
                   <button class='btn btn-round btn-raised btn-outline-light btn-sm btn-success' v-on:click.prevent="createInterest(ride)"> 
                     Click to add

@@ -32,22 +32,22 @@
 
 <style scoped>
   .epcot {
-    background: url("https://secure.cdn1.wdpromedia.com/resize/mwImage/1/640/360/75/dam/wdpro-assets/gallery/destinations/epcot/epcot-gallery-00.jpg?1537220971715") no-repeat center center;
+    background: url("https://www.orlando-florida.net/wp-content/uploads/2018/06/FlowerAndGarden-Topiaries.jpg") no-repeat center center;
     background-size: cover;
     opacity: 0.9;
   }
   .magic {
-    background: url("https://ewscripps.brightspotcdn.com/dims4/default/3c6b07a/2147483647/strip/true/crop/600x338+0+1/resize/1280x720!/quality/90/?url=https%3A%2F%2Fewscripps.brightspotcdn.com%2F05%2Fd3%2F8bdb71a64d7f88d9ed004a312c93%2Fdisney-fireworks.jpg") no-repeat center center;
+    background: url("https://cdn1.parksmedia.wdprapps.disney.com/media/blog/wp-content/uploads/2016/12/hwcu476786978.jpg") no-repeat center center;
     background-size: cover;
     opacity: 0.9;
   }
   .holly {
-    background: url("https://media2.fdncms.com/orlando/imager/u/original/2409999/1000w_disneyhwoodstudios.jpg") no-repeat center center;
+    background: url("https://wallpapercave.com/wp/wp2209740.jpg") no-repeat center center;
     background-size: cover;
     opacity: 0.9;
   }
   .animal {
-    background: url("https://cdn7.wdwnt.com/wp-content/uploads/2018/06/Tree-of-Life-the-Stars-990x556.jpg") no-repeat center center;
+    background: url("https://www.trbimg.com/img-5906349e/turbine/la-1493578904-vbwu16daao-snap-image") no-repeat center center;
     background-size: cover;
     opacity: 0.9;
   }
