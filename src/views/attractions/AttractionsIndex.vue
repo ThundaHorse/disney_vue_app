@@ -7,7 +7,7 @@
         Search: <input v-model="searchFilter" style='border-radius: 10px;'>
       </div>
       <p style='float: right;'>Last Update: {{ attractions[0].last_update }}</p>
-      <table class="table table-striped table-info mt-2">
+      <table class="table table-striped table-dark mt-2">
         <thead>
           <tr>
             <th v-on:click="setSortAttribute('id')" scope="col" style="color:white;">{{ isAscending('id') }} ID</th>
@@ -134,17 +134,6 @@ export default {
       },
       received: data => {
         console.log("Communicating");
-        // for (var i = 0; i < this.attractions.length; i ++) {
-          // if (this.attractions[i].id === data.id) {
-        //     console.log(this.attractions.slice(0, i));
-            // this.index = i;
-            // this.old = this.attractions[i] 
-            // this.attractions[i] = data;
-          // }
-        // }
-        // this.attractions.shift(this.attractions[this.index])
-        // this.attractions.unshift(data)
-        // this.forceRenderer(this.attractions);
       }
     })
   },
@@ -162,7 +151,7 @@ export default {
     },
     isAscending: function(inputAttribute) {
       if (this.sortAttribute === inputAttribute) {
-        return this.sortAscending === 1 ? "^" : "v"; 
+        return this.sortAscending === 1 ? "⬆️" : "⬇️"; 
       }
     }
   },
