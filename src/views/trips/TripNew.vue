@@ -3,13 +3,50 @@
     <h1>New Trip</h1>
     <div class="container">
       <form v-on:submit.prevent="submit()">
-        <h5 id='trip'>Arrival Day: <datetime v-model="newArrival" type="date" id='arrival'></datetime></h5>
-        <h5 id='trip'>Departure Day: <datetime v-model="newDeparture" type="date" id='departure'></datetime></h5>
+
+        <div class="container">
+          <div class="block">
+            <!-- Dates -->
+            <div class="row">
+              <div class='col-6'>
+                Arrival Day
+              </div>
+              <div class="col-6">
+                Departure Day
+              </div>
+            </div>
+            <div class="row">
+              <fg-input class='col-6'>
+                <el-date-picker v-model="newArrival"
+                                popper-class="date-picker-primary"
+                                type="date"
+                                start-placeholder="Arrival">
+                </el-date-picker>
+              </fg-input>
+              <fg-input class='col-6'>
+                <el-date-picker v-model="newDeparture"
+                                popper-class="date-picker-primary"
+                                type="date"
+                                start-placeholder="Departure">
+                </el-date-picker>
+              </fg-input>
+            </div>
+          </div>
+        </div>
+
           <br>
-        <h5 id='trip'>Maximum time willing to wait: <input v-model='newMaxWait' type='integer' id='max_wait' placeholder="total minutes i.e. 100"></h5>
+        <h5 id='trip'>Maximum time willing to wait:</h5>
+
+          <fg-input
+              class='col-md-6 offset-3'
+              placeholder="Total minutes"
+              v-model="newMaxWait"
+              clearable=true>
+          </fg-input>
+
           <br>
           <div v-if="tripCreated === false" class='button-condition'>
-            <button class='btn btn-primary' v-on:click.prevent="submit()">
+            <button class='btn btn-round btn-primary' v-on:click.prevent="submit()">
               Set Dates and wait
             </button>
           </div>
@@ -17,49 +54,41 @@
             <p>Dates have been saved! Please select your attractions below!</p>
           </div>
           <br>
-        <h4 id='parks'>Parks: 
-        </h4>
-        <div class='header'>
-          <div v-for='park in park_list'>
-            <p>
-              <span v-if="park.name === 'Epcot'" style="color: blue">               
-                <b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b>
-              </span>
-              <span v-if="park.name === 'Magic Kingdom'" style="color: pink">
-                <b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b>
-              </span>
-              <span v-if="park.name === 'Hollywood Studios'" style="color: orange">
-                <b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b>
-              </span>
-              <span v-if="park.name === 'Animal Kingdom'" style="color: lightgreen">
-                <b>{{ park.name }}</b> | {{ park.formatted.opening }} - {{ park.formatted.closing }} | <b>{{ park.address }}</b>
-              </span>
-            </p>
-          </div>
-        </div>
-        <!-- <div v-if="tripCreated === true"> -->
+      <div v-if="tripCreated === true">
           <br>
         <!-- <h4 id='attractions'>Attractions: -->
-        </h4>
+        <!-- </h4> -->
+          <button class='btn btn-lg btn-round btn-primary' v-on:click.prevent="seeYourTrip()">Done</button>
+          <br>
           <h4>Attractions to Add:</h4>
             <div v-for='ride in attraction_list'>
               <img v-bind:src="ride.image" v-bind:alt="ride.name">
               <p>
                 <div v-if="!ride.interested" class="to-add">
-                  <button class='btn-sm btn-success' v-on:click.prevent="createInterest(ride)"> 
+                  <button class='btn btn-round btn-sm btn-success' v-on:click.prevent="createInterest(ride)"> 
                     Click to add
                   </button>        
                 </div>
                 <div v-else class="to-remove">
-                  <button class='btn-sm btn-danger' v-on:click.prevent="removeInterest(ride)">
+                  <button class='btn btn-round btn-sm btn-danger' v-on:click.prevent="removeInterest(ride)">
                     Click to Remove 
                   </button>
                 </div>
                   <span>
+                  <!-- <div class="container"> -->
                     <h4 id='datetime'>
                       Date and Time for Attraction: 
-                      <datetime v-model="dayAtPark" type='datetime' class="dateTime">
-                      </datetime>
+
+                      <div class="container">
+                        <fg-input>
+                          <el-date-picker v-model="attrTime"
+                                          popper-class="date-time-picker-primary"
+                                          type="datetime"
+                                          placeholder="Select date & Time">
+                            </el-date-picker>
+                        </fg-input>
+                      </div>
+
                     </h4>
                       <p>{{ ride.name }}</p>
                   </span>
@@ -75,15 +104,18 @@
                 <br>
               </p>
             </div>
-          <button v-on:click.prevent="seeYourTrip()">Done</button>
-        <!-- </div> -->
+        </div>
       </form>
-      <back-to-top text="Back to top"></back-to-top>
     </div>
+      <back-to-top text="Back to top"></back-to-top>
   </div>
 </template>
 
 <style>
+.parks {
+  background-color: black;
+  opacity: 0.7;
+}
 .epcot-button {
   color: blue;
 }
@@ -105,11 +137,13 @@
 h#info {
   text-align: left;
 }
+
 </style>
 
 <script>
 import axios from 'axios'
-import { Parallax } from '@/components'
+import { DatePicker } from 'element-ui'
+import { FormGroupInput } from '@/components'
 
 export default {
   data: function() {
@@ -119,11 +153,10 @@ export default {
       park_list: [],
       tripCreated: false,
 
-      newArrival: '', 
-      newDeparture: '', 
+      newArrival: '',
+      newDeparture: '',
       newMaxWait: '',
-      startTime: '',  
-      dayAtPark: '',
+      attrTime: '',
 
       newTrip: [], 
       addedInterest: []
@@ -131,23 +164,32 @@ export default {
   },
   created: function() {
     if (localStorage.getItem('jwt')) {
-      axios.get('/api/attractions').then(response => {
-        this.attraction_list = response.data; 
-      })
-      axios.get('/api/parks').then(response => {
-        this.park_list = response.data;
-      })
+      axios.all([
+        this.getAttractions(),
+        this.getParks()
+      ])
+      .then(axios.spread((first_response, second_response) => {
+        this.attraction_list = first_response.data;
+        this.park_list = second_response.data;
+      }))
     } else {
       alert("Sign up or Log in to book a new trip!")
       this.$router.push('/login')
     }
   },
   components: {
-    Parallax
+    [DatePicker.name]: DatePicker,
+    [FormGroupInput.name]: FormGroupInput
   },
   methods: {
+    getAttractions() {
+      return axios.get('/api/attractions')
+    },
+    getParks() {
+      return axios.get('/api/parks')
+    },
     seeYourTrip() {
-      this.$router.push('/trips/' + this.newTrip.id);
+      this.$router.push('/trips/');
     },
     submit() {
       var params = {
@@ -166,7 +208,7 @@ export default {
         var interestParams = {
             trip_id: this.newTrip.id,
             attraction_id: inputRide.id,
-            start_time: this.dayAtPark + "T" + this.startTime +"Z"
+            start_time: this.attrTime
           }
         axios.post('/api/interests', interestParams).then(response => {
           this.addedInterest = response.data
