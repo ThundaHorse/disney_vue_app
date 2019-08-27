@@ -15,11 +15,11 @@ import CollapseItem from './Collapse/CollapseItem.vue';
 import Navbar from './Navbar/Navbar';
 import NavLink from './Navbar/NavLink';
 import NavbarToggleButton from './Navbar/NavbarToggleButton';
-// import TabPane from './Tabs/Tab.vue';
-// import Tabs from './Tabs/Tabs.vue';
+import TabPane from './Tabs/Tab.vue';
+import Tabs from './Tabs/Tabs.vue';
 // import Modal from './Modal.vue';
 import Parallax from './Parallax.vue';
-// import Slider from './Slider.vue';
+import Slider from './Slider.vue';
 
 import Pagination from './Pagination.vue';
 
@@ -39,10 +39,11 @@ export {
   Navbar,
   NavbarToggleButton,
   NavLink,
-  // TabPane,
-  // Tabs,
+  TabPane,
+  Tabs,
   // Modal,
   Parallax,
-  // Slider,
+  Slider,
   Button
+  // GoogleMaps
 };

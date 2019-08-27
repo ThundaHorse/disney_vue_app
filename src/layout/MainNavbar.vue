@@ -1,7 +1,7 @@
 <template>
   <navbar
     position="fixed"
-    type="primary"
+    type="warning"
     :transparent="transparent"
     :color-on-scroll="colorOnScroll"
     menu-classes="ml-auto"
@@ -25,6 +25,9 @@
           </nav-link>
           <nav-link to='/attractions'>
             Attractions
+          </nav-link>
+          <nav-link to='/locations'>
+            Map
           </nav-link>
         </drop-down>
       </li>

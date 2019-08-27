@@ -11,7 +11,6 @@ Vue.use(BackToTop);
 Vue.use(Datetime);
 Vue.use(NowUiKit);
 
-
 axios.defaults.baseURL =
   process.env.NODE_ENV === "development" ? "http://localhost:3000" : "/";
 
@@ -21,6 +20,7 @@ if (jwt) {
 }
 
 Vue.config.productionTip = false
+
 
 new Vue({
   router,
